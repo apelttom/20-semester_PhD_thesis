@@ -1,0 +1,158 @@
+Release History:
+
+-----------
+04-Sep-2010
+-----------
+1. Oscillator frequency now configurable from options page #1 (for 'generic' targets only)
+
+-----------
+30-Aug-2010
+-----------
+1. Added support for 'generic DG128 based boards' (assumption: fOSC = 8 MHz, no LCD)
+
+-----------
+28-Aug-2010
+-----------
+1. Bugfix: Removed configuration inconsistencies which prevented building of C128 and C32 based models
+
+-----------
+28-Aug-2010
+-----------
+1. Bugfix: Building of libraries requires adapted version of static header file 'rtwtypes.h' (previously missing)
+2. Bugfix: Building of dsplib should not be attempted, unless the Signal Processing toolbox is installed
+
+-----------
+11-Aug-2010
+-----------
+1. Enabled function inlining to improve ExtMode performance
+2. Reduced download size by discarding the objects of the included sample model code ('.../examples/borrar')
+
+-----------
+10-Aug-2010
+-----------
+1. Completion of R2009b port
+   - Improved ExtMode stability
+   - Full analysis of ExtMode deadlock situation (.../docs - result: waitForAck should be a counter, not a 
+     boolean -- reason: ACK_PACKETs can be missed when the transport medium is slow [eg. UART]. If the ExtMode
+     code is modified accordingly, the 'intelligent' PacketPending function can be enabled again... for details 
+     see ext_serial_pkt.c [--> CheckExtSerialPacket])
+   - Improved readability of the majority of all code modules
+   - Complete reorganization of all code modules (towards a configurable basic system -- BSP/APP)
+   - JTAG support (eg. P&E MultiLink)
+   - Preparation for integration of RTOS support (based on FreeRTOS  --  actual task handling still to be included)
+   - More consistent timing engine
+
+-----------
+10-Arl-2010
+-----------
+1. Start work on the portation of the toolbox to MATLAB R2009b (and later)
+
+-----------
+03-Sep-2009
+-----------
+1. Bugfix: Direct inclusion of library block 'Digital Inport' (DigIn) from the library browser crashed MATLAB. This problem has been fixed.
+
+-----------
+12-Aug-2009
+-----------
+1. Bugfix: untidy block tagging led to malfunction of various blocks (eg. digIn/digOut/pwm etc.). Should be resolved.
+2. Update script (.../bin/update9s12models.m) should fix the above problem with existing models.
+3. Library file (.../bin/mc9s12tool.mdl) corrected / updated
+
+-----------
+25-Jul-2009
+-----------
+1. Tidied up build process scripts (eval -> feval)
+2. Re-activated port conflict verification in external mode when using freePort blocks
+3. Removed folder rtwlib in distribution (this folder gets created during 'setup')
+4. Adapted 'setup.m' to reflect the new folder management
+
+-----------
+18-Jul-2009
+-----------
+1. Bug fix in mc_resourceCheck.m : detection of FreePort blocks was using the wrong tag
+
+-----------
+06-Jul-2009
+-----------
+1. Bug fixes in Masked Block Code files (.../bin/mbc_<blockname>.m).
+2. Consistent tagging of toolbox blocks
+3. Example models tested (and corrected)
+
+-----------
+05-Jul-2009
+-----------
+1. New build process: There is only one XML template for all projects. Attributes such as 'banked memory model' or 'flat memory model' get configured at build time. The entire build process has been concentrated in mc_buildCodeActiveX.m (mc_buildCodeMake.m ... in preparation, not yet active).
+
+2. Same strategy for libraries - all text based maker files have been replaced by a centrally stored library object (see: bin/@mcLibraries, @mcLibraryEntry, @mcLibraryMarker).
+
+3. The ressources check has been tidied up - object bin/@mcResources is the parent object to @mcBuildParameters, @mcCodeGeneratorConfig, @mcCompilerConfig)
+
+4. The debug message system now offers the option of "mangling" debug messages to reduce ROM space on the chip. This is particularly useful when developing new / improving existing communication mechanisms.
+
+5. All code specific options are now collected in the automatically generated header file mc_defines.h.
+
+6. All target specific code files can be found in mc/core. There have been many changes to these code files - too many to list them all here...
+
+
+-----------
+18-Feb-2008
+-----------
+1. Removed a conflicting file from the 'bin' directory that caused the 'Configuration Parameters' to not work with normal models in R2007b. The file 'extmode_transports.m' has been replaced with 'sl_customization.m'
+
+2. Fixed issues with the rtmc9s12 Configuation Parameters caused by section headings having the same title name.
+
+3. Changed the name of the external mode mex file from 'ext_serial_win32_comm.m' (which also exists in the matlab rtw directory) to 'ext_serial_mc9s12_comm.m'.
+
+4. Fixed the remove script so that it actually does remove the rtmc directories from the path :)
+
+5. setup.m now places the 'rtmc' files at the bottom of the path.
+
+
+-----------
+27-Nov-2008
+-----------
+1. Compiled libraries are separated from the main files. This allows compatibility with both r2007a and r2007b (and possibly earlier... though you will have to recompile the libraries yourself).
+
+2. During installation, you can now specify whether or not the project is going to be installed in a read-only directory. This is useful for computer labs. Choosing read-only install causes:
+
+ 2a. The host communications module to be compiled into the working directory  This is because at the moment when some of the external mode options get changed, such as buffer size, the host comms dll (mexw32) gets recompiled.
+
+ 2b. The static libraries will not compile/recompile. Therefore the 'rebuild static libraries' option will have no effect.
+
+To install:
+
+1. Extract the base project files into the directory of your choice.
+
+2. Extract the corresponding library files into the rtwlib directory.
+
+3. Start Matlab, navigate to the installation directory, run 'setup.m', and follow the prompts.
+
+If you wish to install this on a version of Matlab without binaries provided, and also want it to be a read-only install, first choose a non-read-only install, open a model and build it, this will compile the libraries, then run 'setup.m' again and choose a 'read-only' install.
+
+
+The communications are still a little flakey, but there are some things you can do to make it more reliable:
+
+1. Under the Simulation -> Configuration Parameters -> Optimization check the 'Inline Parameters' option. I HIGHLY RECCOMEND you do this.  You can specify tuneable parameters using the 'configure' option next to the 'Inline Parameters' option. Read the help for more information on this.
+
+2. Limit the number of scopes/to workspace blocks to the absolute minimum.
+
+A big cheers to Frank for all his work. I'm not really maintaining this project, just doing a few days work on it every now and then... you can contact me at:
+
+Zebb.Prime+rtmc [does not want spam at] gmail [dot] com
+
+but I don't guarantee that I'll even reply!
+
+
+-----------
+30-Jan-2009
+-----------
+1. Replaced build process by less convoluted version. Should be easier to make modifications now.
+
+2. Building of libraries now works with Metrowerks "CodeWarrior Development Studio for Freescale HC12 v4.7" - the dependence on a no longer available 
+   Simulink plugin has been removed.
+
+3. The generated code no longer includes unused source code modules
+
+4. The code is only linked against the DSP library, if the model includes DSP blocks (speeds up the linking process)
+

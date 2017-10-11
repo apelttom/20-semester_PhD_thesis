@@ -1,0 +1,146 @@
+%% File : timer_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Digital timer device driver
+%%
+%%   fw-03-05
+%%
+%implements  timer_sfcn_9S12 "C"
+
+%% (P1) SAMPLE_TIME -- real_T
+%% (P2) MODE        -- uint_T
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+%<LibAddToCommonIncludes("<math.h>")>
+%<LibAddToCommonIncludes("bsp_timer.h")>
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Code generation for initilization of the timer
+%%
+%function Start(block, system) Output
+
+    %switch(%<block.RTWdata.timerMode>)
+        
+    %case 1
+    /* configure timer channel %<block.RTWdata.timerChannel> for OC mode */
+    TChannel_Conf(%<block.RTWdata.timerChannel>, TMode_OC, %<block.RTWdata.timerPeriod>);
+    
+    %% not implemented yet  --  requires interrupt service handlers to be configured by TLC
+    %% fw-09-06
+    %%
+    %% /* configure selected port for output and set to 'low' level */
+    %% %<block.RTWdata.timerPORTstr> &= ~(%<block.RTWdata.timerPINmask>);        /* pin(s) low */
+    %% %<block.RTWdata.timerDDRstr>  |=   %<block.RTWdata.timerPINmask>;        /* pin(s) output */
+    
+    %break
+        
+    %case 2
+    /* configure timer channel %<block.RTWdata.timerChannel> for IC mode (period parameter ignored) */ 
+    TChannel_Conf(%<block.RTWdata.timerChannel>, TMode_IC, 0);
+        
+    /* enable input capture (IC) on timer channel %<block.RTWdata.timerChannel> */
+    TChannel_Enable(%<block.RTWdata.timerChannel>);
+        
+    %break
+        
+    %endswitch
+    
+    /* initialize RWork with an 'impossible' input value -- this enables mdlOutput to run */
+    %<LibBlockRWork("", "", "", 0)> = -1234.5678;
+
+    /* initialize IWork with timer count corresponding to the chosen period */
+    %<LibBlockIWork("", "", "", 0)> = (uint16_T)floor(65535 * %<block.RTWdata.timerPeriod> / myECTperiod);
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation for signal output
+%%
+%function Outputs(block, system) Output
+
+    %switch(%<block.RTWdata.timerMode>)
+        
+    %case 1
+    /* S-Function "timer_sfcn_9S12" Block: %<Name> 
+     *
+     * Set timer period whenever the input signal "u" changes
+     */
+    {
+        
+        real_T    u;
+        
+        %assign u = LibBlockInputSignal(0, "", "", 0)
+        %assign uOld = LibBlockRWork("", "", "", 0)
+        %assign maxTCount = LibBlockIWork("", "", "", 0)
+            
+        /* get input value */
+        u = %<u>;
+                
+        /* only update unit if the input voltage 'u' has changed */
+        if(u != %<uOld>) {
+            
+            /* limit inputs at '1' */
+            if(u > 1) u = 1;
+            
+            /* limit inputs at a single timer tick (resolution) */
+            if(u < %<block.RTWdata.timerResolution>) u = 0;
+            
+            /* retain current input value for the next time round... */
+            %<uOld> = u;
+            
+            if(u > 0) {
+                
+                /* update period of timer channel %<block.RTWdata.timerChannel> (OC mode) */
+                TSetPeriod_OC(%<block.RTWdata.timerChannel>, (uint16_T)(u * %<maxTCount>));
+                
+                /* enable o/p logic of timer channel %<block.RTWdata.timerChannel> (OC mode) */
+                TChannel_Enable(%<block.RTWdata.timerChannel>);
+                
+            } else {
+                
+                /* disable timer channel %<block.RTWdata.timerChannel> (OC mode) */
+                TChannel_Disable(%<block.RTWdata.timerChannel>);
+                
+            }
+            
+        } /* if(u != _u) */
+        
+    }
+    %break
+        
+    %case 2
+        
+    %assign y = LibBlockOutputSignal(0, "", "", 0)  
+        
+    /* set block output to latest time measurement */ 
+    %<y> = (real_T)TChannel_ICresult(%<block.RTWdata.timerChannel>);
+        
+    %break
+        
+    %endswitch
+
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+    /* disable timer channel %<block.RTWdata.timerChannel> (OC/IC mode) */
+    TChannel_Disable(%<block.RTWdata.timerChannel>);
+  
+%endfunction
+
+
+%% [EOF] timer_sfcn_9S12.tlc

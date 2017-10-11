@@ -1,0 +1,38 @@
+<font size="6" color="Magenta">T-MATS: Static Calculation Library Block</font>
+<br>
+This Block calculates static pressure and temperature from an input flow stream and either an assumed throat area or mach number.
+<br>
+<br>
+<font size="5" color="Blue">StaticCalc Inputs:</font>
+<table border="1"> <tr><td>StaticCalc Input</td><td>Description</td></tr>
+    <tr><td>GasPthCharIn</td><td>Gas Path Characteristics Input, 5x1 bus/vector consisting of:
+            <br>- W - gas path flow [pps]
+            <br>- ht - enthalpy [BTU/lbm]
+            <br>- Tt - Total Temperature [degR]
+            <br>- Pt - Total Pressure [psia]
+    <br>- FAR - Combusted Fuel to Air Ratio [frac]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue">StaticCalc Outputs:</font>
+<table border="1"> <tr><td>StaticCalc Output</td><td>Description</td></tr>
+    <tr><td>SOutBus</td><td>Static Output Bus, 5x1 bus/vector consisting of:
+            <br>- Ts - Static Temperature [degR]
+    <br>- Ps - Static Pressure [psia]
+    <br>- rhos - Static rho [lbm/ft3]
+    <br>- MN - Mach Number [frac]
+    <br>- Ath - Throat Area [in2]</td></tr>
+</table>
+<br>
+<font size="5" color="Blue">StaticCalc Mask Variables: </font>
+<table border="1"> <tr><td>StaticCalc Mask Variable</td><td>Description</td></tr>
+    <tr><td>ST_M</td><td>Solve Type:
+    <br>unchecked - Assumed Ath
+    <br>checked - Assumed MN </td></tr>
+    <tr><td>Ath_M</td><td>Assumed Ath [in^2]</td></tr>
+    <tr><td>MN_M</td><td>Assumed Mach Number[frac].<br> This will also be used as a first guess when using the assumed throat area method. It should be noted that tyipcally there are two solutions to a given throat area, a sub-sonic one and a super sonic one.  A guess of greater than 1 will usually find the super sonic solution and a guess of less than 1 will generally find the subsonic solution. </td></tr>
+    <tr><td>X_FARVec_M</td><td>Fuel to Air Ratio Vector (X-axis) (cx1)</td></tr>
+    <tr><td>Y_TtVec_M</td><td>Total Temperature Vector (Y-axis for Gamma calc)(dx1)</td></tr>
+    <tr><td>T_RtArray_M</td><td>Gas Constant, R, Array (R = f(FAR))(cx1)</td></tr>
+    <tr><td>T_gammaArray_M</td><td>Gamma Array (Gamma = f(Tt,FAR))(dxc)</td></tr>
+</table>
+

@@ -1,0 +1,73 @@
+%% File : digOut_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Digital output device driver
+%%
+%%   fw-03-05
+%%
+%implements  digOut_sfcn_9S12 "C"
+
+%% (P1) SAMPLE_TIME -- real_T
+%% (P2) PORT		-- real_T
+%% (P3) PIN_ARRAY	-- real_T [array]
+%% (P4) VON			-- real_T
+%% (P5) VOFF		-- real_T
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Code generation for initilization of digital output
+%%
+%function Start(block, system) Output
+
+	/* Initialize digital outputs for port %<block.RTWdata.portStr> */ 
+	%<block.RTWdata.ddrStr> |= %<block.RTWdata.pinMask>;
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation for signal output
+%%
+%function Outputs(block, system) Output
+
+	%assign VON    = LibBlockParameter(P4, "", "", 0)
+	%assign VOFF   = LibBlockParameter(P5, "", "", 0)
+
+	/* assemble port value and set port (%<block.RTWdata.portStr>) */
+	{
+	   uint8_T	value = %<block.RTWdata.portStr>;
+	   
+		%assign rollVars = ["U", "P"]
+		%% setting 'RollThreshold = 2' => this is when the loop overhead
+		%% becomes less than the cost of individual assignments --  fw-03-05
+		%roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+			
+			%assign u = LibBlockInputSignal(0, "", lcv, sigIdx)
+			%assign p = LibBlockParameter(P3, "", lcv, sigIdx)
+			
+			if(%<u> >= %<VON>) value |=  (1 << (uint8_T)%<p>);
+			if(%<u> < %<VOFF>) value &= ~(1 << (uint8_T)%<p>);
+			
+		%endroll
+		
+		/* set port value */
+		%<block.RTWdata.portStr> = value;
+		
+	}
+
+%endfunction
+
+%% [EOF] digOut_sfcn_9S12.tlc
+
+
+
+
+

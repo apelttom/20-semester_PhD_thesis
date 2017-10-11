@@ -1,0 +1,821 @@
+-[2] CheckExtSerialPacket: Suspending processing until there are 17 bytes in the comms line buffer / RX ring buffer.<LF>
+<1 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0xA 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0xA 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_MODEL_START_RESPONSE (22) with size 0<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x16<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+[1] model_init: START_PACKAGE received. Starting Model...<LF>
+<ISR^°>[1] <ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°>mai<ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°>n: <ISR^°>Start<ISR^°>ing R<ISR^°>T pr<ISR^°>ocess<ISR^°>es --<ISR^°>-----<ISR^°>-----<ISR^°>----<ISR^°>-----<ISR^°>-----<ISR^°>-----<ISR^°>--<LF>
+<ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3C<LF>
+-[2] serial_set_string: Sending  0xA3<LF>
+-[2] serial_set_string: Sending  0xD7<LF>
+-[2] serial_set_string: Sending  0xA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0x23<LF>
+-[2] serial_set_string: Sending  0xD7<LF>
+-[2] serial_set_string: Sending  0xA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x4C<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0x75<LF>
+-[2] serial_set_string: Sending  0xC2<LF>
+-[2] serial_set_string: Sending  0x8E<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0xA3<LF>
+-[2] serial_set_string: Sending  0xD7<LF>
+-[2] serial_set_string: Sending  0xA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3D<LF>
+-[2] serial_set_string: Sending  0xF5<LF>
+-[2] serial_set_string: Sending  0xC2<LF>
+-[2] serial_set_string: Sending  0x8E<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x19<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^-[2] CheckExtSerialPacket: Suspending processing until there are 13712 bytes in the comms line buffer / RX ring buffer.<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x87 0x35 0x87 0x30 0x50 0x30><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0xF<LF>
+-[2] serial_set_string: Sending  0x5C<LF>
+-[2] serial_set_string: Sending  0x28<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x33<LF>
+-[2] serial_set_string: Sending  0x33<LF>
+-[2] serial_set_string: Sending  0x33<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x23<LF>
+-[2] serial_set_string: Sending  0xD7<LF>
+-[2] serial_set_string: Sending  0xA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x4C<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x38<LF>
+-[2] serial_set_string: Sending  0x51<LF>
+-[2] serial_set_string: Sending  0xEA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x66<LF>
+-[2] serial_set_string: Sending  0x66<LF>
+-[2] serial_set_string: Sending  0x66<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x4C<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x80<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x61<LF>
+-[2] serial_set_string: Sending  0x47<LF>
+-[2] serial_set_string: Sending  0xAC<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x8C<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0xCC<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x75<LF>
+-[2] serial_set_string: Sending  0xC2<LF>
+-[2] serial_set_string: Sending  0x8E<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x85<LF>
+-[2] serial_set_string: Sending  0x1E<LF>
+-[2] serial_set_string: Sending  0xB8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0xA6<LF>
+-[2] serial_set_string: Sending  0x66<LF>
+-[2] serial_set_string: Sending  0x66<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x8F<LF>
+-[2] serial_set_string: Sending  0x5C<LF>
+-[2] serial_set_string: Sending  0x28<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0xB3<LF>
+-[2] serial_set_string: Sending  0x33<LF>
+-[2] serial_set_string: Sending  0x33<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x99<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3F<LF>
+-[2] serial_set_string: Sending  0xC0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><ISR^°><2 0x<ISR^<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x20<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1A<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x18<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3E<LF>
+-[2] serial_set_string: Sending  0xA3<LF>
+-[2] serial_set_string: Sending  0xD7<LF>
+-[2] serial_set_string: Sending  0xA<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+°><ISR^°><ISR^°>73 0<ISR^°>x7E 0<ISR^°>x2 0<ISR^°>x0 0x<ISR^°>0 0x0<ISR^°> 0x0 <ISR^°>0x1 0<ISR^°>x0><LF><ISR^°>
+[ 0x<ISR^°>7E 0x<ISR^°>7E 0x<ISR^°>2 0x<ISR^°>0 0x0<ISR^°> 0x0 <ISR^°>0x0 0<ISR^°>x3 0x<ISR^°>3 ]<LF><ISR^°>
+[1]<ISR^

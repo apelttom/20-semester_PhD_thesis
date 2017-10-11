@@ -1,0 +1,174 @@
+%% File : freePortComms_txd.tlc
+%%
+%%
+%implements  freePortComms_txd "C"
+
+%% P1 SAMPLE_TIME      /* Sample time in seconds */
+%% P2 CHANNEL_NO       /* communication channel number (up to MAX_FREECOM_CHANNELS) */
+%% P3 NUM_ELEMENTS     /* block output width ->  # of elements */
+%% P4 DATA_TYPE        /* data type to be expected at block input */
+%% P5 PORT             /* communication port ([COM]1 - [COM]4) */
+%% P6 BAUDRATE         /* baudrate (300 [bps] - 115200 [bps]) */
+%%
+%% === RTWdata ===
+%% 'portStr'            ('0', '1')
+%% 'portNameStr'        ('SCI0', 'SCI1')
+%% 'baudrateStr'        ('300' - '115200')
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+%<LibAddToCommonIncludes("mc_freePortComms.h")>
+%<LibAddToCommonIncludes("bsp_sci.h")>
+%<LibAddToCommonIncludes("mc_signal.h")>
+
+
+%% Function: BlockTypeSetup =================================================
+%%
+%% Purpose:
+%%      FreePort communication block setup code.
+%%
+%function BlockTypeSetup(block, system) void
+
+  %% Place function prototypes in the model's header file
+  
+  %openfile buffer
+    extern myUsrBuf *AllocateUserBuffer(uint_T channel, uint16_T bufsize, uint8_T data_type_len);
+  %closefile buffer
+    
+  %<LibCacheFunctionPrototype(buffer)>
+
+%endfunction
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      FreePort TX communication initialization code.
+%%
+%function Start(block, system) Output
+
+    %assign CHANNEL_NO         = %<CAST( "Number", LibBlockParameterValue(P2,1) )>
+    %assign NUM_ELEMENTS       = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %assign DATA_TYPE          = %<CAST( "Number", LibBlockParameterValue(P4,1) )>
+    %assign BuiltInDTypesSizes = [4, 1, 1, 2, 2, 4, 4, 2]
+    %assign DATA_TYPE_LEN      = %<BuiltInDTypesSizes>[%<DATA_TYPE>-1]
+    %assign BUF_SIZE           = %<DATA_TYPE_LEN> * %<NUM_ELEMENTS>
+    %assign pAdminStruct       = LibBlockPWork("", "", "", 0)
+    %%
+    %assign baudrate           = %<block.RTWdata.baudrateStr>
+    %assign portName           = "%<block.RTWdata.portNameStr>"
+    %assign port               = %<block.RTWdata.portStr>
+    %assign format             = %<block.RTWdata.formatStr>
+    %%
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %if format == 1
+      %assign CHANNEL_NO       = 0
+    %endif
+    
+    /* S-Function "freePortComms_txd" initialization Block: %<Name> */
+    {
+        
+        myUsrBuf    *admin;
+        
+        /* allocate memory for buffer (%<BUF_SIZE> bytes) and its admin structure, returns the access pointer */
+        if((admin = AllocateUserBuffer(%<CHANNEL_NO>, %<BUF_SIZE>, %<DATA_TYPE_LEN>)) == NULL) {
+            
+            /* out of memory */
+            abort_LED(34);
+            
+        }
+        
+        /* store the access pointer in the workspace variable */
+        freecomTelBuf[%<CHANNEL_NO>] = admin;
+        
+        /* retain a local copy for fast access */
+        %<pAdminStruct> = admin;
+        
+        /* open free serial port (%<portName>), initialize reception ring buffers */
+        FreePort_Init(%<port>, BAUD_%<baudrate>);
+        
+    }
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlOutputs function.
+%%
+%function Outputs(block, system) Output
+
+    %assign CHANNEL_NO         = %<CAST( "Number", LibBlockParameterValue(P2,1) )>
+    %assign DATA_TYPE          = %<CAST( "Number", LibBlockParameterValue(P4,1) )>
+    %assign BuiltInDTypesSizes = [4, 1, 1, 2, 2, 4, 4, 2]
+    %assign DATA_TYPE_LEN      = %<BuiltInDTypesSizes>[%<DATA_TYPE>-1]
+    %assign pAdminStruct       = LibBlockPWork("", "", "", 0)
+    %assign u                  = LibBlockInputSignal(0, "", "", 0)
+    %%
+    %assign format             = %<block.RTWdata.formatStr>
+    %assign port               = %<block.RTWdata.portStr>
+    %%
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %if format == 1
+      %assign CHANNEL_NO       = 0
+    %endif
+    
+    /* S-Function "freePortComms_txd" Block: %<Name> */
+    {
+        
+        myUsrBuf   *admin       = %<pAdminStruct>;
+        
+        uint16_T    size        = (uint16_T)admin->buf_size;
+        uint8_T    *buf         = (uint8_T *)admin->buf;
+        uint8_T    *blockInput  = (uint8_T *)&%<u>;
+        
+        /* buffer empty -> check if new user data has arrived */
+        if (memcmp(buf, blockInput, size) != 0) {
+            
+            /* new block input data available -> copy to the data buffer */
+            memcpy(buf, blockInput, size);
+            
+            /* send data */
+            %if port == 0
+            put_fpdata_SCI0(%<CHANNEL_NO>, (uint8_T)size, %<DATA_TYPE_LEN>, buf, %<format>);
+            %else
+            put_fpdata_SCI1(%<CHANNEL_NO>, (uint8_T)size, %<DATA_TYPE_LEN>, buf, %<format>);
+            %endif
+            
+        }
+        
+    }
+  
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+    %assign pAdminStruct  = LibBlockPWork("", "", "", 0)
+    %assign CHANNEL_NO    = %<CAST( "Number", LibBlockParameterValue(P2,1) )>
+    %%
+    %assign format        = %<block.RTWdata.formatStr>
+    %%
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %if format == 1
+      %assign CHANNEL_NO  = 0
+    %endif
+    
+    /* free instance local data buffer */
+    (void)free(((myUsrBuf *)%<pAdminStruct>)->buf);
+    (void)free((myUsrBuf *)%<pAdminStruct>);
+
+    /* reset global buffer access pointer to NULL */
+    freecomTelBuf[%<CHANNEL_NO>] = NULL;
+  
+%endfunction
+
+%% [EOF] freePortComms_sfcn_9S12.tlc

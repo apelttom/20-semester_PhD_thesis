@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Analog to Digital Converter, ADC (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: ADC Input --><!-- CHAPNAME: ADC Input --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                <td bgcolor="#ffe4b0"><b>Embedded Target for Freescale 9S12 microcontrollers</b></td>
+                <td>&nbsp;</td>
+                <td align="right" bgcolor="#ffe4b0" valign="baseline"><a
+                href="rtmc9S12_overview.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                border="0"></a>&nbsp;&nbsp;&nbsp;<a href="dac_sfcn_9S12.html"><img
+                src="helpimages/b_next.gif" alt="Next Page"
+                style="border: 0px solid ; width: 17px; height: 17px;"></a></td>    </tr>
+            </tbody>
+        </table>
+
+        <a name="180531"><font color="#990000" size="+3">Analog to Digital Converter, ADC</font>
+        <!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>Input driver for Analog-to-Digital Converter
+            (ADC) unit<br>
+        </p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_adc_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>The Analog to Digital Converter (ADC) block reads up to 8 channels of
+            data from one of two 8-channel ADC banks. 
+            The resolution can be chosen to be either 8 bits or 10 bits. The block output can
+            be configured for raw data (8-bit or 16-bit), normalized to the 
+            interval [0 ... 1] or normalized to the interval [0 ... 5]. The number
+            of block outputs changes with the selected number of channels.<br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_adc_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>ADC bank</b></dt>
+            <dd>Select either bank <code>0</code> or <code>1</code>. Each bank has 8 channels.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Channels</b></dt>
+            <dd>Specify input channel(s) <code>0-7</code>.
+                Specify multiple channels as a vector or using a hyphen.<br>
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>ADC resolution</b></dt>
+            <dd>Select a resolution of either <code>8 bits</code> or <code>10 bits</code>. The 
+                default is an 8-bit resolution.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Normalization</b></dt>
+            <dd>The block can be set up to emit <code>raw
+                data</code> (8-bit or 16-bit, this depends on the chosen <span
+                style="font-weight: bold;">ADC resolution</span>), values in the range from <code>'0
+                to 1'</code> or values ranging from <code>'0 to 5'</code>.<br>
+            </dd>
+        </dl>
+            <a name="182791"></a><dt><br></dt>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="rtmc9S12_overview.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Overview</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">Digital to Analog Converter (DAC)&nbsp;</td>
+                    <td align="right" width="20"><a href="adc_sfcn_9S12.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

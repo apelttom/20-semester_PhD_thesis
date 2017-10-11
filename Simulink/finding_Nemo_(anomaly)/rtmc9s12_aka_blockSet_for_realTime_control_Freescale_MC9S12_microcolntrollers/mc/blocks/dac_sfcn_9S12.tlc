@@ -1,0 +1,177 @@
+%% File : dac_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   PWM device driver for the MC9S12DP256B/C
+%%
+%% fw-03-05
+%%
+%implements  dac_sfcn_9S12 "C"
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+%% Function: BlockTypeSetup =================================================
+%%
+%% Purpose:
+%%      FreePort communication block setup code.
+%%
+%function BlockTypeSetup(block, system) void
+
+  %% Place common defines in the model's header file
+  
+  %openfile buffer
+    #define  INITIAL_DAC_TIMEOUT  10000000
+  %closefile buffer
+    
+  %<LibCacheDefine(buffer)>
+
+%endfunction
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      PWM initialization code.
+%%
+%% === Parameters ===
+%% P1 -- sampletime   (real_T)
+%% P2 -- DAC channel  (real_T)
+%% P2 -- Vsat         (real_T)
+%%
+
+%function Start(block, system) Output
+
+	/* S-Function "dac_sfcn_9S12" Block: %<Name> */
+
+	%% Initialize I2C bus
+	%%
+	/* initialize IIC bus (port J, PJ6 = SDA, PJ7 = SCL) */
+	IBCR |= 0x80;   // IBEN = 1
+	
+	%% debug only
+	/** debug **/
+	DDRT = 0x0f;
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      PWM initialization code.
+%%
+%function Outputs(block, system) Output
+
+	%assign channel = %<CAST( "Number", LibBlockParameterValue(P2, 1) )>
+	%assign Vsat    = LibBlockParameter(P3, "", "", 0)
+
+   /* S-Function "dac_sfcn_9S12" Block: %<Name> 
+    *
+    * Set DAC output whenever "u" changes
+    */
+	{
+		
+		real_T	u;
+		uint32_T  no_timeout;
+		
+		%assign u = LibBlockInputSignal(0, "", "", 0)
+		%assign uOld = LibBlockRWork("", "", "", 0)
+		%%
+		/* get input value */
+		u = %<u>;
+		
+		/* only update unit if the input voltage 'u' has changed */
+		if(u != %<uOld>) {
+		
+			unsigned int DAC_value;
+			
+			/* retain current input value for the next time round... */
+			%<uOld> = u;
+			
+			
+			/* assemble DAC_value word (16 bit) */
+			DAC_value = 0x0000;     // leading 2 don't care bits: 0
+									// PD1 = PD2 = 0  (normal [power] mode)
+									// trailing 2 don't care bits: 0
+ 	                        
+			/* set data bits */
+			DAC_value |= (((uint16_T)(%<u>/%<Vsat>*0x3FF) & 0x3FF) << 2);
+			
+			
+			%% Start communications
+			%%
+			{
+				/* set frequency divider register */
+				IBFD = 0x1B;                // T_SCL = 128 * T_BUS = 128 * 42 ns = 5.33 us
+											// T_DAC = 27 * T_SCL = 27 * 5.33 us = 0.144 ms (6.9 kHz)
+											// (p. 19, S12IICV2.pdf)
+			  
+				/* create START condition */
+				no_timeout = INITIAL_DAC_TIMEOUT;
+				while((IBSR & 0x20) && (no_timeout--))
+					PTT ^= 0x01;  // wait for IBB flag to clear or a timeout
+				PTT &= ~0x01;
+				
+				IBCR |= 0x30;               // set TX and master mode (= START)
+			  
+				/* send address byte */
+				IBDR = 0x18|(%<channel> << 1);  // 0x18 = %00011[00/01]0  --  address bits: 00 or 01, R/W bit: 0 (write)
+			 
+				/* wait for the end-of-transmission signal from the IIC block */
+				no_timeout = INITIAL_DAC_TIMEOUT;
+				while(((IBSR & 0x02) == 0) && (no_timeout--))
+					PTT ^= 0x02;      // wait for IBIF flag to be set (end of transmission)
+				PTT &= ~0x02;
+				
+				IBSR |= 0x02;               // clear IBIF flag
+			}
+			
+			%% Send first byte
+			%%
+			{
+				/* send data byte */
+				IBDR = (uchar_T)((DAC_value & 0xFF00) >> 8);
+				
+				/* wait for the end-of-transmission signal from the IIC block */
+				no_timeout = INITIAL_DAC_TIMEOUT;
+				while(((IBSR & 0x02) == 0) && (no_timeout--))
+					PTT ^= 0x04;      // wait for IBIF flag to be set (end of transmission)
+				PTT &= ~0x04;
+				
+				IBSR |= 0x02;               // clear IBIF flag
+			}
+			
+			%% Send second byte
+			%%
+			{
+				/* send data byte */
+				IBDR = (uchar_T)(DAC_value & 0x00FF);
+				
+				/* wait for the end-of-transmission signal from the IIC block */
+				no_timeout = INITIAL_DAC_TIMEOUT;
+				while(((IBSR & 0x02) == 0) && (no_timeout--))
+					PTT ^= 0x08;      // wait for IBIF flag to be set (end of transmission)
+				PTT &= ~0x08;
+				
+				IBSR |= 0x02;               // clear IBIF flag
+			}
+			
+			%% Stop communication
+			%%
+			{
+				/* create STOP condition */
+				IBCR &= ~0x20;              // clear master bit
+			}
+			
+		}
+		
+	}
+    
+%endfunction
+
+
+%% [EOF] dac_sfcn_9S12.tlc

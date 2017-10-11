@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Fuzzy Control Block (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: UserTelTxD--><!-- CHAPNAME: UserTelTxD --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td bgcolor="#ffe4b0"><b>Embedded Target for Freescale 9S12 microcontrollers<br>
+                    </b></td>
+                    <td align="right" bgcolor="#ffe4b0" valign="baseline"><a
+                    href="timer_sfcn_9S12.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a>&nbsp;&nbsp;&nbsp;<a
+                    href="freePortComms_txd.html"><img src="helpimages/b_next.gif" alt="Next Page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a name="180531"><font color="#990000" size="+3">Fuzzy Control Block </font><!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>A simple Fuzzy Inference System evaluation block
+        </p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_fuzzy_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>Block to combine <u>n</u> <u>i</u>nput signals using a Mamdani Fuzzy Inference System (FIS) to produce 
+           <u>1</u> <u>o</u>utput signal (-> ni1o, <i>n</i> is currently limited to 3). The generated code is very fast as it
+           makes use of the special FIS capabilities of the 9S12 (at assembler level). It is therefore possible to 
+           experiment with simple fuzzy control systems while not having to purchase The MathWorks Fuzzy Control toolbox. Definition 
+           of membership functions and the rule table follows the style of 
+           <a href="http://www.listic.univ-savoie.fr/modules.php?name=Content&pa=show&acronym=FlouLib">FlouLib</a>, 
+           a freeware fuzzy toolbox which is available on the net.<br>
+        <br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_fuzzy_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Number of inputs</b></dt>
+            <dd>Up to 3 input signals can currently be processed.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>MSF input 1 (filename)</b></dt>
+            <dd>Name of a text file which defines the MemberShip Functions of input 1. The input MSFs are used during
+                fuzzification. See the FlouLib manual or the manual of this toolbox (rtmc9s12-target) for how these 
+                MFS are to be defined.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>MSF input 2 (filename)</b></dt>
+            <dd>Name of a text file which defines the MemberShip Functions of input 2. The input MSFs are used during
+                fuzzification. See the FlouLib manual or the manual of this toolbox (rtmc9s12-target) for how these 
+                MFS are to be defined.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>MSF input 3 (filename)</b></dt>
+            <dd>Name of a text file which defines the MemberShip Functions of input 3. The input MSFs are used during
+                fuzzification. See the FlouLib manual or the manual of this toolbox (rtmc9s12-target) for how these 
+                MFS are to be defined.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>MSF output (filename)</b></dt>
+            <dd>Name of a text file which defines the MemberShip Functions of the output. The output MSFs are used 
+                during de-fuzzification. See the FlouLib manual or the manual of this toolbox (rtmc9s12-target) 
+                for how these MFS are to be defined.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Rule base (filename)</b></dt>
+            <dd>Name of a text file which describes the rule base used during fuzzy inference. See the FlouLib manual 
+                or the manual of this toolbox (rtmc9s12-target) for how to define a valid rule base.
+            </dd>
+        </dl>
+            <a name="182791"></a><dt><br></dt>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="timer_sfcn_9S12.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Timer Unit Block</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">Freeport Communication (Transmission)&nbsp;</td>
+                    <td align="right" width="20"><a href="freePortComms_txd.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+The Lemming Toolbox is open software under the GNU General Public License (see COPYING).
+
+To install the Toolbox:
+1) Unzip it anywhere.
+2) Open Matlab and browse to the respective folder.
+3) type "install".
+4) The Toolbox should now install automatically. 
+5) Restart Matlab. 
+6) The Lemming Toolbox and all associated Matlab functions and Simulink blocks should be now available (The Simulink blocks are listed under "LemmingToolbox" in the Simulink Library Browser.
+
+If something doesn't work, you have questions or any proposals, please contact
+
+Moritz Lang
+ETH Zurich
+Mattenstrasse 26
+4058 Basel
+Phone: +41 61 387 32 35
+E-Mail: moritz.lang@bsse.ethz.ch
+
+The Lemming Toolbox is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with the Lemming Toolbox.  If not, see
+<http://www.gnu.org/licenses/>.

@@ -1,0 +1,529 @@
+# ############################################################################################
+#
+# rtmc9s12-Target makefile
+#
+#   Template makfile     : |>TEMPLATE_MAKEFILE_NAME<|
+#   Makefile (this file) : |>MAKEFILE_NAME<|
+#   Generated            : |>MAKEFILE_TIMESTAMP<|
+#
+# 	This makefile attempts to conform to the guidelines specified in the
+# 	IEEE Std 1003.2-1992 (POSIX) standard. It is designed to be used
+#   with GNU Make (gmake) which is located in matlabroot/rtw/bin/win32.
+#
+# 	Note that this template is automatically customized by the build 
+#   procedure to create "<model>.mk"
+#
+# fw-02-09
+#
+# ###########################################################################################
+
+
+# --------------------------- RTW options -----------------------
+#
+# The following tokens, when wrapped with "|>" and "<|" are expanded by 
+# mc_buildCodeMake / mc_buildLibrariesMake
+#
+#  MODEL_NAME          - Name of the Simulink block diagram
+#  MODEL_MODULES       - Any additional generated source modules
+#  MAKEFILE_NAME       - Name of makefile created from template makefile <model>.mk
+#  MATLAB_ROOT         - Path to were MATLAB is installed.
+#  MATLAB_BIN          - Path to MATLAB executable.
+#  S_FUNCTIONS         - List of S-functions.
+#  S_FUNCTIONS_LIB     - List of S-functions libraries to link.
+#  SOLVER              - Solver source file name
+#  NUMST               - Number of sample times
+#  TID01EQ             - yes (1) or no (0): Are sampling rates of continuous task
+#                        (tid=0) and 1st discrete task equal.
+#  NCSTATES            - Number of continuous states
+#  BUILDARGS           - Options passed in at the command line.
+#  MULTITASKING        - yes (1) or no (0): Is solver mode multitasking
+#  ExtMode            - yes (1) or no (0): Build for external mode
+#  EXTMODE_TRANSPORT   - Index of transport mechanism (e.g. tcpip, serial) for extmode
+#  EXTMODE_STATIC      - yes (1) or no (0): Use static instead of dynamic mem alloc.
+#  EXTMODE_STATIC_SIZE - Size of static memory allocation buffer.
+
+MODEL                   = |>MODEL_NAME<|
+MODULES                 = |>MODEL_MODULES<|
+MAKEFILE                = |>MAKEFILE_NAME<|
+MATLAB_ROOT             = |>MATLAB_ROOT<|
+ALT_MATLAB_ROOT         = |>ALT_MATLAB_ROOT<|
+MATLAB_BIN              = |>MATLAB_BIN<|
+ALT_MATLAB_BIN          = |>ALT_MATLAB_BIN<|
+S_FUNCTIONS             = |>S_FUNCTIONS<|
+S_FUNCTIONS_LIB         = |>S_FUNCTIONS_LIB<|
+SOLVER                  = |>SOLVER<|
+NUMST                   = |>NUMST<|
+TID01EQ                 = |>TID01EQ<|
+NCSTATES                = |>NCSTATES<|
+BUILDARGS               = |>BUILDARGS<|
+MULTITASKING            = |>MULTITASKING<|
+
+# choose 'space free' path specifiers
+ifneq ($(MATLAB_ROOT),$(ALT_MATLAB_ROOT))
+MATLAB_ROOT := $(ALT_MATLAB_ROOT)
+endif
+
+ifneq ($(MATLAB_BIN),$(ALT_MATLAB_BIN))
+MATLAB_BIN := $(ALT_MATLAB_BIN)
+endif
+
+
+# --------------------------- mc_build options -----------------------
+#
+# The following tokens are expanded in the course of the build process.
+# Not all of them are required in this makefile, but for the sake of 
+# simplicity all of them are expanded here...
+
+TargetBoard             = |>TargetBoard<|
+mcType                  = |>mcType<|
+MemModel                = |>MemModel<|
+FullyAutoBuild          = |>FullyAutoBuild<|
+RunImmediately          = |>RunImmediately<|
+LCDMsgs                 = |>LCDMsgs<|
+DEBUG_MSG_LVL           = |>DEBUG_MSG_LVL<|
+CoreTimer               = |>CoreTimer<|
+TimerBasePeriod         = |>TimerBasePeriod<|
+TimerPrescaler          = |>TimerPrescaler<|
+TimerPrescalerMask      = |>TimerPrescalerMask<|
+TimingSigs              = |>TimingSigs<|
+TimingSigsPort          = |>TimingSigsPort<|
+CycleTimePin            = |>CycleTimePin<|
+SerialRxPin             = |>SerialRxPin<|
+SCI0                    = |>SCI0<|
+SCI1                    = |>SCI1<|
+NumFreePortSCI0         = |>NumFreePortSCI0<|
+NumFreePortSCI1         = |>NumFreePortSCI1<|
+RFCommsServerChannels   = |>RFCommsServerChannels<|
+ExtMode                 = |>ExtMode<|
+ExtModeHostPort         = |>ExtModeHostPort<|
+ExtModeTargetPort       = |>ExtModeTargetPort<|
+ExtModeBaudrate         = |>ExtModeBaudrate<|
+ExtModeRxBufSize        = |>ExtModeRxBufSize<|
+ExtModeTxBufSize        = |>ExtModeTxBufSize<|
+ExtModeFifoBufNum       = |>ExtModeFifoBufNum<|
+ExtModeFifoBufSize      = |>ExtModeFifoBufSize<|
+ExtModeStatMemAlloc     = |>ExtModeStatMemAlloc<|
+ExtModeStatMemSize      = |>ExtModeStatMemSize<|
+ExtModeBufSizeDisp      = |>ExtModeBufSizeDisp<|
+ExtModeDispCommStatePTT = |>ExtModeDispCommStatePTT<|
+ExtModeStatusBarClk     = |>ExtModeStatusBarClk<|
+HasFuzzyBlocks          = |>HasFuzzyBlocks<|
+HasOnBoardDAC           = |>HasOnBoardDAC<|
+HasRFComms              = |>HasRFComms<|
+HasTimers               = |>HasTimers<|
+HasDSPblocks            = |>HasDSPblocks<|
+HasFixedPoint           = |>HasFixedPoint<|
+
+
+# --------------------------- path information -----------------------
+#
+TOOLBOX_ROOT            = |>toolboxbasedir<|
+COMPILER_ROOT           = |>compilerbasedir<|
+RTW_LIBBUILDDIR         = |>rtw_libbuilddir<|
+PRJ_LOCALBUILDDIR       = |>prj_localbuilddir<|
+
+
+# ---------------- sources to be included in 'rtwlib' ----------------
+#
+# Sources listed in this section are included in 'rtwlib'
+
+SHARED_SRC              = |>SHARED_SRC<|
+SHARED_SRC_DIR          = |>SHARED_SRC_DIR<|
+SHARED_BIN_DIR          = |>SHARED_BIN_DIR<|
+SHARED_LIB              = |>SHARED_LIB<|
+
+
+# ---------------- sources of model reference ----------------
+#
+# ??? (fw-02-09)
+
+MODELLIB                = |>MODELLIB<|
+MODELREF_LINK_LIBS      = |>MODELREF_LINK_LIBS<|
+MODELREF_LINK_RSPFILE   = |>MODELREF_LINK_RSPFILE_NAME<|
+MODELREF_INC_PATH       = |>START_MDLREFINC_EXPAND_INCLUDES<||>MODELREF_INC_PATH<| |>END_MDLREFINC_EXPAND_INCLUDES<|
+RELATIVE_PATH_TO_ANCHOR = |>RELATIVE_PATH_TO_ANCHOR<|
+
+# NONE: standalone, SIM: modelref sim, RTW: modelref rtw
+MODELREF_TARGET_TYPE    = |>MODELREF_TARGET_TYPE<|
+
+
+# ----------------- Tool specific definitions ----------------
+#
+# Compiler, assembler, linker, etc.
+
+include $(TOOLBOX_ROOT)\bin\mc_CodeWarrior.mk
+
+
+
+# ------------------------ Include Path ------------------------
+#
+
+# standard MATLAB paths
+MATLAB_INCLUDES   = $(MATLAB_ROOT)\simulink\include,
+MATLAB_INCLUDES  += $(MATLAB_ROOT)\rtw\c\src,
+MATLAB_INCLUDES  += $(MATLAB_ROOT)\rtw\c\libsrc 
+
+# DSP blockset
+DSP_MEX           = $(MATLAB_ROOT)\toolbox\dspblks\dspmex
+DSP_SIM           = $(MATLAB_ROOT)\toolbox\dspblks\src\sim
+DSP_RT            = $(MATLAB_ROOT)\toolbox\dspblks\src\rt
+DSP_2007c         = $(MATLAB_ROOT)\toolbox\dspblks\include
+DSP_INCLUDES      = $(DSP_2007c),$(DSP_SIM),$(DSP_RT)
+
+# communications toolbox
+COMMS_INCLUDES    = $(MATLAB_ROOT)\toolbox\commblks\commmex
+
+
+# all toolboxes and blocksets
+BLOCKSET_INCLUDES = $(DSP_INCLUDES),$(COMMS_INCLUDES)
+
+
+# all system includes
+SYSTEM_INCLUDES   = $(MATLAB_INCLUDES),$(BLOCKSET_INCLUDES),$(COMPILER_INCLUDES)
+
+
+# rtmc9s12 specific includes
+TOOLBOX_INCLUDES  = $(TOOLBOX_ROOT)\mc\blocks,
+TOOLBOX_INCLUDES += $(TOOLBOX_ROOT)\mc\core,
+TOOLBOX_INCLUDES += $(TOOLBOX_ROOT)\rtw\c\src\ext_mode\common,
+TOOLBOX_INCLUDES += $(TOOLBOX_ROOT)\rtw\c\src\ext_mode\serial,
+TOOLBOX_INCLUDES += $(TOOLBOX_ROOT)\extern\include
+
+
+# additional includes (automatically expanded)
+ADD_INCLUDES = \
+|>START_EXPAND_INCLUDES<|	|>EXPAND_DIR_NAME<| \
+|>END_EXPAND_INCLUDES<|
+
+# add missing commata...
+ifneq ($(ADD_INCLUDES),)
+ADD_INCLUDES := $(foreach include,$(ADD_INCLUDES),$(include),), 
+endif
+
+
+# all includes
+INCLUDES  = .,
+INCLUDES += $(RELATIVE_PATH_TO_ANCHOR),
+INCLUDES += $(TOOLBOX_INCLUDES),
+INCLUDES += $(SYSTEM_INCLUDES),
+INCLUDES += $(MODELREF_INC_PATH)
+
+
+
+# ------------------------ Library paths ------------------------
+#
+
+# RT libraries
+RTW_LIBRARIES = $(TOOLBOX_ROOT)\staticlibs
+
+
+
+#------------------------- Additional Libraries -------------------------------
+
+# libraries
+# fw-08-07
+#
+LIBS  =
+LIBS += |>EXPAND_ADDITIONAL_LIBRARIES<|
+LIBS := $(foreach lib,$(LIBS),$(RTW_LIBRARIES)\$(lib))
+LIBS += $(EXT_LIB) $(S_FUNCTIONS_LIB)
+
+
+
+# ------------------------ Source Files ------------------------
+#
+
+# ----------------------- External mode -----------------------
+#
+
+ifeq ($(ExtMode),1)
+
+  # external mode sources
+  EXT_SRC  = ext_svr.c
+  EXT_SRC += updown.c
+  EXT_SRC += ext_work.c
+  EXT_SRC += ext_svr_serial_transport.c
+  EXT_SRC += ext_serial_pkt.c
+  EXT_SRC += ext_serial_c167_port.c
+  
+  # static memory management (optional)
+  ifeq ($(ExtModeStatMemAlloc),1)
+  
+    # memory manager
+	EXT_SRC += mem_mgr.c
+	
+  endif
+  
+endif
+
+
+
+# added toolbox specific source files, changed executable file extension to 'h86'
+# fw-08-07
+#
+ifeq ($(MODELREF_TARGET_TYPE), NONE)
+    PRODUCT            = $(MODEL).h86
+    BUILD_PRODUCT_TYPE = executable
+    REQ_SRCS           = $(MODEL).c $(MODULES) $(EXT_SRC) \
+                         mc_main.c mc_signal.c mc_timer.c rt_sim.c
+  ifeq ($(DEBUG_MSG_LVL),1)
+    REQ_SRCS          += debugMsgs.c
+  endif
+  ifeq ($(HASRFCOMMS),1)
+    REQ_SRCS          += radioClient.c radioServer.c spi.c
+  endif
+  ifeq ($(HAS_ADC),1)
+    REQ_SRCS          += adc.c
+  endif
+else
+    # Model reference rtw target
+    PRODUCT  = $(MODELLIB)
+    REQ_SRCS = $(MODULES)
+endif
+
+
+
+SRCS      = $(REQ_SRCS) $(S_FUNCTIONS) $(SOLVER)
+OBJS      = $(SRCS:.c=.obj)
+
+SHARED_OBJS := $(addsuffix .obj, $(basename $(wildcard $(SHARED_SRC))))
+FMT_SHARED_OBJS = $(subst /,\,$(SHARED_OBJS))
+
+
+
+
+
+# reset source path and define new path variables
+vpath
+vpath %.obj .:$(RTW_LIBRARIES)/rtwlib:$(RTW_LIBRARIES)/dsplib
+vpath %.LIB $(TOOLBOX_ROOT)/staticlibs
+#vpath %.c   $(strip $(WORK_DIR) : $(INCLUDES_) : $(TOOLBOXES)$(EXTRA_PATH))
+#vpath %.a66 $(strip $(WORK_DIR) : $(COMPILER_LIBRARIES) : $(C167TARGET_INCLUDES))
+
+
+
+
+# -------------------------------- Rules ---------------------------------
+#
+
+# link everything...  fw-08-07
+#
+$(PRODUCT) : $(OBJS) $(SHARED_LIB) $(LIBS) $(MODELREF_LINK_LIBS) start167.obj
+	@echo Creating link file link.lin
+	@echo off >link.lin
+	@echo $(foreach object,$(LINK_OBJS),$(object),) >>link.lin
+	@echo $(foreach lib,$(LIBS),$(lib),) >>link.lin
+	@echo start167.obj >>link.lin
+	@echo TO $(MODEL) >>link.lin
+	@echo $(LDFLAGS) >>link.lin
+	-$(LD) @link.lin
+	@echo Converting linker output file to .h86 file
+	$(OH) $(MODEL)
+	@echo $(BUILD_SUCCESS) target executable: $(MODEL).h86
+
+%.obj : %.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 1) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+%.obj : $(RELATIVE_PATH_TO_ANCHOR)/%.c
+	@echo off >$*.cmd
+	@echo $(RELATIVE_PATH_TO_ANCHOR)/$*.c >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 2) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+%.obj : $(MATLAB_ROOT)/rtw/c/src/%.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 3) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+%.obj : $(TOOLBOX_ROOT)/staticlibs/%.a66
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(AFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 4) $< ...
+	-$(AS) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+%.obj : $(TOOLBOX_ROOT)/mc/%.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 5) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+%.obj : $(TOOLBOX_ROOT)/rtw/c/src/ext_mode/common/%.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 6) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+
+%.obj : $(TOOLBOX_ROOT)/rtw/c/src/ext_mode/serial/%.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 7) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+
+#|>START_EXPAND_RULES<|%.obj : |>EXPAND_DIR_NAME<|/%.c
+#	@echo off >$*.cmd
+#	@echo $< >>$*.cmd
+#	@echo $(CFLAGS) >>$*.cmd
+#	@echo PRINT ($*.lst) >>$*.cmd
+#	@echo OBJECT ($*.obj) >>$*.cmd
+#
+#	@echo compiling (via rule 8) $< ...
+#	-$(CC) @$*.cmd
+#
+#	@$(RM) $*.cmd
+#	@$(RM) $*.lst
+#
+#
+#|>END_EXPAND_RULES<|
+
+%.obj : $(MATLAB_ROOT)/simulink/src/%.c
+	@echo off >$*.cmd
+	@echo $< >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo PRINT ($*.lst) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule 9) $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+	@$(RM) $*.lst
+
+
+# Libraries:
+
+
+# User libraries (not sure if the following section is ever used...  fw-08-07):
+#|>START_EXPAND_LIBRARIES<|MODULES_|>EXPAND_LIBRARY_NAME<| = \
+#|>START_EXPAND_MODULES<|	|>EXPAND_MODULE_NAME<|.obj \
+#|>END_EXPAND_MODULES<|
+#
+#|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib :  $(MAKEFILE) rtw_proj.tmw $(MODULES_|>EXPAND_LIBRARY_NAME<|)
+#	@echo ### Creating |>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+#	@if exist $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib del $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+#	$(LIBCMD) CREATE $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+#	@$(LIBCMD) ADD $(foreach module,$(MODULES_|>EXPAND_LIBRARY_NAME<|),$(module),) $(TOOLBOX_ROOT)/staticlibs/rt_dummy.obj TO $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+#
+#	@echo ### |>EXPAND_LIBRARY_NAME<|_C.lib Created
+#
+#|>END_EXPAND_LIBRARIES<|
+
+
+
+# Precompiled libraries (as defined in c167_make_rtw_hook, case 'entry', e.g. 'dsplib', 'fuzzylib', etc.  --  fw-08-07):
+|>START_ADDITIONAL_LIBRARIES<|
+
+
+# Include all source files... stored in makefile variable MODULES_|>EXPAND_LIBRARY_NAME<|
+include $(RTW_LIBRARIES)/|>EXPAND_LIBRARY_NAME<|/|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).mpf
+
+%.obj : $(RTW_LIBBUILDDIR)/|>EXPAND_LIBRARY_NAME<|/%.c
+	@echo off >$*.cmd
+	@echo $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\$*.c >>$*.cmd
+	@echo $(CFLAGS) >>$*.cmd
+	@echo OBJECT ($*.obj) >>$*.cmd
+
+	@echo compiling (via rule '|>EXPAND_LIBRARY_NAME<|') $< ...
+	-$(CC) @$*.cmd
+
+	@$(RM) $*.cmd
+
+
+#|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib : $(MAKEFILE) rtw_proj.tmw $(MODULES_|>EXPAND_LIBRARY_NAME<|)
+$(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib : $(MODULES_|>EXPAND_LIBRARY_NAME<|) 
+	@echo ### Creating |>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+	@if exist $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib del $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+	@for %i in ($(strip $(MODULES_|>EXPAND_LIBRARY_NAME<|))) do if exist $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|\%i xcopy /y $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|\%i $(PRJ_LOCALBUILDDIR)
+	@$(LIBCMD) CREATE $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+	$(LIBCMD) ADD $(foreach module,$(MODULES_|>EXPAND_LIBRARY_NAME<|),$(module),) $(TOOLBOX_ROOT)\staticlibs\rt_dummy.obj TO $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib
+
+	@echo ### |>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib created
+	@if exist $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib move $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib $(RTW_LIBRARIES)
+	@if exist $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).mpf move $(RTW_LIBBUILDDIR)\|>EXPAND_LIBRARY_NAME<|\|>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).mpf $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|
+	@for %i in ($(strip $(MODULES_|>EXPAND_LIBRARY_NAME<|))) do move /y %i $(RTW_LIBRARIES)\|>EXPAND_LIBRARY_NAME<|
+	@echo ### All library object files as well as |>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).lib and |>EXPAND_LIBRARY_NAME<|$(MEM_EXTENSION).mpf are at their permament storage location
+
+
+|>END_ADDITIONAL_LIBRARIES<|
+
+
+#----------------------------- Dependencies ------------------------------------
+
+$(OBJS) : $(MAKEFILE) rtw_proj.tmw
+
+$(SHARED_OBJS) : $(SHARED_BIN_DIR)/%.obj : $(SHARED_SRC_DIR)/%.c 
+	$(CC) -c -Fo$@ $(CFLAGS) $<
+
+$(SHARED_LIB) : $(SHARED_OBJS)
+	@echo ### Creating $@ 
+	$(LIBCMD) /out:$@ $(FMT_SHARED_OBJS)
+	@echo ### $@ Created  
+
+#--------- Miscellaneous rules to purge, clean and lint (sol2 only) ------------
+
+purge : clean
+	@echo ### Deleting the generated source code for $(MODEL)
+	@del $(MODEL).c $(MODEL).h $(MODEL)_types.h $(MODEL)_data.c \
+	        $(MODEL)_private.h $(MODEL).rtw $(MODULES) rtw_proj.tmw $(MAKEFILE)
+
+clean :
+	@echo ### Deleting the objects and $(PROGRAM)
+	@del $(LINK_OBJS) ..\$(MODEL).h86
+|>START_EXPAND_LIBRARIES<|	@del |>EXPAND_LIBRARY_NAME<|.lib
+|>END_EXPAND_LIBRARIES<|
+|>START_PRECOMP_LIBRARIES<|	@del |>EXPAND_LIBRARY_NAME<|.lib
+|>END_PRECOMP_LIBRARIES<|

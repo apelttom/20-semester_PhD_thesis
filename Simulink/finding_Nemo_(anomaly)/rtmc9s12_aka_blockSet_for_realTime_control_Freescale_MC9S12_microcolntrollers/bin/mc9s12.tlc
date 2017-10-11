@@ -1,0 +1,456 @@
+%% SYSTLC: rtmc9s12-Target for Metrowerks CodeWarrior \
+%%    TMF: mc9s12.tmf  MAKE: make_rtw EXTMODE: ext_serial_mc9s12_comm
+%%
+%% $RCSfile: mc9s12.tlc,v $
+%% $Revision: 1.57.4.11 $
+%%
+%% Abstract: Embedded real-time system target file.
+%% 
+%% currently only works in 'GRT compatible' mode
+%% automatic generation of 'main' is not (yet) supported
+%% fw-06-07
+%%
+%selectfile NULL_FILE
+
+
+%%---------------------------- 
+%% TLC Configuration Variables Section
+%%---------------------------- 
+
+%assign CodeFormat = "Embedded-C"
+%assign TargetType = "RT"
+%assign Language   = "C"
+
+%% necessary?  fw-06-07
+%% taken out to see what happens  --  fw-01-09
+%%assign AutoBuildProcedure = 0
+%%assign GenRTModel = TLC_TRUE
+
+%% Prevent TLC failure if simulation stop time = inf
+%assign stopTime = -1
+
+
+%%---------------------------- 
+%% TLC Program Entry Point 
+%%---------------------------- 
+%%
+%include "codegenentry.tlc"
+
+
+%%---------------------------- 
+%% Generate Files for Build Process
+%%---------------------------- 
+%%
+%% Generate list of all RTW files (static and generated files)
+%% required for a CodeWarrior project. 
+%%
+%include "gen_rtw_filelist_mpf.tlc"
+
+
+%%---------------------------- 
+%% RTW_OPTIONS Section 
+%%---------------------------- 
+%%
+%% The contents between 'BEGIN_RTW_OPTIONS' and 'END_RTW_OPTIONS' in this file
+%% are used to maintain backward compatibility to R13 and preR13 custom target 
+%% file only.  If you want to use this file as a template to develop your
+%% own system target file, you need to remove the 'CONFIGSET_TARGET_COMPONENT'
+%% section at the end of this file.
+%%
+/%
+  BEGIN_RTW_OPTIONS
+
+  oIdx = 1;
+
+  % first user category page ---------------------------------------------------------------
+
+  rtwoptions(oIdx).prompt         = 'mc9s12 options 1';
+  rtwoptions(oIdx).type           = 'Category';
+  rtwoptions(oIdx).enable         = 'on';  
+  rtwoptions(oIdx).default        = 18;   % number of items under this category
+                                         % including this one.
+  rtwoptions(oIdx).popupstrings  = '';
+  rtwoptions(oIdx).tlcvariable   = '';
+  rtwoptions(oIdx).tooltip       = '';
+  rtwoptions(oIdx).callback      = '';
+  rtwoptions(oIdx).makevariable  = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Target board';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'Dragon12Plus';
+  rtwoptions(oIdx).popupstrings   = 'Dragon12|Dragon12Plus|MiniDragonPlus|MiniDragonPlus-RevE|DragonFly12-C128|DragonFly12-C32|Generic-DG128';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_TargetBoard';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the target board to be used',sprintf('\n'), ...
+    'when building the target code'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_TargetBoard'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Oscillator frequency';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = '8 MHz';
+  rtwoptions(oIdx).popupstrings   = '4 MHz|8 MHz|16 MHz';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_Oscillator';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Fix the oscillator frequency of the target hardware. ',sprintf('\n'), ...
+     'Set automatically for all non-generic targets (eg. Dragon12Plus, etc.).'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Memory model';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'Flash_flat';
+  rtwoptions(oIdx).popupstrings   = 'Flash_flat|Flash_banked';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_MemModel';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the memory model to be used',sprintf('\n'), ...
+    'when building the target code'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Build style';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'ActiveX';
+  rtwoptions(oIdx).popupstrings   = 'ActiveX|Make';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_BuildStyle';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Build style can be either ''ActiveX''',sprintf('\n'), ...
+    '(Windows only) or Make (all platforms)'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_BuildStyle'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External mode';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtMode';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Adds RS232 serial communication support',sprintf('\n'), ...
+    'for use with Simulink external mode'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtMode'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - use static memory allocation';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeStatMemAlloc';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Causes generated code to use static',sprintf('\n'), ...
+    'memory allocation instead of malloc/calloc'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeStatMemAlloc'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - available memory (bytes)';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '6500';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeStatMemSize';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the size of the static memory buffer ',sprintf('\n'), ...
+    'used by the memory management of external mode.',sprintf('\n'), ...
+    'Try to make this value as large as possible -',sprintf('\n'), ...
+    'this depends on the available RAM on the controller.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeStatMemSize'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - target reception buffer size (bytes)';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '1000';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeRxBufSize';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the size of the target sided reception ring buffer',sprintf('\n'), ...
+    'in bytes. This buffer stores all characters received by',sprintf('\n'), ...
+    'the reception interrupt service handler.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeRxBufSize'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - target transmission buffer size (bytes)';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '2000';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeTxBufSize';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the size of the target sided data buffer(s) in bytes (one', sprintf('\n'), ...
+    'per sample rate). These buffers hold all generated data points prior ', sprintf('\n'), ...
+    'to their to the host.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeTxBufSize'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - upload/download FIFO buffer size (bytes)';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '300';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeFifoBufSize';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the size of the upload/download FIFO buffers in bytes.', sprintf('\n'), ...
+    'These buffers are used to temporarily store incoming packets.', sprintf('\n'), ...
+    'These FIFO buffers are allocated whenever needed.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeFifoBufSize'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - allocate FIFO buffers in batches of';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '2';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeFifoBufNum';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the batch size for FIFO buffers allocation.', sprintf('\n'), ...
+    'Buffers are allocated dynamically whenever needed.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeFifoBufNum'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External mode - display an empty space indicator (9 -> 0) on the 7-segment display';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeBufSizeDisp';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Indicates a measure of how much space is left on the main',sprintf('\n'), ...
+    'logging data storage buffer (circBuf, one per samplerate).', sprintf('\n'), ...
+    'Values range from "9" (buffer empty) to "0" (buffer just about full),', sprintf('\n'), ...
+    'with "-" indicating a buffer overflow.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeBufSizeDisp'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External mode - display communication state variables on port T';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeDispCommStatePTT';
+  rtwoptions(oIdx).tooltip        = ...
+    ['A variety of comms variables are displayed on port PTT.',sprintf('\n'), ...
+    'This option should only be used by the developpers.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeDispCommStatePTT'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - communication speed';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = '115200';
+  rtwoptions(oIdx).popupstrings   = '150|300|600|1200|2400|4800|9600|19200|38400|57600|115200';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeBaudrate';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the communication speed',sprintf('\n'), ...
+    'of the serial line'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeBaudrate'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External mode - Auto-update status bar clock';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeStatusBarClk';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Auto-updating the status bar clock of Simulink might lead to ', sprintf('\n'), ...
+    'communication problems and is therefore discouraged. Only use ', sprintf('\n'), ...
+    'this option if at low data upload rates. Changing this option ', sprintf('\n'), ...
+    'causes recompilation of the host sided communication module. ', sprintf('\n'), ...
+    'A C-compiler (e.g. lcc) should have been installed using "mex -setup".'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeStatusBarClk'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - host sided communication port';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'COM2';
+  rtwoptions(oIdx).popupstrings   = 'COM1|COM2|COM3|COM4';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeHostPort';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the serial port to be used',sprintf('\n'), ...
+    'for host to target communication'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeHostPort'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'External Mode - target sided communication port';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'SCI1';
+  rtwoptions(oIdx).popupstrings   = 'SCI0|SCI1';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_ExtModeTargetPort';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Selet which serial port of the MC9S12 should be ',sprintf('\n'), ...
+    'used for External Mode communications with MATLAB'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_ExtModeTargetPort'')';
+
+  
+  % second user category page ---------------------------------------------------------------
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'mc9s12 options 2';
+  rtwoptions(oIdx).type           = 'Category';
+  rtwoptions(oIdx).enable         = 'on';  
+  rtwoptions(oIdx).default        = 10;   % number of items under this category including this one
+  rtwoptions(oIdx).popupstrings  = '';
+  rtwoptions(oIdx).tlcvariable   = '';
+  rtwoptions(oIdx).tooltip       = '';
+  rtwoptions(oIdx).callback      = '';
+  rtwoptions(oIdx).makevariable  = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Compile, download and run';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_FullyAutoBuild';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Selecting this option extends the build process by the ',sprintf('\n'), ...
+    'automatic download and execution of the generated model code.'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Timing signals';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_TimingSigs';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Enables the display of timing signals',sprintf('\n'), ...
+    'for cycle time and serial reception'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_TimingSigs'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Cycle time signal pin';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '5';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_CycleTimePin';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Pin for the monitoring of the cycle time',sprintf('\n'), ...
+    'Format: P<port>.<pin>'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_CycleTimePin'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Serial reception signal pin';
+  rtwoptions(oIdx).type           = 'Edit';
+  rtwoptions(oIdx).default        = '6';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_SerialRxPin';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Pin for the monitoring of serial reception interrupts',sprintf('\n'), ...
+    'Format: P<port>.<pin>'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_SerialRxPin'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Timing signaling port';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'PTH';
+  rtwoptions(oIdx).popupstrings   = 'PORTB|PTP|PTT|PTH';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_TimingSigsPort';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Choose the port to be used',sprintf('\n'), ...
+    'to display timing signals'];
+  rtwoptions(oIdx).callback       = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Run upon reset';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_RunImmediately';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Cause the target code to execute without',sprintf('\n'), ...
+    'waiting for a start message from the host'];
+  rtwoptions(oIdx).callback       = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Core Timer Select';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'RTI';
+  rtwoptions(oIdx).popupstrings   = 'RTI|T7I';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_CoreTimer';
+  rtwoptions(oIdx).tooltip        = ...
+    ['Selet which core timer to be used ',sprintf('\n'), ...
+    'by the MC9S12 for timing purpose'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_CoreTimer'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Download method';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'SerialMonitor';
+  rtwoptions(oIdx).popupstrings   = 'SerialMonitor|JTAG';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_DownloadMethod';
+  rtwoptions(oIdx).tooltip        = 'Selet download method.';
+  rtwoptions(oIdx).callback       = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'RTOS support';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_RTOSsupport';
+  rtwoptions(oIdx).tooltip        = ...
+    'Enable RTOS support instead of a timing ISR and background task.';
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_RTOSsupport'')';
+
+
+  % third user category page ---------------------------------------------------------------
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'mc9s12 options 3';
+  rtwoptions(oIdx).type           = 'Category';
+  rtwoptions(oIdx).enable         = 'on';  
+  rtwoptions(oIdx).default        = 8;   % number of items under this category including this one
+  rtwoptions(oIdx).popupstrings  = '';
+  rtwoptions(oIdx).tlcvariable   = '';
+  rtwoptions(oIdx).tooltip       = '';
+  rtwoptions(oIdx).callback      = '';
+  rtwoptions(oIdx).makevariable  = '';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'MAT-file variable name modifier';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = 'rt_';
+  rtwoptions(oIdx).popupstrings   = 'rt_|_rt|none';
+  rtwoptions(oIdx).tlcvariable    = 'LogVarNameModifier';
+  rtwoptions(oIdx).tooltip        = ['prefix rt_ to variable name,', sprintf('\n'), ...
+                         'append _rt to variable name,', sprintf('\n'), ...
+                         'or no modification'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Ignore custom storage classes';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'IgnoreCustomStorageClasses';
+  rtwoptions(oIdx).tooltip        = ['Treat custom storage classes as ''Auto''.'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Integer code only';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'PurelyIntegerCode';
+  rtwoptions(oIdx).tooltip = ...
+    ['Raise error if the generated code contains', sprintf('\n'), ...
+    'floating point data types'];
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Force rebuild of the static libraries used by the model';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'off';
+  rtwoptions(oIdx).tlcvariable    = 'StaticLibraryRebuild';
+  rtwoptions(oIdx).tooltip        = ['For the static libraries referenced by this model ', ...
+                                    sprintf('\n'),...
+                                    'to be rebuilt.'];
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Use LCD display for error messages';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_LCDMsgs';
+  rtwoptions(oIdx).tooltip        = ['This displays the error numbers on the LDC display ', ...
+                                    sprintf('\n'),...
+                                    'instead of using LED PORTB_0.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_LCDMsgs'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'RT logging information (debug) on SCI0';
+  rtwoptions(oIdx).type           = 'Popup';
+  rtwoptions(oIdx).default        = '0';
+  rtwoptions(oIdx).popupstrings   = '0|1|2|3|4|5';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_DEBUG_MSG_LVL';
+  rtwoptions(oIdx).tooltip        = ['This (de)activates the display of Real-Time ', ...
+                                    sprintf('\n'),...
+                                    'debug messages through SCI0.'];
+  rtwoptions(oIdx).callback       = 'mc9s12_callback_handler(hDlg, hSrc, ''mc9s12_DEBUG_MSG_LVL'')';
+
+  oIdx = oIdx + 1;
+  rtwoptions(oIdx).prompt         = 'Use error message mangling';
+  rtwoptions(oIdx).type           = 'Checkbox';
+  rtwoptions(oIdx).default        = 'on';
+  rtwoptions(oIdx).tlcvariable    = 'mc9s12_DEBUG_MSG_MNGL';
+  rtwoptions(oIdx).tooltip        = 'This (de)activates mangled error messaging';
+
+  %----------------------------------------%
+  % Configure RTW code generation settings %
+  %----------------------------------------%
+
+  %%---------------------------- 
+  %% rtwgensettings Structure 
+  %%---------------------------- 
+  %%
+  rtwgensettings.BuildDirSuffix = '_mc9s12_rtw\sources';
+  rtwgensettings.Version        = '1';
+  
+  rtwgensettings.SelectCallback = ['mc9s12_select_callback_handler(hDlg, hSrc)'];
+
+  END_RTW_OPTIONS 
+ %/

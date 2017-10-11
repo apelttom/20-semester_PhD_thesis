@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Timer Unit Block (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: PWM --><!-- CHAPNAME: PWM --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td bgcolor="#ffe4b0"><b>Embedded Target for
+                        Freescale 9S12 microcontrollers<br>
+                    </b></td>
+                    <td align="right" bgcolor="#ffe4b0" valign="baseline"><a
+                    href="sonar_sfcn_9S12.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a>&nbsp;&nbsp;&nbsp;<a
+                    href="fuzzy_ni1o.html"><img src="helpimages/b_next.gif" alt="Next Page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a name="180531"><font color="#990000" size="+3">Timer Unit Block </font>
+        <!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>Block for time-based measurements and signal production</p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_timer_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>The Timer Unit block gives access to the Enhanced Timer Unit (ETU) of 
+           the 9S12. This unit can be operated in two ways:<br>
+           <br>
+           Used in <b>Input Capture</b> mode, the unit 
+           measures the time between any two successive events. At present only rising edges on a selected 
+           pin of port PTT qualify as such events. The block output is a measure of the time which has 
+           elapsed between the previous two events. A maximum period has to be chosen. Measurements of 
+           time intervals longer than this period are invalid. In Input Capture mode, the block icon 
+           displays the chosen resolution. This value is determined by dividing the chosen period by 
+           2<sup>16</sup> = 65536.<br>
+           <br>
+           In <b>Output Compare</b> mode, the unit is used for signal production. A symmetric square wave 
+           signal (50% duty cycle) is produces on the selected pin. The channel number defines the pin of
+           port PTT. As in Input Capture mode, the maximum period divided by 65536 yields the resolution 
+           of the square wave signal. In Output Capture mode, the signal level at the block input modulates 
+           the signal period. A value of 0 or below switches the pulse train off. A value of 1 and above 
+           produces a signal with <i>twice</i> the requested period (on-phase + off-phase). Note that the 
+           timer can run at very fast rates. It is possible to produce a square wave signal with a period 
+           of only 100 ns! The Sample rate of the block simply defines how often the block input is checked.<br>
+        <br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_timer_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Timer channel</b></dt>
+            <dd>The timer unit connects to the outside world through port PTT. The timer channel 
+                parameter defines which pin is used.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Timer mode</b></dt>
+            <dd>Select either Input Capture (IC) mode or Output Compare (OC). Input Capture is used 
+                to measure durations inbetween successive events (rising edges on the associated input
+                pin). Output Compare is used to produce symmetric square wave signals with (twice) 
+                the requested period (on-phase + off-phase -> 2).
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Timer base period (seconds)</b></dt>
+            <dd>In Input Capture mode, the base period defines the maximum allowed duration between successive 
+                rising edges. Events which lie outside this window produce incorrect measurements. In Output 
+                Compare mode, the base period defines half the period of the generated square wave signal.
+            </dd>
+        </dl>
+            <a name="182791"></a><dt><br></dt>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="sonar_sfcn_9S12.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Sonar Range Finder Driver</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">Fuzzy Control Block&nbsp;</td>
+                    <td align="right" width="20"><a href="fuzzy_ni1o.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

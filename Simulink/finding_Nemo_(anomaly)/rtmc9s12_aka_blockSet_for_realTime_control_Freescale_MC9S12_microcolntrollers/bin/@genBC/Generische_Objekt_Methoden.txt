@@ -1,0 +1,5 @@
+Dies ist der zentrale Ablageort der Methoden der "generischen Objekte".
+
+Einbindende Klassen sollten eine SVN-Verknüpfung auf dieses SVN-Verzeichnis anlegen.
+
+fw-01-10

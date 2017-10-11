@@ -1,0 +1,141 @@
+%% File : onboardDAC_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   DAC device driver for the MC9S12DP256B/C
+%%
+%% fw-08-07
+%%
+%implements  onboardDAC_sfcn_9S12 "C"
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+%% note that 'radioClient.h' includes 'spi.h', but also defines macro RADIO_DEFAULT_BAUD_RATE (see below)
+%<LibAddToCommonIncludes("mc_radioClient.h")>
+
+
+
+%% Function: BlockTypeSetup =================================================
+%%
+%% Purpose:
+%%      FreePort communication block setup code.
+%%
+%function BlockTypeSetup(block, system) void
+
+  %% Place common defines in the model's header file
+  
+  %openfile buffer
+	#ifdef HAS_RFCOMMS
+	#define SPI_BAUDRATE   RADIO_DEFAULT_BAUD_RATE
+	#else
+	#define SPI_BAUDRATE   SPI_BAUD_12000000
+	#endif
+  %closefile buffer
+    
+  %<LibCacheDefine(buffer)>
+
+%endfunction
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      PWM initialization code.
+%%
+%% === Parameters ===
+%% P1 -- sampletime   (real_T)
+%% P2 -- DAC channel  (real_T)
+%% P2 -- Vsat         (real_T)
+%%
+
+%function Start(block, system) Output
+
+	/* S-Function "onboardDAC_sfcn_9S12" Block: %<Name> */
+
+	/* initialize SPI for the Onboard DAC */
+	SPI_Init(SPI_BAUDRATE);		// configure SPI for the onboard DAC
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      PWM initialization code.
+%%
+%function Outputs(block, system) Output
+
+	%assign channel = %<CAST( "Number", LibBlockParameterValue(P2, 1) )>
+	%assign Vsat    = LibBlockParameter(P3, "", "", 0)
+
+   /* S-Function "onboardDAC_sfcn_9S12" Block: %<Name> 
+    *
+    * Set (onboard) DAC output whenever "u" changes
+    */
+	{
+		
+		real_T	u;
+		uint32_T  no_timeout;
+		
+		%assign u = LibBlockInputSignal(0, "", "", 0)
+		%assign uOld = LibBlockRWork("", "", "", 0)
+		%%
+		/* get input value */
+		u = %<u>;
+		
+		/* only update unit if the input voltage 'u' has changed */
+		if(u != %<uOld>) {
+		
+			unsigned int  DAC_value;
+			unsigned char high, low;
+			
+			/* retain current input value for the next time round... */
+			%<uOld> = u;
+			
+			
+			/* assemble DAC_value word (16 bit) */
+			DAC_value = 0x0000;     // leading 2 don't care bits: 0
+									// PD1 = PD2 = 0  (normal [power] mode)
+									// trailing 2 don't care bits: 0
+ 	                        
+			/* set data bits */
+			DAC_value |= (uint16_T)(%<u>/%<Vsat>*0x3FF);
+			
+			// Saturation check on input value.
+			if( DAC_value > 1023 ) DAC_value = 1023;
+			else if( DAC_value < 0 ) DAC_value = 0;
+			
+			 /* The word for the DAC is formatted as:
+			  * A3 A2 A1 A0 D9 D8 D7 D6 D5 D4 D3 D2 D1 D0 X1 X0
+			  * where: Ax are the command code bits
+			  *        Dx are the data bits 
+			  *        Xx are don't care bits
+			  */
+
+			// Extract the individual characters
+			high = (char)(DAC_value >> 6);
+			low  = (char)(DAC_value << 2);
+			
+			/* Add the command information
+			 * A3=1, A2=0 - update output, wake the chip if it is asleep
+			 * A1=0, A1=1 - DAC A
+			 * A1=1, A0=0 - DAC B
+			 *
+			 * Note that it automatically outputs to DAC B if a non-zero
+			 * channel is specified
+			 */
+			high |= (0x80 | (0x10 << %<channel>));	/* 0x90 for channel 0, 0xA0 for channel 1 */
+
+			/* Call the SPI_OutChar2DAC function in SPI.c */			
+			SPI_OutChar2DAC(high,low);
+			
+		}  /* new block input value */
+		
+	}
+    
+%endfunction
+
+
+%% [EOF] onboardDAC_sfcn_9S12.tlc

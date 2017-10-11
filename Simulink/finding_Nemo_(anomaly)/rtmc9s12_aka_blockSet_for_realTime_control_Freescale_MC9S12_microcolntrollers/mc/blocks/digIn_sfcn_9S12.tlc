@@ -1,0 +1,59 @@
+%% File : digIn_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Digital input device driver
+%%
+%%   fw-03-05
+%%
+%implements  digIn_sfcn_9S12 "C"
+
+%% (P1) SAMPLE_TIME -- real_T
+%% (P2) PORT        -- real_T
+%% (P3) PIN_ARRAY    -- real_T [array]
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Code generation for initilization of digital input
+%%
+%function Start(block, system) Output
+
+    /* Initialize digital inputs for port %<block.RTWdata.portStr> */ 
+    %<block.RTWdata.ddrStr> &= ~%<block.RTWdata.pinMask>;
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation for signal input
+%%
+%function Outputs(block, system) Output
+
+    %assign y = LibBlockOutputSignal(0, "", "", 0)
+
+    %% wanted:
+    %%
+    %% /* read pin 2 from port PORTB */
+    %% if ((PORTB & 4) == 0)  ausgang = 0.0;   /* pin low  */
+    %% else                   ausgang = 1.0;   /* pin high */
+
+    /* read pin %<block.RTWdata.pinStr> from port %<block.RTWdata.portStr> */
+    if ((%<block.RTWdata.portStr> & %<block.RTWdata.pinMask>) == 0)  %<y> = 0.0;   /* pin low  */
+    else  %<y> = 1.0;   /* pin high */
+
+%endfunction
+
+%% [EOF] digIn_sfcn_9S12.tlc
+
+
+
+
+

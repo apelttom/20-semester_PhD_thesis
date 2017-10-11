@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Freeport Communication Block, Reception (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: UserTelRxD--><!-- CHAPNAME: UserTelRxD --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td bgcolor="#ffe4b0" valign="baseline"><b>Embedded Target for
+                        Freescale 9S12 microcontrollers<br>
+                    </b></td>
+                    <td align="right" bgcolor="#ffe4b0"><a
+                    href="freePortComms_txd.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a>&nbsp;&nbsp;&nbsp;<a
+                    href="rfComms_client.html"><img src="helpimages/b_next.gif" alt="Next Page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a name="180531"><font color="#990000" size="+3">Freeport Communication Block, Reception </font><!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>Driver block for the Reception of 'freeport' telegrams through the 
+            selected serial port of the 9S12<br>
+        </p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_freePortComms_RX_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>The 'freeport' communications system allows the exchange of short
+            messages (up to 50 bytes; this value can be redefined to allow for larger values) through
+            an unused serial port on the 9S12 (a 'free' port). Free ports are those which are not used
+            by the optional External Mode interface to upload log data to MATLAB/Simulink. If the 
+            External Mode interface is not used, both ports of the 9S12 (SCI0, SCI1) can be used as 
+            freeports. They can thus be used to communicate with a further microcontroller, with a host
+            PC or to interface to an 'intelligent sensor' with an asynchronous serial communication interface.
+            If the External Mode interface is active, the only available freeport is the one which is not used
+            to communicate with MATLAB/Simulink.<br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_freePortComms_RX_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <dt><a name="182791"></a></dt>
+            <dt><b>Communication port<br>
+            </b></dt>
+            <a name="182792"></a><dd>Available ports are SCI0 and SCI1 (block used on the target) as well as 
+               COM1 - COM4 (host block). <code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Baudrate<br>
+            </b></dt>
+            <a name="182792"></a><dd>The bit rate at which communication is established. Valid values range
+               from 150 bps to 115200 bps.<code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Channel number<br>
+            </b></dt>
+            <a name="182792"></a><dd>A total number of 5 channels (configurable) can be opened
+            for freeport communication. <code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Number of elements<br>
+            </b></dt>
+            <a name="180547"></a><dd>This is the number of elements of the chosen data type which 
+                are expected on the chosen channel.<br></dd>
+        </dl>
+        <dl>
+            <a name="183014"></a>
+            <dt><b>Data Type<br>
+            </b></dt>
+            <a name="183015"></a><dd>The data type can be <span
+                style="font-family: monospace;">SINGLE</span>, <span
+                style="font-family: monospace;">INT8</span>, <span
+                style="font-family: monospace;">UINT8</span>, <span
+                style="font-family: monospace;">INT16</span>, <span
+                style="font-family: monospace;">UINT16</span>, <span
+                style="font-family: monospace;">INT32</span>, <span
+                style="font-family: monospace;">UINT32</span> and <span
+                style="font-family: monospace;">BOOLEAN</span> .<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Block receives raw data<br>
+            </b></dt>
+            <a name="180547"></a><dd>When selected, the block receives 'raw' data, i. e. no additional 
+               information such as the logical channel number etc. is expected. This is useful when 
+               communicating with serial devices other than another freeport comms blocks, e.g. an
+               'intelligent' sensor such as an Inertial Measurement Unit (IMU).<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Block output is 'double'<br>
+            </b></dt>
+            <a name="180547"></a><dd>Selecting this option causes received values to be converted to double 
+               precision numbers. This is useful when a subsequent display or scope 
+               block is used to visualize the data.<br></dd>
+        </dl>
+            <a name="183016"></a><dt><br></dt>
+        </dl>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="freePortComms_txd.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Freeport Communication (Transmission)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">RF Module Communication (Client)&nbsp;</td>
+                    <td align="right" width="20"><a href="rfComms_client.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

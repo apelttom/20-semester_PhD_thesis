@@ -1,0 +1,40 @@
+Benchmarks for Model Transformations and Conformance Checking
+Toyota Technical Center
+2014
+(c) X. Jin, J. Deshmukh, J. Kapinski, K. Ueda, K. Butts
+
+- The models are created using 64 bit Matlab 2013b under Windows 7 64 bit
+  operating system.
+
+---------------------------------
+DIRECTORY STRUCTURE AND FILE INFO
+---------------------------------
+
+ARCH2014
+|
++-- README : Readme file 
+|
++-- Model1 
+|     |
+|     +-- AbstractFuelControlM1_Aquino.slx : Model 1 in the paper
+|
++-- Model2  
+|     |
+|     +-- AbstractFuelControl_M2.slx  : Model 2 in the paper
+|
++-- testHarness.slx : Simulink harness model for running tests
+|
++-- measure_settling_time.m : Matlab script to measure settling time
+|
++-- testResults.m : Matlab script to perform tests described in table 1
+                    on the Simulink harness model
+
+
+-----
+NOTES
+-----
+- To run tests, invoke the Matlab script testResults.m
+- Model 1 and Model 2 can be run stand-alone by providing appropriate values
+  for their inputs.
+- Model 2 has a model parameter initialization block that needs to be clicked 
+  before it is run in a stand-alone fashion.

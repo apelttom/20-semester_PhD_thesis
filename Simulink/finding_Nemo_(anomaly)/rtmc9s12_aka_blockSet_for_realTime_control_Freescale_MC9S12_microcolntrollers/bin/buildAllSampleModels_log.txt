@@ -1,0 +1,132 @@
+
+
+
+***********************************************************
+Results
+***********************************************************
+30-Aug-2010 14:40:05: Successfully built model 'ADC_DAC.mdl'
+30-Aug-2010 14:40:19: Successfully built model 'AD_9S12.mdl'
+30-Aug-2010 14:40:33: Successfully built model 'AD_Stepper.mdl'
+
+
+
+30-Aug-2010 14:40:48: Successfully built model 'BLNoiseTest.mdl'
+30-Aug-2010 14:41:00: Successfully built model 'ChirpTest.mdl'
+30-Aug-2010 14:41:12: Successfully built model 'DAC.mdl'
+30-Aug-2010 14:41:25: Successfully built model 'DigINPort.mdl'
+30-Aug-2010 14:41:37: Encountered errors when building model 'DigOUTPort.mdl' (see .../DigOUTPort_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1907: Fixup overflow in blinky, to wait type 3, at offset 0x41
+  --> Link Error   : Link failed
+30-Aug-2010 14:41:50: Successfully built model 'FreePortComm_RXTX.mdl'
+30-Aug-2010 14:42:01: Successfully built model 'FreePortComm_RXTX_noExt.mdl'
+30-Aug-2010 14:42:14: Successfully built model 'FreePortComm_RXTX_noExt2.mdl'
+30-Aug-2010 14:42:29: Successfully built model 'FreePortComm_RX_7Seg_MiniDragon.mdl'
+30-Aug-2010 14:42:42: Successfully built model 'FreePortComm_RX_simple.mdl'
+
+30-Aug-2010 14:42:55: Successfully built model 'FreePortComm_RX_simple3.mdl'
+
+30-Aug-2010 14:43:08: Successfully built model 'FreePortComm_RX_simple_test.mdl'
+
+
+
+30-Aug-2010 14:43:21: Successfully built model 'FreePortComm_TX_counter.mdl'
+
+30-Aug-2010 14:43:36: Successfully built model 'FreePortComm_TX_simple2.mdl'
+
+30-Aug-2010 14:43:52: Successfully built model 'FreePortComm_TX_simple4.mdl'
+30-Aug-2010 14:44:08: Successfully built model 'FreePortComm_TX_simple_test.mdl'
+30-Aug-2010 14:44:24: Successfully built model 'Fuzzy_2i1o.mdl'
+30-Aug-2010 14:44:38: Successfully built model 'Fuzzy_3i1o.mdl'
+
+
+30-Aug-2010 14:44:52: Encountered errors when building model 'Onboard_DAC_Dragon12RevE.mdl' (see .../Onboard_DAC_Dragon12RevE_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1907: Fixup overflow in abort_LED, to sigLED type 3, at offset 0x5
+  --> Link Error   : Link failed
+30-Aug-2010 14:45:05: Successfully built model 'PWM.mdl'
+30-Aug-2010 14:45:18: Successfully built model 'PWM2.mdl'
+
+30-Aug-2010 14:45:31: Successfully built model 'PWM3.mdl'
+30-Aug-2010 14:45:44: Successfully built model 'PWM_and_Servo.mdl'
+30-Aug-2010 14:45:59: Successfully built model 'RFCcliRX.mdl'
+30-Aug-2010 14:46:12: Successfully built model 'RFCcliRXTX_formtd_noExt.mdl'
+30-Aug-2010 14:46:25: Successfully built model 'RFCcliRX_PTH_client1.mdl'
+30-Aug-2010 14:46:37: Successfully built model 'RFCcliRX_PTH_client1_RF13.mdl'
+30-Aug-2010 14:46:50: Successfully built model 'RFCcliRX_PTH_client1_formtd.mdl'
+30-Aug-2010 14:47:02: Successfully built model 'RFCcliRX_PTH_client2.mdl'
+30-Aug-2010 14:47:14: Successfully built model 'RFCcliRX_PTH_client3.mdl'
+30-Aug-2010 14:47:26: Successfully built model 'RFCcliRX_PTH_client4.mdl'
+30-Aug-2010 14:47:39: Successfully built model 'RFCcliRX_PTH_client5.mdl'
+30-Aug-2010 14:47:52: Successfully built model 'RFCcliRX_freePort0_5.mdl'
+
+30-Aug-2010 14:48:05: Successfully built model 'RFCcliRX_freePort0_5_formtd_noExt.mdl'
+
+30-Aug-2010 14:48:17: Successfully built model 'RFCcliRX_freePort0_5x2_formtd_noExt.mdl'
+
+30-Aug-2010 14:48:30: Successfully built model 'RFComm_server_TX_freePort0.mdl'
+30-Aug-2010 14:48:43: Successfully built model 'RFCsvrRXTX_formtd_noExt.mdl'
+30-Aug-2010 14:48:55: Successfully built model 'RFCsvrRX_noExt.mdl'
+30-Aug-2010 14:49:07: Successfully built model 'RFCsvrTX_counter.mdl'
+30-Aug-2010 14:49:20: Successfully built model 'RFCsvrTX_counter_5clients_noExt.mdl'
+30-Aug-2010 14:49:32: Successfully built model 'RFCsvrTX_counter_formtd_noExt.mdl'
+30-Aug-2010 14:49:45: Successfully built model 'RFCsvrTX_freePort0_5.mdl'
+30-Aug-2010 14:49:59: Successfully built model 'RFCsvrTX_freePort0_5_formtd.mdl'
+30-Aug-2010 14:50:11: Successfully built model 'RFCsvrTX_freePort0_5_formtd_noExt.mdl'
+30-Aug-2010 14:50:24: Successfully built model 'RFCsvrTX_freePort0_5x2_formtd_noExt.mdl'
+30-Aug-2010 14:50:36: Successfully built model 'RFCsvrTX_freePort0_noExt.mdl'
+30-Aug-2010 14:50:48: Successfully built model 'Robot.mdl'
+
+30-Aug-2010 14:51:01: Successfully built model 'Servo_PWM.mdl'
+30-Aug-2010 14:51:15: Successfully built model 'Shaker_Driver_sysID2.mdl'
+30-Aug-2010 14:51:28: Encountered errors when building model 'SimpleModel.mdl' (see .../SimpleModel_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1907: Fixup overflow in RTI_Init, to RTI_SetSampleTime type 3, at offset 0x11
+  --> Link Error   : Link failed
+30-Aug-2010 14:51:40: Successfully built model 'Sonar.mdl'
+30-Aug-2010 14:51:55: Successfully built model 'SpeedControl.mdl'
+30-Aug-2010 14:52:08: Successfully built model 'SpeedControl_PWM.mdl'
+30-Aug-2010 14:52:23: Encountered errors when building model 'SysID.mdl' (see .../SysID_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1102: Out of allocation space in segment MY_RAM at address 0x2A27
+  --> Link Error   : Link failed
+30-Aug-2010 14:52:38: Encountered errors when building model 'SysID_RGS.mdl' (see .../SysID_RGS_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1102: Out of allocation space in segment MY_RAM at address 0x2A27
+  --> Link Error   : Link failed
+30-Aug-2010 14:52:51: Successfully built model 'Timer.mdl'
+30-Aug-2010 14:53:02: Successfully built model 'Timer_IC.mdl'
+30-Aug-2010 14:53:16: Successfully built model 'Timer_OC.mdl'
+30-Aug-2010 14:53:28: Successfully built model 'Timer_OC_2.mdl'
+30-Aug-2010 14:53:41: Successfully built model 'TogPort.mdl'
+30-Aug-2010 14:53:52: Successfully built model 'TogPortNoComms.mdl'
+30-Aug-2010 14:54:07: Successfully built model 'atest.mdl'
+
+30-Aug-2010 14:54:20: Successfully built model 'borrar_MiniDragon.mdl'
+30-Aug-2010 14:54:36: Successfully built model 'ex3_1.mdl'
+30-Aug-2010 14:54:50: Successfully built model 'ex3_2.mdl'
+30-Aug-2010 14:55:09: Encountered errors when building model 'f14.mdl' (see .../f14_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1907: Fixup overflow in ExtShutDown, to ExtCloseSerialConnection type 3, at offset 0x8
+  --> Link Error   : Link failed
+30-Aug-2010 14:55:28: Encountered errors when building model 'shower.mdl' (see .../shower_mc9s12_rtw/sources/buildErrorsWarnings.mat)
+  --> Link Error   : L1102: Out of allocation space in segment MY_RAM at address 0x3EEE
+  --> Link Error   : Link failed
+30-Aug-2010 14:55:41: Successfully built model 'test.mdl'
+30-Aug-2010 14:55:52: Successfully built model 'testBCIRobot.mdl'
+30-Aug-2010 14:56:05: Successfully built model 'testBCIRobot2.mdl'
+30-Aug-2010 14:56:17: Successfully built model 'testBCIRobot3.mdl'
+30-Aug-2010 14:56:29: Successfully built model 'testBCIRobot3a.mdl'
+30-Aug-2010 14:56:43: Successfully built model 'testBCIRobot3b.mdl'
+30-Aug-2010 14:56:57: Successfully built model 'testBCIRobot3c.mdl'
+30-Aug-2010 14:57:09: Successfully built model 'testBCIRobot3d.mdl'
+30-Aug-2010 14:57:23: Successfully built model 'testBCIRobot3e.mdl'
+30-Aug-2010 14:57:36: Successfully built model 'testBCIRobot3e_ext.mdl'
+
+30-Aug-2010 14:57:49: Successfully built model 'testBCIRobot3f_ext.mdl'
+
+30-Aug-2010 14:58:02: Successfully built model 'testBCIRobot3g_ext.mdl'
+30-Aug-2010 14:58:15: Successfully built model 'testBCIRobotCommsRX.mdl'
+30-Aug-2010 14:58:26: Successfully built model 'testBCIRobotCommsRX_noExtMode.mdl'
+30-Aug-2010 14:58:39: Successfully built model 'testMiniDragonDisplay.mdl'
+
+30-Aug-2010 14:58:52: Successfully built model 'vdp.mdl'
+
+
+
+***********************************************************
+

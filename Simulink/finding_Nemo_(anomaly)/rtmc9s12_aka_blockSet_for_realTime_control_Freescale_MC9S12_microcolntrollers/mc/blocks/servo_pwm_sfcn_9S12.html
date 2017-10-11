@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>Servo Motor Driver Block (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: PWM --><!-- CHAPNAME: PWM --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td bgcolor="#ffe4b0"><b>Embedded Target for
+                        Freescale 9S12 microcontrollers<br>
+                    </b></td>
+                    <td align="right" bgcolor="#ffe4b0" valign="baseline"><a
+                    href="pwm_sfcn_9S12.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a>&nbsp;&nbsp;&nbsp;<a
+                    href="sonar_sfcn_9S12.html"><img src="helpimages/b_next.gif" alt="Next Page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a name="180531"><font color="#990000" size="+3">Servo Motor Driver Block </font>
+        <!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>Driver block for servo motors<br>
+        </p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_servo_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>The Servo Motor PWM Output block can be
+            configured to produce Pulse-Width Modulated signals with an 8-bit or 16-bit
+            resolution. Up to 8 PWM channels are available (8-bit mode, 4 channels
+            in 16-bit mode). The block accepts unipolar input signals. The
+            magnitude of these signals defines the duty cycle of the PWM signal, ranging from
+            the specified Minimum Pulse Width (0) to the specified Maximum Pulse
+            Width (saturation input level). The specified resolution (8 bit / 16 bit) applies to the entire period of
+            the PWM signal, i. e. the smallest increment is PWMperiod / 2<sup>Resolution</sup>.<br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_servo_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>PWM period<br>
+            </b></dt>
+            <dd>Period of the Pulse-Width Modulated signal. This is typically a value of 
+            20 ms or 40 ms.</dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Minimum Pulse Width<br>
+            </b></dt>
+            <dd>This is the pulse width of the shortest pulses, corresponding to
+            the minimum position of the servo motor.</dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Maximum Pulse Width<br></b></dt>
+            <dd>This is the pulse width of the longest pulses, corresponding to
+            the maximum position of the servo motor.</dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Resolution<br></b></dt>
+            <dd>The resolution of the chosen PWM channel.
+                There are 8 channels at <span style="font-family: monospace;">8-bit</span>
+                or 4 channels at <span style="font-family: monospace;">16-bit</span>. <code></code>
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Pulse pin<br></b></dt>
+            <dd>The PWM unit uses port P (<span
+                style="font-family: monospace;">PTP</span>)&nbsp; to display the pulse
+                sequences. As each <span style="font-family: monospace;">16-bit</span>
+                channel ties up 2 PWM timers, only every second pin of <span
+                style="font-family: monospace;">PTP</span> can be chosen in <span
+                style="font-family: monospace;">16-bit</span> mode ('<span
+                style="font-family: monospace;">1</span>', <span
+                style="font-family: monospace;"></span>'<span
+                style="font-family: monospace;">3</span>', '<span
+                style="font-family: monospace;">5</span>' or '<span
+                style="font-family: monospace;">7</span>'). This constraint does not
+                apply to the <span style="font-family: monospace;">8-bit</span> mode.<br>
+            </dd>
+        </dl>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Saturation input level (Simulated voltage)<br></b></dt>
+            <dd>Block input signals with a magnitude above this level are mapped
+                to a duty cycle of 100%.
+            </dd>
+        </dl>
+            <a name="182791"></a><dt><br></dt>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="pwm_sfcn_9S12.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Pulse-Width Modulated Output (PWM)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">Sonar Range Finder Driver&nbsp;</td>
+                    <td align="right" width="20"><a href="sonar_sfcn_9S12.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

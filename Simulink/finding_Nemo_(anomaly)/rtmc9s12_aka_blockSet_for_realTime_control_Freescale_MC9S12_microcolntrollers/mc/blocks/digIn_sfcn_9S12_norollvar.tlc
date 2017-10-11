@@ -1,0 +1,78 @@
+%% File : digIn_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Digital input device driver
+%%
+%%   fw-03-05
+%%
+%implements  digIn_sfcn_9S12 "C"
+
+%% (P1) SAMPLE_TIME -- real_T
+%% (P2) PORT		-- real_T
+%% (P3) PIN_ARRAY	-- real_T [array]
+%% (P4) VON			-- real_T
+%% (P5) VOFF		-- real_T
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Code generation for initilization of digital input
+%%
+%function Start(block, system) Output
+
+	/* Initialize digital inputs for port %<block.RTWdata.portStr> */ 
+	%<block.RTWdata.ddrStr> &= ~%<block.RTWdata.pinMask>;
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation for signal input
+%%
+%function Outputs(block, system) Output
+
+	uint8_T value = %<block.RTWdata.portStr>;
+
+	/* read port data register and return (%<block.RTWdata.portStr>) */
+	
+	%assign y  = LibBlockOutputSignal(0, "", "", 0)
+	%assign p  = LibBlockParameter(P3, "", "", 0)
+	%assign sizeP = LibBlockParameterSize(P3)
+	%assign np = sizeP[1]
+	
+	%if np > 1
+	{
+		uint16_T   i;
+		real_T     *pp = (real_T *)&%<p>;
+		real_T     *yy = (real_T *)&%<y>;
+		
+		for(i=0; i<%<np>; i++) {
+			
+			if((value & (uint8_T)(1 << (uint8_T)pp[i])) > 0) yy[i] = 1.0;
+			else                                             yy[i] = 0.0;
+			
+		}
+	}
+	%else
+	{
+		if((value & (uint8_T)(1 << (uint8_T)%<p>)) > 0) %<y> = 1.0;
+		else                                            %<y> = 0.0;
+	}
+	%endif
+	
+%endfunction
+
+%% [EOF] digIn_sfcn_9S12.tlc
+
+
+
+
+

@@ -1,0 +1,68 @@
+%% File : digIn_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Digital input device driver
+%%
+%%   fw-03-05
+%%
+%implements  digIn_sfcn_9S12 "C"
+
+%% (P1) SAMPLE_TIME -- real_T
+%% (P2) PORT		-- real_T
+%% (P3) PIN_ARRAY	-- real_T [array]
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Code generation for initilization of digital input
+%%
+%function Start(block, system) Output
+
+	/* Initialize digital inputs for port %<block.RTWdata.portStr> */ 
+	%<block.RTWdata.ddrStr> &= ~%<block.RTWdata.pinMask>;
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation for signal input
+%%
+%function Outputs(block, system) Output
+
+	/* read port data register and return (%<block.RTWdata.portStr>) */
+	{
+	   uint8_T	value = %<block.RTWdata.portStr>;
+	   
+		%assign rollVars = ["Y", "P"]
+		%% setting 'RollThreshold = 2' => this is when the loop overhead
+		%% becomes less than the cost of individual assignments --  fw-03-05
+		%roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+			
+			%assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+			%assign p = LibBlockParameter(P3, "", lcv, sigIdx)
+			
+			if((value & (uint8_T)(1 << (uint8_T)(%<p>))) > 0) %<y> = 1.0;
+			else                                              %<y> = 0.0;
+			
+		%endroll
+		
+	}
+
+%endfunction
+
+%% [EOF] digIn_sfcn_9S12.tlc
+
+
+
+
+

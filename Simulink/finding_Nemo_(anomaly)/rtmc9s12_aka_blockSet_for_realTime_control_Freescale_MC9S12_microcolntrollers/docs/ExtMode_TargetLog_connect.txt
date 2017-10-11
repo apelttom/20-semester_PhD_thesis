@@ -1,0 +1,621 @@
+[1] main: Initializing model ------------------------------------<LF>
+[1] model_init: Initializing timebase. Payload section disabled.<LF>
+[1] model_init: MODEL initialised, initialising External Mode interface.<LF>
+-[2] ExtSerialPortCreate: IN<LF>
+-[2] ExtSerialPortCreate: OUT<LF>
+-[2] ExtModeMalloc: Current request: 408 bytes<LF>
+-[2] initFreeQueue: Bytes allocated: 8, bytes free: 6492<LF>
+-[2] ExtModeMalloc: Bytes allocated: 416, bytes free: 6084<LF>
+-[2] ExtModeMalloc: Current request: 408 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 824, bytes free: 5676<LF>
+-[2] ExtModeMalloc: Current request: 418 bytes<LF>
+-[2] ExtModeMalloc: Unaligned allocation address: 0x25BE<LF>
+-[2] ExtModeMalloc: Need 2 alignment byte(s)<LF>
+-[2] ExtModeMalloc: Adjusted size: 420<LF>
+-[2] ExtModeMalloc: Aligned allocation address: 0x25BC<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1244, bytes free: 5256<LF>
+-[2] ExtModeMalloc: Current request: 418 bytes<LF>
+-[2] ExtModeMalloc: Unaligned allocation address: 0x241A<LF>
+-[2] ExtModeMalloc: Need 2 alignment byte(s)<LF>
+-[2] ExtModeMalloc: Adjusted size: 420<LF>
+-[2] ExtModeMalloc: Aligned allocation address: 0x2418<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1664, bytes free: 4836<LF>
+-[2] ExtSerialPortConnect: IN<LF>
+-[2] SCIx_init: IN, MATLAB communication port: SCI0<LF>
+-[2] SCIx_init: OUT, error status: EXT_NO_ERROR<LF>
+-[2] ExtSerialPortConnect: OUT, error status: 0<LF>
+[1] model_init: External Mode interface initialized, enabling interrupts.<LF>
+[1] model_init: Interrupts enabled (globally).<LF>
+[1] model_init: Waiting for START_PACKAGE...<LF>
+-[2] CheckExtSerialPacket: Suspending processing until there are 17 bytes in the comms line buffer / RX ring buffer.<LF>
+<1 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x65 0x78 0x74 0x2D 0x6D 0x6F 0x64 0x65 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x65 0x78 0x74 0x2D 0x6D 0x6F 0x64 0x65 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x10<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] ExtModeMalloc: Current request: 100 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1764, bytes free: 4736<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x10<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x5C<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x5C<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8A<LF>
+-[2] serial_set_string: Sending  0xB1<LF>
+-[2] serial_set_string: Sending  0x63<LF>
+-[2] serial_set_string: Sending  0x3C<LF>
+-[2] serial_set_string: Sending  0x52<LF>
+-[2] serial_set_string: Sending  0xE7<LF>
+-[2] serial_set_string: Sending  0x63<LF>
+-[2] serial_set_string: Sending  0xB8<LF>
+-[2] serial_set_string: Sending  0xD0<LF>
+-[2] serial_set_string: Sending  0xED<LF>
+-[2] serial_set_string: Sending  0x9C<LF>
+-[2] serial_set_string: Sending  0xE5<LF>
+-[2] serial_set_string: Sending  0xB8<LF>
+-[2] serial_set_string: Sending  0x2E<LF>
+-[2] serial_set_string: Sending  0x34<LF>
+-[2] serial_set_string: Sending  0x50<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0xF<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] ExtModeFree: Bytes allocated: 1664, bytes free: 4836<LF>
+-[2] mergeMemBuf: IN<LF>
+-[2] mergeWithMemBufOnRight: Largest free buffer size: 4836 bytes<LF>
+-[2] mergeMemBuf: OUT<LF>
+<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E 0x1 0x8 0x0><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+<1 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x4B 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x4B 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+<LF>
+-[2] GetPkt: IN<LF>
+-[2] ExtModeMalloc: Current request: 83 bytes<LF>
+-[2] ExtModeMalloc: Unaligned allocation address: 0x23C5<LF>
+-[2] ExtModeMalloc: Need 1 alignment byte(s)<LF>
+-[2] ExtModeMalloc: Adjusted size: 84<LF>
+-[2] ExtModeMalloc: Aligned allocation address: 0x23C4<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1748, bytes free: 4752<LF>
+<LF>
+-[2] CheckExtSerialPacket: Suspending processing until there are 84 bytes in the comms line buffer / RX ring buffer.<LF>
+<1 0x7E 0x7E 0x1 0x4B 0x0 0x0 0x0 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x3D 0xCC 0xCC 0xCD 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x7D 0x23 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x7D 0x23 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x2 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x7D 0x23 0xF 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x4B 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x3D 0xCC 0xCC 0xCD 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x3 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x3 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x2 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x3 0xF 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: OUT<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_SETPARAM_RESPONSE (18) with size 4<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x12<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+-[2] SendPktToHost: Sending data...<LF>
+<2 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x6 0x0 0x0 0x0 0x30 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x6 0x0 0x0 0x0 0x30 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x4<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... data sent.<LF>
+-[2] ProcessSelectSignalsPkt: IN<LF>
+-[2] GetPkt: IN<LF>
+<LF>
+<1 0x7E 0x7E 0x1 0x30 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1F 0x60 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x30 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x1F 0x60 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: OUT<LF>
+-[2] UploadLogInfoInit: IN<LF>
+-[2] UploadLogInfoInit: Allocating memory for uploadInfo->sysTables (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 12 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1760, bytes free: 4740<LF>
+-[2] Unknown Function: Allocating memory for sysTable->uploadMap (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 12 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1772, bytes free: 4728<LF>
+-[2] Unknown Function: Allocating memory for sysTable->uploadMap[tid] (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 16 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1788, bytes free: 4712<LF>
+-[2] Unknown Function: Allocating memory for map->sections (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 12 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1800, bytes free: 4700<LF>
+-[2] UploadLogInfoInit: Allocating memory for uploadInfo->circBufs (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 36 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 1836, bytes free: 4664<LF>
+-[2] UploadBufInit: Allocating memory for circBuf->buf (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 2008 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 3844, bytes free: 2656<LF>
+-[2] UploadLogInfoInit: Allocating memory for uploadInfo->bufMemList.bufs (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 16 bytes<LF>
+-[2] ExtModeMalloc: Bytes allocated: 3860, bytes free: 2640<LF>
+-[2] UploadLogInfoInit: Allocating memory for uploadInfo->bufMemList.tids (updown.c)<LF>
+-[2] ExtModeMalloc: Current request: 10 bytes<LF>
+-[2] ExtModeMalloc: Unaligned allocation address: 0x1B7A<LF>
+-[2] ExtModeMalloc: Need 2 alignment byte(s)<LF>
+-[2] ExtModeMalloc: Adjusted size: 12<LF>
+-[2] ExtModeMalloc: Aligned allocation address: 0x1B78<LF>
+-[2] ExtModeMalloc: Bytes allocated: 3872, bytes free: 2628<LF>
+-[2] UploadLogInfoInit: OUT, error status: 0<LF>
+-[2] SendResponseStatus: IN<LF>
+-[2] SendResponseStatus: Response status: 0 (upInfoIdx = 0)<LF>
+<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_SELECT_SIGNALS_RESPONSE (27) with size 8<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x9 0x0 0x0 0x0 0x4 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1B<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+-[2] SendPktToHost: Sending data...<LF>
+<2 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x9 0x0 0x0 0x0 0x4 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x9 0x0 0x0 0x0 0x4 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... data sent.<LF>
+-[2] SendResponseStatus: OUT, error status: 0<LF>
+-[2] ProcessSelectSignalsPkt: OUT, error status: 0<LF>
+-[2] ProcessCancelLoggingPkt: IN<LF>
+-[2] GetPkt: IN<LF>
+<LF>
+<1 0x7E 0x7E 0x1 0x4 0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x1 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: OUT<LF>
+-[2] DisplayTriggerStateOnLCD: trigInfo.state = TRIGGER_UNARMED<LF>
+-[2] SendResponseStatus: IN<LF>
+-[2] SendResponseStatus: Response status: 0 (upInfoIdx = 1)<LF>
+<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_CANCEL_LOGGING_RESPONSE (30) with size 8<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x7 0x0 0x0 0x0 0x20 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1E<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+-[2] SendPktToHost: Sending data...<LF>
+<2 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x7 0x0 0x0 0x0 0x20 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x7 0x0 0x0 0x0 0x20 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... data sent.<LF>
+-[2] SendResponseStatus: OUT, error status: 0<LF>
+-[2] ProcessCancelLoggingPkt: OUT, error status: 0<LF>
+-[2] ProcessSelectTriggerPkt: IN<LF>
+-[2] GetPkt: IN<LF>
+<LF>
+<1 0x7E 0x7E 0x1 0x20 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x13 0x88 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x20 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x13 0x88 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: OUT<LF>
+-[2] SendResponseStatus: IN<LF>
+-[2] SendResponseStatus: Response status: 0 (upInfoIdx = 0)<LF>
+<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_SELECT_TRIGGER_RESPONSE (28) with size 8<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1C<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+-[2] SendPktToHost: Sending data...<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... data sent.<LF>
+-[2] SendResponseStatus: OUT, error status: 0<LF>
+-[2] ProcessSelectTriggerPkt: OUT, error status: 0<LF>
+<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x8><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+<1 0x7E 0x7E 0x1 0x8 0x0 0x0 0x0 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x4 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x8 0x0 0x0 0x0 0x4 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: IN<LF>
+<LF>
+-[2] CheckExtSerialPacket: Suspending processing until there are 13 bytes in the comms line buffer / RX ring buffer.<LF>
+<1 0x7E 0x7E 0x1 0x4 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x1 0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x2<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] GetPkt: OUT<LF>
+-[2] DisplayTriggerStateOnLCD: trigInfo.state = TRIGGER_ARMED<LF>
+-[2] SendResponseStatus: IN<LF>
+-[2] SendResponseStatus: Response status: 0 (upInfoIdx = 0)<LF>
+<LF>
+-[2] SendPktToHost: Sending action Packet type is EXT_ARM_TRIGGER_RESPONSE (29) with size 8<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x1D<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... action and size sent.<LF>
+-[2] SendPktToHost: Sending data...<LF>
+<2 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>
+[1] ExtSetPkt: waitForAck = FALSE -> clear to send<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x7E<LF>
+-[2] serial_set_string: Sending  0x1<LF>
+-[2] serial_set_string: Sending  0x8<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x0<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+-[2] serial_set_string: Sending  0x3<LF>
+[1] ExtSetPktWithACK: ExtMode packet sent, setting waitForAck to TRUE<LF>
+-[2] SendPktToHost: ... data sent.<LF>
+-[2] SendResponseStatus: OUT, error status: 0<LF>
+<1 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3><LF>
+[ 0x7E 0x7E 0x2 0x0 0x0 0x0 0x0 0x3 0x3 ]<LF>
+[1] ExtGetPktBlocking: Received ACK_PACKET -> waitForAck = FALSE;<LF>

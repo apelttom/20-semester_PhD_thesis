@@ -1,0 +1,271 @@
+%% File : adc_sfcn_9S12.tlc
+%%        ADC on the 9S12  --  single-channel and multi-channel conversions
+%%
+%%
+%implements  adc_sfcn_9S12 "C"
+%%
+%% (P1)  ATDBANK           (uint_T)(mxGetScalar(ssGetSFcnParam(S, ATDBANK_ARGC)))
+%% (P2)  FIRST_CHANNEL     (uint_T)(mxGetScalar(ssGetSFcnParam(S, FIRST_CHANNEL)))
+%% (P3)  NUMBERofCHANNELS  (uint_T)(mxGetScalar(ssGetSFcnParam(S, NUMBERofCHANNELS)))
+%% (P4)  USE8BITS          (uint_T)(mxGetScalar(ssGetSFcnParam(S, USE8BITS_ARGC)))
+%% (P5)  NORMALIZE         (uint_T)(mxGetScalar(ssGetSFcnParam(S, NORMALIZE_ARGC)))
+%% (P6)  SAMPLETIME                (mxGetScalar(ssGetSFcnParam(S, SAMPLETIME_ARGC)))
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Analog to Digital Converter initialization code.
+%%
+%function Start(block, system) Output
+
+    /* S-Function "adc_sfcn_9S12" initialization Block: %<Name> */
+    %% Select ATD Bank 0 or Bank 1
+    %assign atdBank = %<CAST( "Number", LibBlockParameterValue(P1,1) )>
+    %assign numChannels = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %assign ResolutionBit = %<CAST( "Number", LibBlockParameterValue(P4,1) )> * 128
+  
+    /* ATDxCTL2 register bits: 
+     * [ ADPU AFFC AWAI ETRIGLE ETRGP ETRGE ASCIE ASCIF ] 
+     *     1 Normal
+     *          0  Any access to result reg will clears all flags  
+     *               0 Power down during wait mode 
+     *                     0  High level
+     *                            0 Rising edge
+     *                                   0 Disable external trigger
+     *                                        0 Disable sequence complete interrupts
+     *                                               0 (This bit read only) 
+     *  Example: ATD0CTL2 = 0x80;
+     */
+   
+    ATD%<atdBank>CTL2 = 0x80;  
+ 
+    /* ATD0CTL3 register bits: 
+     * [ b7  S8C  S4C  S2C  S1C  FIFO  FRZ1  FRZ0 ] 
+     *    0 (this bit read only)
+     *        0  see Table 3-3 ATD_10B16C Block User Guide  
+     *             0   see Table 3-3
+     *                  0  see Table 3-3
+     *                       1  see Table 3-3
+     *                             0 non-Fifo mode 
+     *                                  0  Finish conversion, then freeze
+     *                                         0 (combined with above line)
+     *  Example: ATD0CTL3 = 0x00;
+     */
+
+    %assign myCTL2 = %<numChannels> << 3
+    
+    ATD%<atdBank>CTL3 = %<myCTL2>;
+ 
+    /* ATD0CTL4 register bits: 
+     * [ SRES8  SMP1  SMP0  PRS4  PRS3  PRS2  PRS1  PRS0 ] 
+     *    0 ATD resolution select set to 8-bits (0 : 10-bit)
+     *           0  Sample time select for conversions  
+     *                  0 (combined with above)  
+     *                        0  Default divide by 12
+     *                              0 (combined with above) 
+     *                                    1  (combined with above) 
+     *                                          0  (combined with above) 
+     *                                               1 (combined with above) 
+     *  Example: ATD0CTL4 = 0x05;
+     */     
+
+    ATD%<atdBank>CTL4 = 0x05 | %<ResolutionBit>;
+    
+    /* ATD0CTL5 register bits: 
+     * [ DJM  DSGN  SCAN  MULT  CD  CC  CB  CA ] 
+     *    1 Right justified data in result registers
+     *          0 Signed data representation in result registers  
+     *                1 Use continuous conversion   
+     *                      0 Sample multiple channels at a time
+     *                           x  For channel selection
+     *                               x  same as above 
+     *                                   x  same as above 
+     *                                      x  same as above  
+     *
+     * Example: ATD0CTL5 = 0xA0     initiates a right justified
+     *                              conversion for channel 0
+     *
+     * Initialization of this register is done in mdlOutputs
+     */     
+  
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlOutputs function.
+%%
+%function Outputs(block, system) Output
+
+    /* S-Function "adc_sfcn_9S12" Block: %<Name> */
+    %%
+    %% Determine ATD bank: bank 0 or bank 1
+    %assign atdBank = %<CAST( "Number",LibBlockParameterValue(P1,1) )>
+    %assign firstChannel = %<CAST( "Number", LibBlockParameterValue(P2,1) )>
+    %assign numChannels = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %assign ccf = numChannels - 1
+    %%
+    
+    %if %<numChannels> > 1
+    %% multi channel conversion, result right justified
+    %%
+    /* start multi-channel conversion, first channel: %<firstChannel> */
+    ATD%<atdBank>CTL5 = 0x90|%<firstChannel>;
+    %else
+    %% single channel conversion, result right justified
+    %%
+    /* start single-channel conversion, channel: %<firstChannel> */
+    ATD%<atdBank>CTL5 = 0x80|%<firstChannel>;
+    %endif
+  
+    /* wait for conversion complete flag CCF%<ccf> (last in sequence) */
+    %%while (ATD%<atdBank>STAT1_CCF%<ccf> == 0) ;
+    while ((ATD%<atdBank>STAT1 & (0x01 << %<ccf>)) == 0) ;
+    
+    %assign y = LibBlockOutputSignal(0, "", "", 0)  
+    %assign Use8BitResolution = %<CAST( "Number",LibBlockParameterValue(P4,1) )>
+    %assign Normalize         = %<CAST( "Number",LibBlockParameterValue(P5,1) )>
+    %%
+    %if (%<Use8BitResolution>)   
+      /* 8-bit resolution */
+      %if (%<numChannels> == 1)
+        %if (%<Normalize> == 1)
+          /* output raw values */
+          %<y> = ATD%<atdBank>DR0L;
+        %endif
+        %if (%<Normalize> == 2)
+          /* Normalize to a maxium block output value of 1 */
+          %<y> = (real_T)ATD%<atdBank>DR0L / 255;
+        %endif
+        %if (%<Normalize> == 3)
+          /* Normalize to a maxium block output value of 5 */
+          %<y> = (real_T)ATD%<atdBank>DR0L / 255 * 5;
+        %endif
+      %else
+      {
+        uint16_T    *myYPtr = (uint16_T *)&ATD%<atdBank>DR0;
+        
+        %if (%<Normalize> == 1)
+          /* output raw values */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (uint8_T)(*myYPtr++);
+            
+          %endroll
+        %endif
+        %if (%<Normalize> == 2)
+          /* Normalize to a maxium block output value of 1 */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (real_T)(*myYPtr++) / 255;
+            
+          %endroll
+        %endif
+        %if (%<Normalize> == 3)
+          /* Normalize to a maxium block output value of 5 */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (real_T)(*myYPtr++) / 255 * 5;
+            
+          %endroll
+        %endif
+      }
+      %endif
+    %else   
+      /* 10-bit resolution */   
+      %if (%<numChannels> == 1)
+        %if (%<Normalize> == 1)
+          /* output raw values */
+          %<y> = ATD%<atdBank>DR0;
+        %endif
+        %if (%<Normalize> == 2)
+          /* Normalize to a maxium block output value of 1 */
+          %<y> = (real_T)ATD%<atdBank>DR0 / 1023;
+        %endif
+        %if (%<Normalize> == 3)
+          /* Normalize to a maxium block output value of 5 */
+          %<y> = (real_T)ATD%<atdBank>DR0 / 1023 * 5;
+        %endif
+      %else
+      {
+        uint16_T    *myYPtr = (uint16_T *)&ATD%<atdBank>DR0;
+        
+        %if (%<Normalize> == 1)
+          /* output raw values */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (uint16_T)(*myYPtr++);
+            
+          %endroll
+        %endif
+        %if (%<Normalize> == 2)
+          /* Normalize to a maxium block output value of 1 */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (real_T)(*myYPtr++) / 1023;
+            
+          %endroll
+        %endif
+        %if (%<Normalize> == 3)
+          /* Normalize to a maxium block output value of 5 */
+          %assign rollVars = ["Y"]
+          %% setting 'RollThreshold = 2' => this is when the loop overhead
+          %% becomes less than the cost of individual assignments --  fw-03-05
+          %roll sigIdx = RollRegions, lcv = 2, block, "Roller", rollVars
+            
+            %assign y = LibBlockOutputSignal(0, "", lcv, sigIdx)
+            %<y> = (real_T)(*myYPtr++) / 1023 * 5;
+            
+          %endroll
+        %endif
+      }
+      %endif
+    %endif   
+  
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+    %assign atdBank = %<CAST( "Number",LibBlockParameterValue(P1,1) )>
+    
+    /* switch ATD unit %<atdBank> off again */ 
+    ATD%<atdBank>CTL2 &= ~0x80;
+  
+%endfunction
+
+
+%% [EOF] adc_sfcn_9S12.tlc

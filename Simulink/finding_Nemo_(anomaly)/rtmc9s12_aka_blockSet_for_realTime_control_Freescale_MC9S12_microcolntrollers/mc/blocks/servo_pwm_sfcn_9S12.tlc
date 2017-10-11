@@ -1,0 +1,282 @@
+%% File : servo_pwm_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   Servo Motor PWM device driver for the MC9S12DP256B/C
+%%
+%% fw-04-05
+%%
+%implements  servo_pwm_sfcn_9S12 "C"
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      Servo Motor PWM initialization code.
+%%
+%% === Parameters ===
+%% P1 -- sampletime   (real_T)
+%% P2 -- PWMperiod    (real_T)
+%% P3 -- Pulse pin    (real_T)
+%% P4 -- Vsat         (real_T)
+%%
+%% === RTWdata ===
+%% 'pulsepinStr'      ('0' - '7')
+%% 'pulsepinMask'
+%% 'resolution'       (8 : 8-bit    16 : 16-bit)
+%% 'CLKselect'        (0 : A, SA    1  : B, SB)
+%% 'useSCL'           (0 : A, B     1  : SA, SB)
+%% 'PCKStr'           ('0' - '7')
+%% 'PWMSCLStr'        ('0' - '255')
+%% 'PERIODStr'        ('0' - '255' or '0' - '65535')
+%% 'DUTYMINStr'       ('0' - '255' or '0' - '65535')
+%% 'DUTYMAXStr'       ('0' - '255' or '0' - '65535')
+%%
+
+%function Start(block, system) Output
+
+  /* S-Function "servo_pwm_sfcn_9S12" Block: %<Name> */
+
+  %assign channel = %<block.RTWdata.pulsepinStr>
+  %assign channelMask = %<block.RTWdata.pulsepinMask>
+  %assign PCK = %<block.RTWdata.PCKStr>
+  %assign SCL = %<block.RTWdata.PWMSCLStr>
+  %assign CLKselect = %<block.RTWdata.CLKselectStr>
+  %assign useSCL = %<block.RTWdata.useSCLStr>
+  %assign resolution = %<block.RTWdata.resolutionStr>
+  %assign PERIOD = %<block.RTWdata.PERIODStr>
+
+
+  %% configure PWM clock generators (A / B)
+  %%
+  %if CLKselect == 0
+     %assign PCKVal = %<CAST("Number", PCK)>
+     %%
+     #ifndef INIT_PWM_CLOCK_A
+	 #define INIT_PWM_CLOCK_A 
+     /* Configure PWM clock A */
+     PWMSCLA = %<SCL>;			/* scaler value SA (common to all 'A' channels) */
+     PWMPRCLK &= 0xF0;
+     PWMPRCLK |= %<PCKVal>;		/* prescaler value for clock A, common */
+	 #endif /* INIT_PWM_CLOCK_A */
+  %else
+     %% Bitshift prescaler B left 4 bits -- upper nibble
+     %assign PCK = FEVAL("bitshift", %<PCK>, 4)
+     %assign PCKVal  = %<CAST("Number", PCK)>
+     %%
+     /* Configure PWM clock B */
+     #ifndef INIT_PWM_CLOCK_B
+	 #define INIT_PWM_CLOCK_B 
+     PWMSCLB = %<SCL>;			/* scaler value SB (common to all 'B' channels) */
+     PWMPRCLK &= 0x0F;
+     PWMPRCLK |= %<PCKVal>;		/* prescaler value for clock B, common */
+	 #endif /* INIT_PWM_CLOCK_B */
+  %endif
+
+  
+  %% Set 'scaled clock' bit - always
+  %%
+  %if CLKselect == 0
+	/* Set PWM 'scaled clock' bit (use SA clock) */
+    PWMCLK |= %<channelMask>;	/* channel %<channel> uses scaled clock (SA) */
+  %else
+	/* Set PWM 'scaled clock' bit (use SB clock) */
+    PWMCLK |= %<channelMask>;	/* channel %<channel> uses scaled clock (SB) */
+   %endif
+
+  %% Set initial polarity bit
+  %%
+  /* Set PWM initial polarity bit to '1' */
+  PWMPOL |= %<channelMask>;
+
+
+  %% Set PWM control register and PWM period register
+  %%
+  %assign PERIODreal = LibBlockParameterValue(P2, 0)
+  %%
+  %if resolution == 16
+    %switch(channel)
+    %case 1
+      /* cascading channels 0 & 1 */
+      PWMCTL |= 0x18;
+	  
+	  /* set period register (%<PERIODreal> seconds) */
+	  PWMPER01 = %<PERIOD>;
+	%break
+    %case 3
+      /* cascading channels 2 & 3 */
+      PWMCTL |= 0x28;
+	  
+	  /* set period register (%<PERIODreal> seconds) */
+	  PWMPER23 = %<PERIOD>;
+	%break
+    %case 5
+      /* cascading channels 4 & 5 */
+      PWMCTL |= 0x48;
+	  
+	  /* set period register (%<PERIODreal> seconds) */
+	  PWMPER45 = %<PERIOD>;
+	%break
+    %case 7
+      /* cascading channels 6 & 7 */
+      PWMCTL |= 0x88;
+	  
+	  /* set period register (%<PERIODreal> seconds) */
+	  PWMPER67 = %<PERIOD>;
+    %endswitch
+  %else
+    %switch(channel)
+    %case 1
+      /* ensure separately controlled channels */
+      PWMCTL &= ~0x10;
+	  
+      /* set period register (%<PERIODreal> seconds) */
+      PWMPER%<channel> = %<PERIOD>;
+	%break
+    %case 3
+      /* ensure separately controlled channels */
+      PWMCTL &= ~0x20;
+	  
+      /* set period register (%<PERIODreal> seconds) */
+      PWMPER%<channel> = %<PERIOD>;
+	%break
+    %case 5
+      /* ensure separately controlled channels */
+      PWMCTL &= ~0x40;
+	  
+      /* set period register (%<PERIODreal> seconds) */
+      PWMPER%<channel> = %<PERIOD>;
+	%break
+    %case 7
+      /* ensure separately controlled channels */
+      PWMCTL &= ~0x80;
+	  
+      /* set period register (%<PERIODreal> seconds) */
+      PWMPER%<channel> = %<PERIOD>;
+    %endswitch
+  %endif
+  
+  
+  %% Read input and store value in RWork vector
+  %%
+  %assign u = LibBlockInputSignal(0, "", "", 0)
+  /* initialize RWork with an 'impossible' input value -- this enables mdlOutput to run */
+  %<LibBlockRWork("", "", "", 0)> = -1234.5678;
+
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Servo Motor PWM initialization code.
+%%
+%function Outputs(block, system) Output
+
+  %assign channel = %<block.RTWdata.pulsepinStr>
+  %assign channelMask = %<block.RTWdata.pulsepinMask>
+
+   /* S-Function "servo_pwm_sfcn_9S12" Block: %<Name> 
+    *
+    * Set PWM duty cycle whenever the input signal "u" changes
+    */
+	{
+		
+		real_T	u;
+		
+		%assign u = LibBlockInputSignal(0, "", "", 0)
+		%assign uOld = LibBlockRWork("", "", "", 0)
+		%assign duty = LibBlockIWork("", "", "", 0)
+		%assign dutyMIN = %<block.RTWdata.dutyMINStr>
+		%assign dutyMAX = %<block.RTWdata.dutyMAXStr>
+		%assign range = dutyMAX - dutyMIN
+		%assign Vsat = LibBlockParameter(P4, "", "", 0)
+		%%
+		/* get input value */
+		u = %<u>;
+		
+		/* only update unit if the input voltage 'u' has changed */
+		if(u != %<uOld>) {
+		
+			/* retain current input value for the next time round... */
+			%<uOld> = u;
+			
+			/* check polarity of input voltage */
+			if (u < 0) {
+				
+				/* negative inputs : reset to '0' */
+				u = 0;
+				
+			}
+			
+			/* limit input voltage to the specified maximum (Vsat) */
+			if(u > %<Vsat>) {
+				
+				u = %<Vsat>;
+				
+			}
+			
+			/* new duty cycle (store in IWork[0]) */
+			%<duty> = (uint_T)(u/%<Vsat> * %<range> + %<dutyMIN>);
+			
+			%% Set PWM control register and PWM duty cycle register
+			%%
+			%assign resolution = %<block.RTWdata.resolutionStr>
+			%assign channel = %<block.RTWdata.pulsepinStr>
+			%%
+			%if (resolution)
+			  %switch(channel)
+			  %case 1
+				/* duty cycle channels 0 & 1 */
+				PWMDTY01 = %<duty>;
+			  %break
+			  %case 3
+				/* duty cycle channels 2 & 3 */
+				PWMDTY23 = %<duty>;
+			  %break
+			  %case 5
+				/* duty cycle channels 4 & 5 */
+				PWMDTY45 = %<duty>;
+			  %break
+			  %case 7
+				/* duty cycle channels 6 & 7 */
+				PWMDTY67 = %<duty>;
+			  %endswitch
+			%else
+				/* duty cycle channel %<channel> */
+				PWMDTY%<channel> = %<duty>;
+			%endif
+			
+		} /* if(u != _u) */
+		
+	} /* S-Function "servo_pwm_sfcn_9S12" Block: %<Name> */
+	
+    /* enable PWM channel %<channel> */ 
+    PWME |= %<channelMask>;
+    
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+	%assign channel = %<block.RTWdata.pulsepinStr>
+	%assign channelMask = %<block.RTWdata.pulsepinMask>
+	
+    /* disable Servo Motor PWM channel %<channel> */ 
+    PWME &= ~%<channelMask>;
+  
+%endfunction
+
+
+%% [EOF] servo_pwm_sfcn_9S12.tlc

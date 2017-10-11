@@ -1,0 +1,19 @@
+http://aicps.eng.uci.edu/research/CPES/Tools/GridMat.htm
+
+Tool Overview
+
+Modeling a complex, large-scale, heterogeneous, multi-physics, multi-domain, and distributed system like microgrid requires heterogeneous 
+composition of physical, computational, and communication sub-systems including their causality, time semantics, and different physical domains.
+
+State-of-the-art distribution grid and/or microgrid modeling & simulation tools are domain-specific and are mostly capable to capture only the physical 
+components (power system and energy resources) of the model. However, common to most of the tools is that these tools do not provide a test bed 
+to simulate an energy distribution model like residential microgrid where power system modeling at a very detailed level, 
+e.g. at appliance level is required. To solve this problem of modeling detailed residential power systems of a residential microgrid, 
+we have used GridLAB-D, an agent-based power system modeling and simulation tool.
+
+Existing power system modeling tools including GridLAB-D lack the capability to capture the cyber-components 
+(control, software, communication, and embedded hardware) during modeling and simulation. Therefore, new methodology 
+and/or tool are required to integrate various domain-specific tools.
+
+In this project, we are following model-based design approach. We have developed a Matlab/Simulink tool box for GridLAB-D that supports modeling, 
+simulation, grid impact analysis, and validation of power & control systems of a residential microgrid. Details will come soon.

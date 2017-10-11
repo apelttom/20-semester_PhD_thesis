@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>RF Communication Module, Client (Embedded Target for Freescale 9S12)</title>
+        <!-- $Revision: 1.1 $  $Date: 2003/02/04 20:59:06 $ --><!-- DOCNAME: Embedded Target for Freescale 9SC12 --><!-- CHUNKNAME: UserTelRxD--><!-- CHAPNAME: UserTelRxD --><!-- HEADSTUFF -->
+        <link rel="stylesheet" href="docstyle1.css" type="text/css">
+    </head>
+    <body style="background-color: rgb(255, 255, 255);">
+        <a name="180531">
+        <!-- NAVBARTOP --></a>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td bgcolor="#ffe4b0" valign="baseline"><b>Embedded Target for
+                        Freescale 9S12 microcontrollers<br>
+                    </b></td>
+                    <td align="right" bgcolor="#ffe4b0"><a
+                    href="freePortComms_rxd.html"><img src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a>&nbsp;&nbsp;&nbsp;<a
+                    href="rfComms_server.html"><img src="helpimages/b_next.gif" alt="Next Page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a name="180531"><font color="#990000" size="+3">RF Communication Module, Client </font><!-- FNAME:ADC Input --></a><a name="180531"></a><a
+        name="hc12_ADC_In_blkref"></a><!-- H2 --><a name="180533"></a><br>
+        <p><a name="180534"></a>Driver block for a <a href="http://nvlsi.no/index.cfm?obj=product&act=display&pro=64">Nordic nRF2401 radio module</a> 
+            in client mode.<br>
+        </p>
+        <a name="library"></a><!-- H2 --><a name="180535"></a>
+        <p><font color="#990000" size="+1"><b>Library</b></font><br>
+        </p>
+        <p><a name="180536"></a>Real-Time toolbox for 'Freescale mc9s12' based targets (rtmc9s12-Target)<br>
+        </p>
+        <a name="description"></a><!-- H2 --><a name="180539"></a>
+        <p><font color="#990000" size="+1"><b>Description</b></font></p>
+        <p><font color="#990000" size="+1"><b><img src="helpimages/mc9S12_rfComms_client_icon.gif" alt=""></b></font><br></p>
+        <p><a name="180540"></a>The <a href="http://www.mecheng.adelaide.edu.au/robotics_novell/WWW_Devs/Dragon12/rtmc9S12Target/nRF24L01_prelim_prod_spec_1_2.pdf">nRF2401</a> 
+           radio module provides a cost effective solution wherever reliable wireless communication at 
+           (measured) net data rates of around 10 kbps is required. This is more than enough for many small 
+           robotics projects. A suitable circuit, the <a href="http://www.sparkfun.com/commerce/product_info.php?products_id=705">MiRF v2</a>
+           is sold by <a href="http://www.sparkfun.com">SparkFun</a> at around US$20 (August, 2007). 
+           The nRF2401 uses a server-client protocol which allows simple star-shaped communication networks 
+           to be built. Such a network always includes one server and between 1 and 5 clients. Each client 
+           connects to the server on the chosen radio channel (RF channel, 0 - 127); the frequencies of 
+           this channel is FM modulated around a central carrier frequency of 2.4 GHz. It is worth noting 
+           that all clients of a network use the same RF channel. This makes it possible to operate more than 
+           one networks in one and the same environment. As an example consider a classroom scenario in which, 
+           say, 10 groups play robotic soccer with small mobile robots. Each group would be assigned two RF 
+           channels, enough to run two separate data networks for two teams of up to 5 robots. Each group could 
+           set up a central PC with a machine vision system, providing high-level co-ordinate information to both 
+           teams. This PC would connect to two nRF2401 units, both running as servers. The mobile robots of each
+           team would be the clients within their respective network. As there are a total of 128 RF channels, it
+           would, in theory, be possible to have the insane number of 64 simultaneous soccer robot matches... but
+           who would want to watch this?! :)<br>
+        </p>
+        <!-- H2 --><a name="180541"></a>
+        <p><font color="#990000" size="+1"><b>Dialog Box</b></font><br>
+        </p>
+        <p><a name="180545"></a><img src="helpimages/mc9S12_rfComms_client_dialog.gif" alt=""></p>
+        <dl>
+            <a name="182791"></a><dt><br></dt>
+            <dt><b>Sample time</b></dt>
+            <dd>Sample time of the block. The Sample time (in seconds) defines the rate at which the block is 
+                visited by the real-time scheduler of the target. The value of the Sample time has to be an integer 
+                multiple of the base sample time of the model. The shortest achievable sample time can be determined 
+                using the <span style="font-family: monospace;">display timing signals</span><code></code>
+                option. This option is described in the manual of the toolbox in section 
+                <a href="../docs/rtmc9S12-Target.pdf">2.3 Code generation options</a>.
+            </dd>
+        </dl>
+        <dl>
+            <dt><a name="182791"></a></dt>
+            <dt><b>Communication mode (TX, RX)<br>
+            </b></dt>
+            <a name="182792"></a><dd>This sets the block up to act as transmitter (TX) or as receiver (RX).
+            <code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>RF channel number (0 - 127)<br>
+            </b></dt>
+            <a name="182792"></a><dd>This parameter defines the chosen radio frequency channel. Each data 
+              network has its own individual RF frequency. Up to 128 separate data networks can be operated 
+              simultaneously.<code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Client number<br>
+            </b></dt>
+            <a name="182792"></a><dd>Each data network consists of 1 server and at least 1 but up to 5 clients.
+            The clients can be set up as transmitters or receivers.<code></code> </dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Server address<br>
+            </b></dt>
+            <a name="180547"></a><dd>A unique 4-byte code which is used by the low-level protocol. This 
+             value will rarely need to be changed.<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Client address<br>
+            </b></dt>
+            <a name="180547"></a><dd>A unique 4-byte code which is used by the low-level protocol. This 
+             value will rarely need to be changed.<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>User channel number<br>
+            </b></dt>
+            <a name="180547"></a><dd>This value specifies a logical channel number associated with a 
+              particular server-client communication channel. This means that it is possible to use
+              one and the same RF link for more than one separate communication links. The protocol 
+              used with this system is the same as with the freeport blocks.<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Number of elements to be sent/received<br>
+            </b></dt>
+            <a name="180547"></a><dd>This value specifies how many elements of the chosen data type will 
+             be sent or received with each transmission.<br></dd>
+        </dl>
+        <dl>
+            <a name="183014"></a>
+            <dt><b>Data Type<br>
+            </b></dt>
+            <a name="183015"></a><dd>The data type can be <span
+                style="font-family: monospace;">SINGLE</span>, <span
+                style="font-family: monospace;">INT8</span>, <span
+                style="font-family: monospace;">UINT8</span>, <span
+                style="font-family: monospace;">INT16</span>, <span
+                style="font-family: monospace;">UINT16</span>, <span
+                style="font-family: monospace;">INT32</span>, <span
+                style="font-family: monospace;">UINT32</span> and <span
+                style="font-family: monospace;">BOOLEAN</span> .<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Block sends/receives raw data<br>
+            </b></dt>
+            <a name="180547"></a><dd>When selected, the block sends/receives 'raw' data, i. e. no additional 
+               information such as the logical channel number etc. is transmitted. This should be the default 
+               setting when an application does not require more than one channel per client-server link.<br></dd>
+        </dl>
+        <dl>
+            <a name="180546"></a>
+            <dt><b>Block output is 'double'<br>
+            </b></dt>
+            <a name="180547"></a><dd>Selecting this option causes received values to be converted to double 
+               precision numbers (reception mode only). This is useful when a subsequent display or scope 
+               block is used to visualize the data.<br></dd>
+        </dl>
+            <a name="183016"></a><dt><br></dt>
+        </dl>
+        <p>
+        <table bgcolor="#ffe4b0" border="0" cellpadding="0" cellspacing="0"
+            width="100%">
+            <tbody>
+                <tr valign="top">
+                    <td align="left" width="20"><a href="freePortComms_rxd.html"><img
+                    src="helpimages/b_prev.gif" alt="Previous page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                    <td align="left" valign="baseline">&nbsp;Freeport Communication (Reception)</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td align="right">RF Module Communication (Server)&nbsp;</td>
+                    <td align="right" width="20"><a href="rfComms_server.html"><img
+                    src="helpimages/b_next.gif" alt="Next page"
+                    style="border: 0px solid ; width: 17px; height: 17px;"></a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <!-- Last updated: fw-08-07 --></p>
+    </body>
+</html>

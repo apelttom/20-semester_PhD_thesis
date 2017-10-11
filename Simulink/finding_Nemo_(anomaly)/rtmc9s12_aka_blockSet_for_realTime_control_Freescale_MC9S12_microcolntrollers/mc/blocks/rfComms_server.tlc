@@ -1,0 +1,278 @@
+%% File : rfComms_server.tlc
+%%
+%%
+%implements  rfComms_server "C"
+
+%% P1 SAMPLE_TIME      /* Sample time in seconds */
+%% P2 RXTXMODE         /* 'RX' or 'TX' */
+%% P3 CHANNEL_NO       /* user communication channel number (up to 5) */
+%% P4 NUM_ELEMENTS     /* block output width ->  # of elements */
+%% P5 DATA_TYPE        /* data type to be expected at block input */
+%%
+%% === RTWdata ===
+%% 'format'                1: raw, 2: formatted
+%% 'RXTXmode'            'RX', 'TX'
+%% 'serverAddress'        0x........
+%% 'clientAddress'        0x........
+%% 'RFchannel'            0 - 127
+%% 'numClient'            1 - 5
+%% 'clientflagmask'        depends on chosen number of clients
+
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+%<LibAddToCommonIncludes("bsp_timer.h")>
+%<LibAddToCommonIncludes("mc_signal.h")>
+%<LibAddToCommonIncludes("mc_spi.h")>
+%<LibAddToCommonIncludes("mc_radioServer.h")>
+%<LibAddToCommonIncludes("mc_rb.h")>
+%<LibAddToCommonIncludes("mc_radioComms.h")>
+
+
+%% Function: BlockTypeSetup =================================================
+%%
+%% Purpose:
+%%      FreePort communication block setup code.
+%%
+%function BlockTypeSetup(block, system) void
+
+  %% Place common defines in the model's header file
+  
+  %openfile buffer
+    
+    /* rfComms_server  --  common defines */
+    #define RADIO_SERVER_ADDRESS %<block.RTWdata.serverAddress>
+    #define RADIO_CLIENT_ADDRESS %<block.RTWdata.clientAddress>
+    #define RADIO_RF_CHANNEL     %<block.RTWdata.RFchannel>
+    #define CLIENT_FLAGS         %<block.RTWdata.clientflagmask>
+    #define UNDEFINED            0xff
+     
+
+  %closefile buffer
+    
+  %<LibCacheDefine(buffer)>
+
+
+  %% Place function prototypes in the model's header file
+  
+  %openfile buffer
+    extern myUsrBuf *AllocateUserBuffer(uint_T channel, uint16_T bufsize, uint8_T data_type_len);
+  %closefile buffer
+    
+  %<LibCacheFunctionPrototype(buffer)>
+
+%endfunction
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      RFComms Server communication initialization code.
+%%
+%function Start(block, system) Output
+
+    %assign NUM_ELEMENTS  = %<CAST( "Number", LibBlockParameterValue(P4,1) )>
+    %assign DATA_TYPE     = %<CAST( "Number", LibBlockParameterValue(P5,1) )>
+    %assign BuiltInDTypesSizes = [4, 1, 1, 2, 2, 4, 4, 2]
+    %assign DATA_TYPE_LEN = %<BuiltInDTypesSizes>[%<DATA_TYPE>-1]
+    %assign BUF_SIZE      = %<DATA_TYPE_LEN> * %<NUM_ELEMENTS>
+    %%
+    %assign CHANNEL_NO    = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %assign format        = %<block.RTWdata.format>
+    %if format == 1
+    %assign CHANNEL_NO    = 0
+    %endif
+    %%    
+    %assign RXTXMODE      = "%<block.RTWdata.RXTXmode>"
+    %%    
+    %assign CLIENT        = %<block.RTWdata.numClient> - 1
+    %%
+    %assign pAdminStruct  = LibBlockPWork("", "", "", 0)
+    
+    /* S-Function "RFComms_server" initialization Block: %<Name> */
+    {
+        
+        myUsrBuf    *admin;
+        
+        /* allocate memory for buffer (%<BUF_SIZE> bytes) and its admin structure, returns the access pointer */
+        if((admin = AllocateUserBuffer(%<CHANNEL_NO>, %<BUF_SIZE>, %<DATA_TYPE_LEN>)) == NULL) abort_LED(34);
+        
+        /* store the access pointer in the workspace variable */
+        radiocomTelBuf[%<CLIENT>*5 + %<CHANNEL_NO>] = admin;
+        
+        /* retain a local copy for fast access */
+        %<pAdminStruct> = admin;
+        
+        /* only initialize the radio server once */
+        #ifndef RADIO_SERVER_IS_INITIALIZED
+        #define RADIO_SERVER_IS_INITIALIZED
+        
+        /* configure timer channel '0' for OC mode, period: max. */
+        TChannel_Conf(0, TMode_OC, TIMER_BASEPERIOD);
+        
+        /* initialize RF server */
+        switch(RadioServer_Init(RADIO_DEFAULT_BAUD_RATE,
+                                RADIO_RF_CHANNEL,
+                                RADIO_SERVER_ADDRESS,
+                                RADIO_CLIENT_ADDRESS,
+                                CLIENT_FLAGS)) {
+      
+        case INIT_ERROR_NO_POWER:
+            /* Init method returns non-zero if there was an error */
+            abort_LED(26);
+            break;
+        
+        case INIT_ERROR_NO_CLIENTS_SET:
+            abort_LED(27);
+            break;
+            
+        }
+        
+        #endif /* RADIO_SERVER_IS_INITIALIZED */
+        
+        
+        %switch(RXTXMODE)
+        %case "RX"
+        %% reception mode
+        
+        %assign y             = LibBlockOutputSignal(0, "", "", 0)
+        
+        /* initialize block output with zero */
+        (void)memset((uint8_T *)&%<y>, 0, %<BUF_SIZE>);
+        
+        %break
+        %endswitch
+        
+    }
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlOutputs function.
+%%
+%function Outputs(block, system) Output
+
+    %assign NUM_ELEMENTS  = %<CAST( "Number", LibBlockParameterValue(P4,1) )>
+    %assign DATA_TYPE     = %<CAST( "Number", LibBlockParameterValue(P5,1) )>
+    %assign BuiltInDTypesSizes = [4, 1, 1, 2, 2, 4, 4, 2]
+    %assign DATA_TYPE_LEN = %<BuiltInDTypesSizes>[%<DATA_TYPE>-1]
+    %assign BUF_SIZE      = %<DATA_TYPE_LEN> * %<NUM_ELEMENTS>
+    %%
+    %assign CHANNEL_NO    = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %assign format        = %<block.RTWdata.format>
+    %if format == 1
+    %assign CHANNEL_NO    = 0
+    %endif
+    %%    
+    %assign RXTXMODE      = "%<block.RTWdata.RXTXmode>"
+    %%    
+    %assign CLIENT        = %<block.RTWdata.numClient> - 1
+    
+    /* S-Function "RFComms_server" Block: %<Name> */
+    /* block parameters:
+       RXTXMODE = %<RXTXMODE>
+       CHANNEL_NO = %<CHANNEL_NO>
+       NUM_ELEMENTS = %<NUM_ELEMENTS>
+       DATA_TYPE = %<DATA_TYPE-1>
+       DATA_TYPE_LEN = %<DATA_TYPE_LEN>
+       BUF_SIZE = %<BUF_SIZE>
+     */
+    {
+        
+        myUsrBuf    *admin = radiocomTelBuf[%<CLIENT>*5 + %<CHANNEL_NO>];
+        
+        %switch(RXTXMODE)
+        
+        %case "TX"
+        
+        %assign u     = LibBlockInputSignal(0, "", "", 0)
+        
+        uint16_T size        = (uint16_T)admin->buf_size;
+        uint8_T  *buf         = (uint8_T *)admin->buf;
+        uint8_T     *blockInput = (uint8_T *)&%<u>;
+        
+        /* buffer empty -> check if new RF data has arrived */
+        if(memcmp(buf, blockInput, size) != 0) {
+            
+            /* new block input data available -> copy to the data buffer */
+            memcpy(buf, blockInput, size);
+            
+            /* send data to client %<CLIENT> */
+            put_RFdata_server(%<CHANNEL_NO>, (uint8_T)size, %<DATA_TYPE_LEN>, buf, %<format>, %<CLIENT>);
+            
+        }
+        
+        %break
+        
+        %case "RX"
+        
+        %assign y = LibBlockOutputSignal(0, "", "", 0)
+        
+        uint8_T         cc;
+        
+        /* service all clients (up to 5) */
+        for(cc = 0; cc < CLIENT_COUNT; cc++) {
+            
+            /* attempt to fetch a RFComm telegram from the RF ring buffer */
+            process_RadioCommData_server(%<format>, cc);
+            
+            /* check if block output needs updated... */
+            if(admin->buffer_full) {
+                
+                uint8_T *blockOutput = (uint8_T *)&%<y>;
+                
+                /* new data available for this instance -> update output */
+                (void)memcpy(blockOutput, admin->buf, (uint16_T)admin->buf_size);
+                
+                /* clear buffer full flag */
+                admin->buffer_full = 0;
+                
+            }
+            
+        } /* for(cc) */
+        
+        %break
+        %endswitch
+        
+    }
+  
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+    %assign pAdminStruct = LibBlockPWork("", "", "", 0)
+    %%
+    %assign CHANNEL_NO    = %<CAST( "Number", LibBlockParameterValue(P3,1) )>
+    %% reset CHANNEL_NO to '0' for 'raw data' transmissions
+    %assign format        = %<block.RTWdata.format>
+    %if format == 1
+    %assign CHANNEL_NO    = 0
+    %endif
+    %%    
+    %assign CLIENT        = %<block.RTWdata.numClient> - 1
+
+    /* disable timer channel '0' */
+    TChannel_Disable(0);
+        
+    /* free instance local data buffer */
+    (void)free(((myUsrBuf *)%<pAdminStruct>)->buf);
+    (void)free((myUsrBuf *)%<pAdminStruct>);
+
+    /* reset global buffer access pointer to NULL */
+    radiocomTelBuf[%<CLIENT>*5 + %<CHANNEL_NO>] = NULL;
+  
+%endfunction
+
+%% [EOF] rfComms_server.tlc

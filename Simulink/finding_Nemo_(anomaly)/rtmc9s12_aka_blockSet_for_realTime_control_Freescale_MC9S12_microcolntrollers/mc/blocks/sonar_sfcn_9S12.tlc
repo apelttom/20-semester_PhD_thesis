@@ -1,0 +1,90 @@
+%% File : sonar_sfcn_9S12.tlc
+%%
+%% Description: 
+%%   PWM device driver for the MC9S12DP256B/C
+%%
+%% fw-03-05
+%%
+%implements  sonar_sfcn_9S12 "C"
+
+%% add required include files... -- fw-07-09
+%<LibAddToCommonIncludes("mc_defines.h")>
+%<LibAddToCommonIncludes("tmwtypes.h")>
+
+
+%% Function: Start ==========================================================
+%%
+%% Purpose:
+%%      PWM initialization code.
+%%
+
+%function Start(block, system) Output
+
+  /* S-Function "sonar_sfcn_9S12" Initialisation Block: %<Name> */
+
+  /* Initialize digital output for port %<block.RTWdata.out_portStr> pin %<block.RTWdata.out_pinStr>*/ 
+  %<block.RTWdata.out_ddrStr> |= %<block.RTWdata.out_pinMask>;
+  
+  /* Initialize digital input for port %<block.RTWdata.in_portStr> pin %<block.RTWdata.in_pinStr>*/ 
+  %<block.RTWdata.in_ddrStr> &= ~%<block.RTWdata.in_pinMask>;
+  
+  /* Bottom three bits of TSCR2 (PR2,PR1,PR0) determine TCNT period
+           divider   resolution   maximum period  
+    000      1          42ns         2.73ms
+    001      2          84ns         5.46ms
+    010      4         167ns         10.9ms
+    011      8         333ns         21.8ms
+    100     16         667ns         43.7ms
+    101     32        1.33us         87.4ms
+    110     64        2.67us        174.8ms
+    111    128        5.33us        349.5ms    */ 
+  TSCR2  = 0x04;      // Divide clock by 16, disable TOI (timer overflow interrupt)
+  
+  TSCR1  = 0x80;     // enable timer (set TEN bit)
+
+%endfunction
+
+
+%% Function: Outputs ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlOutputs function.
+%%
+%function Outputs(block, system) Output
+
+  UINT16_T counter;
+  UINT16_T time2;
+  UINT16_T time1 = TCNT;
+
+  // Trigger pulse
+  %<block.RTWdata.out_portStr> |= %<block.RTWdata.out_pinMask>;
+  for(counter = 100; counter > 0; counter--);  // delay 10us
+  %<block.RTWdata.out_portStr> &= ~%<block.RTWdata.out_pinMask>;
+
+  // Echo Detection Input
+  while((%<block.RTWdata.in_portStr> & %<block.RTWdata.in_pinMask>) == 0);
+  while((%<block.RTWdata.in_portStr> & %<block.RTWdata.in_pinMask>) != 0);
+
+  time2 = TCNT;
+  if(time2 >= time1) time1 = time2 - time1;
+  else               time1 = time2 + (0xFFFF-time1);
+
+  %assign y = LibBlockOutputSignal(0, "", "", 0) 
+  %<y> = (real_T)time1;
+    
+%endfunction
+
+
+%% Function: Terminate ==========================================================
+%%
+%% Purpose:
+%%      Code generation rules for mdlTerminate function.
+%%
+%function Terminate(block, system) Output
+
+  TSCR1  = 0x00;    // disable timer (set TEN bit)
+  
+%endfunction
+
+
+%% [EOF] sonar_sfcn_9S12.tlc
