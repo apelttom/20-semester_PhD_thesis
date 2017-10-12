@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Simulink experiments</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="#">Introduction</a></li>
+    <li><a href="#">Paris</a></li>
+    <li><a href="#">Tokyo</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Introduction</h1>
+	<h2>EMB_controller</h2>
+		<p>First project that I decided to run and analyze is Dr. Jens Oehlerking's project of Electro-Mechanical Braking System (EMB). Electro-Mechanical Braking System works similary as Hydraulic brake system, but instead of direct connection between the pedal and the calipers, there is a wire and number of sensors that measure driver's intention to break and if so, central unit sends a signal to all four wheel to break according to the situation. Instead of fluid hoses there are wires (at least 2 buses for each caliper). Advantage is that each caliper can break with different intensity according to the situation. But there is need for sensors of temperature, clamp force and actuator position.</p>
+		<p></p>
+</article>
+
+<footer>Copyright &copy; W3Schools.com</footer>
+
+</div>
+
+</body>
+</html>
