@@ -37,6 +37,12 @@ article {
     padding: 1em;
     overflow: hidden;
 }
+
+div.bibliography {
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+}
 </style>
 </head>
 <body>
@@ -64,7 +70,33 @@ article {
 		<p>EMB consists of electrical engine, which is used to push brake calipers against brake disc thus resulting in vehicle deceleration. When the contact with breaking disc has already been established, the electrical engine can be used to add additional braking force. There is a certain point <img src="./img/x_0.gif" alt="x_0" height="15" width="15"> where caliper already touches the disc and from this point on the breaking force increases. Whole EMB system is operated by a controller which discrete behavior has been extracted into a Stateflow chart so it is easier to see the hybrid automaton structure of the model.</p>
 		<img src="./img/controller_Stateflow.png" alt="controller hybrid automaton structure" height="474" width="1028"> 
 		<p>After deeper digging and some consultations I have opted my attention on S-TALIRO toolbox and its functionality.</p>
+		<p>This model is called experimental, because it is derived from reality. We depend on assumptions and we omit aspects that are according to our judge unimportant, but we can be wrong and by simplifying reality into such model we loose precision, which may lead to incorrect conclusions. That is the reason why this model is only experimental.</p>
+		<p>Model consist of plant (designed first) and controller (designed second). <cite>A plant in control theory is the combination of process and actuator. A plant is often referred to with a transfer function (not uncommonly in the s-domain) which indicates the relation between an input signal and the output signal of a system without feedback, commonly determined by physical properties of the system. An example would be an actuator with its transfer of the input of the actuator to its physical displacement. In a system with feedback, the plant still has the same transfer function, but a control unit and a feedback loop (with their respective transfer functions) are added to the system.</cite> <a href="https://aleph.cvut.cz/F?func=direct&doc_number=000656760">[1]</a></p>
+		<p></p>
+		<p></p>
 </article>
+
+<article>
+	<h2>S-TaLiRo</h2>
+		<p>This tool searches for trajectories of minimal robustness in Simulink/Stateflow. It uses randomized testing based on stochastic optimalization techniques (Monte-Carlo, Ant-Colony optimalization, etc.). It is modular and is possible to implement more stochaistic optimalization algorithms.</p>
+		<p>
+			<h3>How to use S-TaLiRo</h3>
+			<p>Prerequisite: Input signals must be provided to the Simulink model through input ports</p>
+			<ol>
+				<li>Execute S-TaLiRo tool with the name of the Simulink model as parameter.</li>
+				<li>Give S-TaLiRo set of initial conditions</li>
+				<li>Give S-TaLiRo constraints on the input signals</li>
+				<li>Give S-TaLiRo Metric Temporal Logic (MTL) specification</li>
+				<li>Select stochaistic optimalization Algorithm (Simulated Annealing, Ant Colony Optimization, Genetic Algorithms and Cross Entropy)</li>
+			</ol>
+		</p>
+		<p>Main people around the tool are <a href="http://www.public.asu.edu/%7Egfaineko/" rel="nofollow">Georgios Fainekos</a> and <a href="http://www.cs.colorado.edu/%7Esrirams/" rel="nofollow">Sriram Sankaranarayanan</a></p>
+</article>
+
+<div class="bibliography">
+	<h2>Bibliography</h2>
+	<p>[1]	FRANKLIN, Gene F., J. David POWELL a Abbas EMAMI-NAEINI. <i>Feedback control of dynamic systems</i>. 4th ed. Upper Saddle River: Prentice Hall, c2002. ISBN 0-13-032393-4. </p>
+</div>
 
 <footer>Copyright &copy; W3Schools.com</footer>
 
