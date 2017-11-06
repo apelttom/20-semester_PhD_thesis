@@ -91,11 +91,21 @@ div.bibliography {
 			</ol>
 		</p>
 		<p>Main people around the tool are <a href="http://www.public.asu.edu/%7Egfaineko/" rel="nofollow">Georgios Fainekos</a> and <a href="http://www.cs.colorado.edu/%7Esrirams/" rel="nofollow">Sriram Sankaranarayanan</a></p>
+	<p>Georgios Fainekos has written S-Taliro <a href="https://df1a2e36-a-0c9971f9-s-sites.googlegroups.com/a/asu.edu/s-taliro/s_taliro_v1_5_quick_guide_v1.pdf?attachauth=ANoY7cpvCXh4Q5jsPU9BTx9Kec4VxpaciiPVBTWnNP3EXhsYXdY5Ankx2sGb8OF5WRnVUpm0pP1p956X1lNY6Q_DO6Q8TBfa4VblhRnimHOjxoe9bhSRJ1gSGTnB3j8xENUCvUiPHGBEdj33FRNvgF7NjODcU8CjBfiXbwYyE-sj57bWCkPBAli-MAzs9gLJYxvJYbwlOFKUrE7d8-mU42gQAMjiAjPZKhtXLLZwoXDpM7qes48l2ho%3D&attredirects=0">quick guide</a>. It explains how should be S-Taliro used, what it can do and how it works. S-Taliro takes a system model (such as Simulink model) and also a set of MTL specifications and calculate different trajectories, experiment on a certain surrounding around the simulation to be able detect robustness. Based on the robustness calculate stochastic optimizations and creates new parameters specification.</p>
+	<p>Using this approach S-Taliro tries many different runs of the simulation, but with reasonable parameters which are altered in order to enclose as much as possible to real world situations. Robustness is calculated and in case that constraints are violated, witness trajectory is generated.</p>
+	<p>S-Taliro has a certain requirements on the model, for example input signals has to have a form of input ports. To define specifications authors recommend using output ports. This way S-Taliro treats model as black-box.</p>
+	<p>There are mentioned two algorithms in the quick guide:</p>
+	<ul>
+		<li>fw_taliro - based on formula rewriting, suitable for runtime monitoring[2]</li>
+		<li>dp_taliro - based on dynamic programming, suitable for offline testing[3]</li>
+	</ul>
 </article>
 
 <div class="bibliography">
 	<h2>Bibliography</h2>
 	<p>[1]	FRANKLIN, Gene F., J. David POWELL a Abbas EMAMI-NAEINI. <i>Feedback control of dynamic systems</i>. 4th ed. Upper Saddle River: Prentice Hall, c2002. ISBN 0-13-032393-4. </p>
+	<p>[2]	Fainekos & Pappas. <i>TCS 2009</i>.  <b>TODO</b></p>
+	<p>[3]	Fainekos <i>ACC 2012</i>.  <b>TODO</b></p>
 </div>
 
 <footer>Copyright &copy; W3Schools.com</footer>
