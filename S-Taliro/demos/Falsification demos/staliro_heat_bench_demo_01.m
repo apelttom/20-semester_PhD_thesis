@@ -3,7 +3,7 @@
 clear 
 
 cd('..')
-cd('SystemModelsAndData')
+cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\demos\SystemModelsAndData')
 
 model = 'heat25830_staliro_01';
 load heat30;
@@ -18,7 +18,7 @@ pred.b = -[14.50; 14.50; 13.50; 14.00; 13.00; 14.00; 14.00; 13.00; 13.50; 14.00]
 
 opt = staliro_options();
 opt.runs = 1;
-opt.optim_params.n_tests = 100;
+%opt.optim_params.n_tests = 100;
 
 results = staliro(model,X0,input_range,cp_array,phi,pred,time,opt);
 
