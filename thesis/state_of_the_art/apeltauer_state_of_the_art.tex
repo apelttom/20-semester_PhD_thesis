@@ -1,0 +1,314 @@
+\documentclass[conference,a4paper]{IEEEtran-CZ}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[czech]{babel}
+
+
+\usepackage{amsmath}
+\usepackage{alltt}
+\usepackage{verbatim}
+
+\usepackage[pdftex]{graphicx}
+\graphicspath{{pictures/}}
+\usepackage{subcaption}
+
+\usepackage[usenames,dvipsnames]{color}
+
+\usepackage{cite}
+
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+% alg
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmus}
+\def\BState{\State\hskip-\ALG@thistlm}
+\newcommand{\Break}{\State \textbf{break}}
+\makeatother
+
+
+% Oprava cline v [czech]{babel}
+\makeatletter
+\begingroup
+\toks0=\expandafter{\@cline{#1}-{#2}\@nil}
+\@ifpackageloaded{booktabs}{%
+  \toks2=\expandafter{\@@@cmidrule[{#1}-{#2}]{#3}{#4}}%
+}{}
+\catcode`-=\active
+\edef\x{\gdef\unexpanded{\@cline#1-#2\@nil}{\the\toks0}}\x
+\@ifpackageloaded{booktabs}{%
+  \edef\x{\gdef\unexpanded{\@@@cmidrule[#1-#2]#3#4}{\the\toks2}}\x
+}{}
+\endgroup
+\makeatother
+
+
+
+%\usepackage{flushend}
+
+\begin{document}
+
+\title{State of the art}
+
+\author{\IEEEauthorblockN{Tomáš Apeltauer}
+2. ročník prezenčního studia \\
+Školitel: Stefan Ratschan \\
+\\
+\IEEEauthorblockA{České vysoké učení technické v Praze, Fakulta informačních technologií\\
+Thákurova 9, Praha, 16000\\
+apelttom@fit.cvut.cz}
+}
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+
+
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+
+\begin{IEEEkeywords}
+
+\end{IEEEkeywords}
+
+\maketitle
+
+\section{Úvod}
+
+Pro systémy, které kombinují fyzikální svět se světem výpočtů, používáme pojem kyber-fyzikální systém\cite{Rajeev:2015}.
+Tato těsná interakce fyzikálního světa a světa výpočtů má za následek vyšší složitost 
+kyber-fyzikálních systémů, protože spojením obou oblastní dostáváme mnohonásobně 
+větší množinu stavů a situací, do kterých se může kyber-fyzikální systém dostat a 
+obsáhnout je všechny není možné.
+
+\subsection{Problematika testování kyber-fyzikálních systémů}
+
+Navzdory významnému pokroku v rámci technologie kyber-fyzikálních systémů, stále postrádáme
+dostatečně vyspělý výzkum, který by zaštítil oblast vysoce spolehlivých kyber-fyzikální systémů.
+Důsledkem toho nezvládají současné analytické nástroje plně pokrýt komplexitu kyber-fyzikálních systémů,
+nebo adekvátně predikovat jejich chování. Příkladem je Internet věcí, který se neustále rozmáhá, 
+a jenž má potenciál škálovat do úrovní biliónů propojených zařízení, která dokáží monitorovat, 
+kontrolovat i jinak interagovat s fyzickým prostředím okolo nás. Přirozeně jsou zde kladeny 
+vysoké nároky na spolehlivost, bezpečnost a robustnost takových systémů\cite{NSF:CPS:2016}.
+
+\subsection{Význam oblasti testování kyber-fyzikálních systémů}
+
+V průmyslové sféře je hojně využíván přístup tvorby a aplikace abstraktních modelů 
+v procesu návrhu (Model-Based design\cite{Jensen:MBD:2011}).
+Model-Based design nám umožňuje simulovat, testovat a verifikovat výsledný systém 
+už v raných fázích procesu návrhu. Příkladem nástrojů z praxe muže být software 
+\emph{MATLAB/Simulink}, \emph{Statemate}, nebo software \emph{Modelica}, příkladem nástroje z 
+akademického prostředí je \emph{Ptolemy} (UC Berkeley).
+
+Softwarové komponenty proto již nejsou výhradně psány pouze v C, nebo Assembleru,
+ale stále častěji modelovány pomocí výše zmíněných nástrojů a tak nabývá na významu
+i oblast testování těchto modelů\cite{Bringmann:MBT:2008}. Současně existuje 
+velmi silná motivace proces testování automatizovat a snížit tak náklady na vývoj modelů 
+kyber-fyzikálních systémů. Navíc bychom tím dokázali zvýšit použitelnost již vytvořených 
+testovacích scénářů.
+
+\subsection{Obtížnost problematiky testování}
+
+Hlavním zdrojem obtížnosti v oblasti testování modelů kyber-fyzikálních systémů je složitost nástrojů,
+velký počet různých toolboxů a absence jasně definované, standardizované formální sémantiky v 
+programech jako je například Simulink. Modely v tomto nástroji se sestávají z funkčních bloků
+a každý z nich má jasně definované vstupní i výstupní kanály. Tyto bloky nefungují
+izolovaně ale mohou si předávat data pomocí námi určených komunikačních rozhranní,
+navíc je možné modely hierarchicky strukturovat, protože jeden funkční blok lze reprezentovat
+i jako množinu podbloků a jejich rozhranní. Takto lze v programu Simulink vytvářet složité
+komplexní modely, které reálně reprezentují v praxi využívané systémy.
+
+\section{Vymezení oblasti výzkumu}
+
+Pro modely vytvořené softwarem Simulink zatím existují pouze black box algoritmy, nebo
+toolboxy s omezenou funkcionalitou, například \emph{T-Vec Tester} a 
+\emph{Reactive Systems Reactis Tester}\cite{Blackburn:1996,Sims:2007}.
+Tyto toolboxy pracují s funkčními bloky Simulinku bez nutné znalosti vnitřní hierarchické struktury,
+staví zejména na definovaném komunikačním rozhranní a dále pak na jasně formulované
+specifikaci systému. Navíc pro svou optimalizaci využívají algoritmy black-box 
+optimalizace\cite{Gendreau:2010}. 
+
+\subsection{Omezení}
+
+Tyto nástroje mají své praktické využití při verifikaci
+konzistence modelů z pohledu validní manipulace s daty (dělení nulou, přetečení), nebo
+při kontrole metrik jako jsou \emph{state coverage}, \emph{branch coverage} a 
+hlavně \emph{MD/DC coverage}, ale pro otestování modelů pod intenzivní zátěží, v situacích 
+simulujících pokud možno co nejvěrohodněji reálné případy užití, jsou tyto nástroje 
+nedostačující. Dokáží generovat takové testy, aby dosáhli vysoké míry pokrytí kódu a
+jsou schopné pracovat i se stavovými diagramy. Bohužel neuvažují vnitřní strukturu 
+modelů, použité materiály, fyzikální veličiny a zákony, což se v praxi může projevit 
+selháním systému za určitých specifických okolností. Navíc jsou omezeny velikostí
+generovaných testů (potažmo délkou generovaných signálů) a zvládnou zpracovat
+modely jen do určité míry složitosti.
+
+\subsection{White-box testing}
+
+Algoritmy, které využívají vnitřní strukturu modelů a jsou určeny pro testování a verifikaci,
+zatím existují pouze pro hybridní dynamické systémy\cite{Dang:2009,Plaku:2013,Zutshi:2013,Ratschan:HS:2014}.
+Model hybridního dynamického systému vznikl v akademické obci právě pro účely 
+automatického testování modelů\cite{Schaft:HDS:2000}. Modely jsou jednodušší než 
+ty vytvořené v Simulinku, ale mají jasnou sémantiku.
+
+\section{Cíle práce}
+
+Cílem mé disertační práce je vývoj algoritmů pro automatické testování kyber-fyzikálních systémů
+nad modely softwarových nástrojů, běžně používaných v praxi. Algoritmy by měly využívat 
+vnitřní strukturu modelu, ale zároveň by měly fungovat v případě, že rozšíříme modely o prvky,
+které se běžně vyskytují v průmyslové praxi. Věnuji se snaze o aplikování obecných algoritmů 
+pro testování a verifikaci hybridních dynamických systémů na modely, jenž nemají jasně definovanou 
+formální sémantiku.
+
+\section{Hybridní systémy}
+
+Hybridní dynamické modely používáme pro modelování hybridních systémů, které obsahují 
+jak spojitou část, jejíž vývoj závisí na čase, tak diskrétní část. Hybridní dynamické modely 
+nám umožňují lépe pracovat se spojitým světem a změnami závislými na čase, pomocí 
+diferenciálních a algebraických rovnic. Tato vlastnost naneštěstí komplikuje automatizaci testování 
+a verifikaci abstraktních modelů.
+
+Hybridní dynamický model můžeme reprezentovat pomocí hybridního stavového 
+automatu, který vychází z klasického stavového automatu. Pro zobrazení používáme 
+stavový diagram, jak je ukázáno na obrázku \ref{fig:bouncingBall}. Diskrétní část systému 
+je zobrazena pomocí stavů a přechodů mezi nimi. Je definován počáteční stav. 
+Přechody jsou definovány pomocí přechodových podmínek, ve kterých mohou figurovat 
+předem definované konstanty. Dále se tu objevují proměnné typu \texttt{cont}, které 
+nabývají hodnot z množiny reálných čísel (nebo intervalu reálných čísel) 
+a jsou aktualizovány spojitě spolu s ubíhajícím časem, zatímco proces čeká v určitém stavu.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.41]{hybridModel}
+\caption{Hybridní model odrážejícího se míče}
+\label{fig:bouncingBall}
+\end{figure}
+
+\subsection{Hybridní proces}
+
+Hybridní dynamické modely se úzce pojí s pojmem hybridního procesu, a během hybridního procesu, 
+který nám poskytuje nástroj pro vyjádření takového modelu v čase. Hybridní proces se skládá z:\cite{Rajeev:2015}
+
+\begin{enumerate}
+  \item Asynchronního procesu \textit{P}, kde jsou některé vstupní, výstupní a stavové proměnné typu \texttt{cont}
+  \item Časově-spojitého invariantu \textit{CI}, reprezentovaného booleovským výrazem nad stavovou proměnnou \textit{S}
+  \item Pro každou vstupní proměnnou $y$ typu \texttt{cont}, výrazem ohodnocení $h_y$ nad stavovými a vstupními proměnnými typu \texttt{cont}
+  \item Pro každou stavovou proměnnou $x$ typu \texttt{cont}, výrazem ohodnocení $f_x$ nad stavovými a vstupními proměnnými typu \texttt{cont}
+\end{enumerate}
+
+\medskip
+
+Dále platí, že vstupy, výstupy, stavy, počáteční stavy, vnitřní děje, vstupní děje a výstupní děje 
+hybridního procesu \textit{HP} jsou stejné, jako u asynchronního procesu \textit{P}. Pro daný stav $s$, časový úsek 
+$\delta > 0$ a vstupní signál $\bar{u}$ pro každou vstupní proměnnou $u$ typu \texttt{cont} na intervalu
+$[0,\delta]$ je odpovídajícím časovým dějem procesu \textit{HP} diferenciovatelný stavový signál  $\bar{S}$
+nad stavovými proměnnými a signál  $\bar{y}$ pro každou vstupní proměnnou $y$ typu \texttt{cont} nad
+intervalem $[0,\delta]$ takový, že:\cite{Rajeev:2015}
+
+\begin{enumerate}
+  \item Pro každou stavovou proměnnou $x, \bar{x}(0) = s(x)$
+  \item Pro každou diskrétní stavovou proměnnou $x$ a čas $0 \leq t \leq \delta, \bar{x}(t) = s(x)$
+  \item Pro každou výstupní proměnnou $y$ typu \texttt{cont} a čas $0 \leq t \leq \delta$ se $\bar{y}(t)$ rovná $h_y$ vyhodnoceného pomocí
+	hodnot $\bar{u}(t)$ a $\bar{S}(t)$
+  \item Pro každou každou stavovou proměnnou $x$ typu \texttt{cont} a čas $0 \leq t \leq \delta$ se derivát času $(d/dt)\bar{x}(t)$ rovná 
+	$f_x$ vyhodnocené na základě hodnot $\bar{u}(t)$ a $\bar{S}(t)$
+  \item Pro všechna $0 \leq t \leq \delta$ splňují časově-spojitý invariant $CI$ hodnoty $\bar{S}(t)$ nad stavovými proměnnými v čase $t$
+\end{enumerate}
+
+\subsection{Zenónův běh hybridního procesu}
+
+Nekonečný běh hybridního procesu \textit{HP} se nazývá \textit{Zenónovým během}, pokud je suma 
+časových úseků všech měřených dějů v daném běhu ohraničena konstantou. Stav $s$, náležící
+hybridnímu procesu \textit{HP} se nazývá \textit{Zenónovým stavem}, pokud každý konečný běh, 
+který obsahuje stav $s$ je Zenónovým během. Hybridní proces \textit{HP} se nazývá 
+\textit{Zenónovým procesem}, pokud obsahuje stav $s$, který je dosažitelný a zároveň je Zenónovým 
+stavem.
+
+Pokud vyvozujeme závěry za pomoci Zenónových běhů hybridních procesů, nedospějeme ke korektním závěrům. 
+Přítomnost  jediného Zenónova procesu může mít nepředvídatelný vliv na analýzu celého systému, proto bychom
+se měli Zenónovým komponentám  během formálního modelování vyhnout. Zenónův proces lze převést
+do tvaru, který nevyhnutelně nevyžaduje přepínání stavů po stále kratší a kratší době, čímž lze Zenónovu
+vlastnost odstranit.\cite{Rajeev:2015}
+
+\subsection{Stabilita hybridních systémů}
+
+Další z důležitých vlastností hybridních procesů je jejich stabilita. Vzhledem k faktu, že hybridní procesy
+obsahují přepínání stavů, není možné použít v tomto případě matematickou analýzu, užívanou pro 
+charakteristiku stability lineárních systémů, ani přidružené techniky pro návrh stabilizačních kontrol.
+Analýza stability hybridních systémů je velmi náročný problém. Využívání analyzačních technik z teorie 
+spojitých systémů na hybridní systémy zůstává aktivní oblastí vědeckého výzkumu.\cite{Rajeev:2015}
+
+\section{Simulink}
+
+Modelování kyber-fyzikálních systémů není otázka čistě akademická, ale je často využíváno i v praxi.
+Nejrozšířenějším nástrojem pro Model-based design v průmyslu je software Simulink. Softwarový 
+nástroj nabízí obsáhlou knihovnu komponent s jejíž pomocí jsme schopni systém popsat, 
+většinou skrze matematické rovnice a algebraické operace.
+
+\subsection{Metodika modelování}
+
+Proces modelování je rozdělen do několika fází:
+
+\begin{enumerate}
+  \item Stanovení cílů a požadavků na model (jaké otázky nám zodpoví, požadavky na přesnost, definice problému)
+  \item Vymezení systémových komponent (identifikování fyzikální a kybernetické části modelu, vztahy mezi komponentami)
+  \item Definice rovnic popisujících systém (v případě kyber-fyzikálních systémů se často jedná o diferenciální rovnice)
+  \item Tvorba sady parametrů (seznam konstant, koeficientů a jejich hodnot - získané např. měřením)
+  \item Proces tvorby modelu (v software Simulink pomocí grafické reprezentace)
+ 	\begin{itemize}
+	  \item Vytvoření bloku pro danou komponentu
+  	  \item Validace komponenty pomocí simulace chování komponenty
+	\end{itemize}
+  \item Integrace komponent mezi sebou a validace jejich vzájemné spolupráce (využití simulace)
+\end{enumerate}
+
+Proces validace komponenty pomocí simulace, případně pomocí kontroly formálních požadavků
+již z velké části pokrývá balíček \emph{Simulink Verification \& Validation Toolbox}. Ten dokáže automaticky 
+kontrolovat požadavky kladené na komponenty, validovat oproti průmyslovým standardům 
+(\emph{ISO 26262}, \emph{DO-1788}) a kontrolovat shodu oproti formálnímu popisu. Nepracuje
+však se všemi prvky, které jsou v praxi nezbytné, což otevírá dveře dalšímu výzkumu.
+
+\subsection{Integrační testování}
+
+Otázka integračního testování v nástroji Simulink je velmi komplexní a zahrnuje užívání formálních metod, jako jsou
+MC/DC pokrytí, nebo automatické generování testů. I přes velkou snahu nedosahují současné
+techniky požadované kvality a míry pokrytí proměnných.
+
+\section{Závěr}
+
+Článek nastínil problematiku složitosti automatického testování modelů kyber-fyzikálních systémů
+a představil oblasti, které z akademického hlediska nabízí zajímavé a jen částečně 
+probádané problémy.  Zmíněna byla i motivace, která stojí za úsilím 
+objevit a zformulovat praktiky pro automatické testování a případný dopad do praxe.
+
+V druhé části článku je představen pojem hybridního dynamického modelu, s ním spojený
+pojem hybridního procesu, vlastnosti Zenónova běhu procesu a nakonec i netriviální otázka, 
+jenž se týká stability hybridních systémů. Dále je popsán konkrétní softwarový nástroj Simulink,
+hojně využívaný zejména v průmyslové sféře. Byly identifikovány možnosti testování,
+které nástroj sám nabízí. Zmíněny byly také omezení nástroje Verification \& Validation Toolbox 
+a otevřené otázky, jenž by si zasloužily hlubší analýzu.
+
+\subsection{Další směřování výzkumu}
+
+Výzkum bude nadále mapovat oblast nástrojů používaných pro Model-Based developement, 
+jakými jsou např. TALIRO-TOOLS, Statemate, MATRIXX, LabVIEW, JModelica.org, 
+nebo Ptolemy a zároveň bude hledat nové způsoby využití již existujících algoritmů 
+pro testování hybridních dynamických systémů v problematice testování modelů bez jasné formální
+sémantiky. Součástí výzkumu budou otázky detekce Zenónových běhů, jejich transformace
+a využití analytických technik z teorie spojitých systémů pro stabilitu hybridních systémů.
+
+\section*{Poděkování}
+
+Tento výzkum byl částečně podporován z projektu ČVUT
+\texttt{SGS17/213/OHK3/3T/18}.
+
+\bibliographystyle{IEEEtran}
+\def\refname{Literatura}
+\bibliography{references}
+
+\vspace{0cm}
+
+\end{document}
