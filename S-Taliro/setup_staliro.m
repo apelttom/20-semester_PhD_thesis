@@ -25,7 +25,7 @@ for i = 1:nargin
     end
 end
 
-path_var='c:\apelttom\20-semester_PhD_thesis\S-Taliro\';
+path_var='c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\';
 addpath(path_var);
 addpath([path_var,'/ha_robust_tester']);
 addpath([path_var,'/Distances']);
@@ -40,31 +40,31 @@ if exist([path_var,'/matlab_bgl'],'dir')==7
     addpath([path_var,'/matlab_bgl']);
 end
 
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\Polarity')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\Polarity')
 setup_polarity(skip_mex)
 cd('..')
 
 disp(' ')
 
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\dp_taliro')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\dp_taliro')
 setup_dp_taliro(skip_mex)
 cd('..')
 
 disp(' ')
 
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\dp_t_taliro')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\dp_t_taliro')
 setup_dp_t_taliro(skip_mex)
 cd('..')
 
 disp(' ')
 
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\fw_taliro')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\fw_taliro')
 setup_fw_taliro(skip_mex)
 cd('..')
 
 disp(' ')
 
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\model_instrumentation')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\model_instrumentation')
 setup_model_instrumentation(skip_mex)
 cd('..')
 
