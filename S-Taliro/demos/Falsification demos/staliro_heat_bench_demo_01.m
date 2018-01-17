@@ -3,7 +3,7 @@
 clear 
 
 cd('..')
-cd('c:\apelttom\20-semester_PhD_thesis\S-Taliro\demos\SystemModelsAndData')
+cd('c:\apelttom\university\20-semester_PhD_thesis\S-Taliro\demos\SystemModelsAndData')
 
 model = 'heat25830_staliro_01';
 load heat30;
