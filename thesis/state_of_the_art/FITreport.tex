@@ -1,0 +1,88 @@
+% Example use of document class for research/technical/research review reports
+% at CTU FIT (http://fit.cvut.cz)
+% 2015/04/12 Created by Ondrej Guth <ondrej.guth@fit.cvut.cz>
+
+
+
+% Nutno napsat v souladu s metodickym pokynem pro vydavani 
+% vyzkumnych, souhrnnych a technickych zprav na FIT CVUT
+
+
+
+
+% % % % 
+% OPTIONS of the class
+% LANGUAGE:
+% czech 
+% english
+% TYPE
+% research
+% technical
+% review
+% FONT NORMALSIZE
+% 10pt
+% 11pt
+% 12pt
+% % 
+\documentclass[english,technical,10pt]{FITreport}[2018/01/26]
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{lmodern} % unicode version of Computer Modern font
+\usepackage{amsthm}
+% \usepackage{hyperref}
+
+% % % % % 
+% Use ALL of the following commands
+% % % % % 
+
+\title{Example research report\thanks{The research has been supported by\dots}}
+\author{Pavel Tvrd{\' i}k\thanks{The author has been supported by\dots}, Second Author\thanks{The author's research has been supported by\dots}\affil{Department of Computer Systems\\\theFIT}
+	\and Third Author\affil{Another University}}
+\abstractL{Abstract in language of this report.}
+\abstractEN{Abstract in English (used only with reports written in Czech).}
+\keywordsL{list of keywords in language of this report}
+\keywordsEN{list of keywords in English (used only with reports written in Czech).}
+\reportNumber{01}
+\reportYear{15}
+\published{April 2015}
+
+% % % % % % % % % % 
+
+\begin{document}
+
+\theoremstyle{definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{preposition}[lemma]{Preposition}
+\newtheorem{example}[lemma]{Example}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{property}[lemma]{Property}
+\newtheorem{observation}[lemma]{Observation}
+\theoremstyle{remark}
+\newtheorem{notation}[lemma]{Notation}
+\newtheorem{note}[lemma]{Note}
+
+
+
+
+\section{Introduction}
+
+\subsection{Some Subsection}
+
+\begin{definition}[Some term]
+    This is our definition.
+\end{definition}
+
+\begin{corollary}
+    This is some corollary.
+\end{corollary}
+
+You may generate list of references using iso690 Bib\TeX{} style, a non-complete implementation of \cite{iso690}.
+
+\bibliographystyle{iso690}
+\bibliography{mybibliographyfile}
+    
+\end{document}
