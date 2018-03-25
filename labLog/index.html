@@ -52,18 +52,18 @@ div.bibliography {
 <div class="container">
 
 <header>
-   <h1>Simulink experiments</h1>
+   <h1>Introduction</h1>
 </header>
   
 <nav>
   <ul>
     <li><a href="#">Introduction</a></li>
     <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
   </ul>
 </nav>
 
 <article>
-  <h1>Introduction</h1>
 	<h2>Electro-Mechanical Breaking system</h2>
 		<p>First project that I decided to run and analyze is Dr. Jens Oehlerking's project of Electro-Mechanical Braking System (EMB). Electro-Mechanical Braking System works similary as Hydraulic brake system, but instead of direct connection between the pedal and the calipers, there is a wire and number of sensors that measure driver's intention to break and if so, central unit sends a signal to all four wheel to break according to the situation. Instead of fluid hoses there are wires (at least 2 buses for each caliper). Advantage is that each caliper can break with different intensity according to the situation. But there is need for sensors of temperature, clamp force and actuator position.</p>
 		<p>Dr. Jens Oehlerking used in his study hybrid verification tools (iSAT-ODE, Flow*, S-TALIRO tools) on this project which represents an experimental electro-mechanical braking system. Project consists of a plant model and a controller comprising both feedback and feedforward control. In study they show us model simplifications in order to obtain useful results from the verification tools. Particular focus here are verification results including parameter variations within the model to achieve a quantifiable form of robustness for the property in question.</p>
@@ -73,8 +73,6 @@ div.bibliography {
 		<p>After deeper digging and some consultations I have opted my attention on S-TALIRO toolbox and its functionality.</p>
 		<p>This model is called experimental, because it is derived from reality. We depend on assumptions and we omit aspects that are according to our judge unimportant, but we can be wrong and by simplifying reality into such model we loose precision, which may lead to incorrect conclusions. That is the reason why this model is only experimental.</p>
 		<p>Model consist of plant (designed first) and controller (designed second). <cite>A plant in control theory is the combination of process and actuator. A plant is often referred to with a transfer function (not uncommonly in the s-domain) which indicates the relation between an input signal and the output signal of a system without feedback, commonly determined by physical properties of the system. An example would be an actuator with its transfer of the input of the actuator to its physical displacement. In a system with feedback, the plant still has the same transfer function, but a control unit and a feedback loop (with their respective transfer functions) are added to the system.</cite> <a href="https://aleph.cvut.cz/F?func=direct&doc_number=000656760">[1]</a></p>
-		<p></p>
-		<p></p>
 </article>
 
 <article>

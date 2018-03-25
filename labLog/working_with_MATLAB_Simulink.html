@@ -56,8 +56,10 @@ div.bibliography {
 </header>
   
 <nav>
-  <ul>
-    <li><a href="index.html">Introduction</a></li>
+  <<ul>
+    <li><a href="#">Introduction</a></li>
+    <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
   </ul>
 </nav>
 
@@ -72,6 +74,11 @@ div.bibliography {
 		<p>Under <i>utilities</i> folder there are MATLAB scripts which set up and clean the project + test script.</br>
 		Folder <i>track</i> contains data of the particular tracks + their images (images load to the simulation so it seems that the robot is going around the track.</br>
 		Folder <i>flib</i> contains definition of a S-function block. <b>TODO</b>: need more information!</br>
+			<ul>
+				<li><b>S-function block</b> An S-function is a computer language description of a Simulink block written in MATLAB®, C, C++, or Fortran. C, C++, and Fortran S-functions are compiled as MEX files. S-functions follow a general form and can accommodate continuous, discrete, and hybrid systems. By following a set of simple rules, we can implement an algorithm in an S-function and use the S-Function block to add it to a Simulink model. They are practically blocks of your own funcionalitty which can do whatever you design them to do. After you write your S-function and place its name in an S-Function block (available in the User-Defined Functions block library), you can customize the user interface using masking.</li>
+				<li><b>Masking</b> is very useful because it makes model appear more real for other engineers. Without masking, models are only spagetti net of basic Simulink mathematical blocks and user defined components but masking helps us to wrap logical units (such as DC motor, robot plant, adapter, converter, engine, control unit, etc.) into atomic Simulink blocks. If we would like we can even add pictures and schematics! See <a href="https://www.mathworks.com/videos/creating-and-masking-subsystems-69025.html" target="_blank">this tutorial</a>.</li>
+				</ul>
+		In this case flib together forms a plant of a robot. It defines it's inputs, outputs and transformation function.</br>
 		Under the folder <i>models</i> is the most interesting stuff: Simulink .slx models.</p>
 		<ul>
 			<li><b>controller.slx</b> is a definition of a logic, which controls robot plant on the track. Uses only one signal from the plant as input (feedback). This is done by Simulink basic blocks (constants, sums, integrator, math function, etc.). This model is of course runnable, we can start a <a href="./img/line_follower_controller_simulation.png">simulation</a> if we specify step size (or we can set it to auto and Simulink will use <i>ode45</i> solver and sets step size to 0.01).</li>
