@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+div.bibliography {
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>S-TaLiRo</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="index.html">Introduction</a></li>
+	<li><a href="s_taliro.html">S-TaLiRo</a></li>
+    <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
+  </ul>
+</nav>
+
+<article>
+	<h2>S-TaLiRo</h2>
+	<p>Main contributors of the tool are <a href="http://www.public.asu.edu/%7Egfaineko/" rel="nofollow">Georgios Fainekos</a> and <a href="http://www.cs.colorado.edu/%7Esrirams/" rel="nofollow">Sriram Sankaranarayanan</a></p>
+	<p>This tool searches for trajectories of minimal robustness in Simulink/Stateflow. It uses randomized testing based on stochastic optimalization techniques (Monte-Carlo, Ant-Colony optimalization, etc.). It is modular and new stochaistic optimalization algorithms can be easily implemented and integrated.</p>
+	<p>S-Taliro searches for counterexamples to <i>Metric Temporal Logic</i> (MTL) <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a> properties for non-linear hybrid systems. This goal is achieved by previously noted minimization of a robustness metric. To achieve this goal S-Taliro uses either m-functions in Matlab which would describe the system, but preferably Simulink/Stateflow models that can S-Taliro use for simulation under given circumstances.</p>
+	<p>In it's core S-Taliro uses combination of stochastic sampling together with Simulink simulation runs and a little bit of optimalization. Using this approach, tool finds the smallest robustness which is desirable, because traces with lower robustness value are closer in distance to falsifying traces. If the tool detect a negative robustness we acquire a trace which falsify temporal logic properties. Robustness is calculated by Taliro module, but the computation is based on the results of convex optimalization problems used to compute signed distances. The structure of the tool and it's architecture is describe on this picture: <a href="https://link.springer.com/chapter/10.1007/978-3-642-19835-9_21">[2]</a></p>
+	<img src="./img/S-Taliro_scheme.png" alt="S-Taliro core" height="330" width="555"> 
+	<p>
+	<h3>S-TaLiRo Installation</h3>
+		<p>Installation of S-Taliro is easy, just download the software from <a href="https://www.assembla.com/spaces/s-taliro_public/subversion/source/HEAD/trunk" target="_blank" rel="nofollow">Source</a> and run function in file setup_staliro.m in MATLAB. There may be a problem with paths, at least I have faced it on both environments; Linux and Windows. As a hotfix solution I just overwritten the relative paths to absolute path form and marked a note to find more elegant solution (<b>TODO!</b>) in future for my virtual environment which is still under construction.</p>
+		<p>Another possible problem can be compilation of C++ files, because on Linux I had pre-installed gcc version 7.something.something and recommended gcc version for the files is 4.4.*. Naturally GCC couldn't compile the source code due to some issues with comments or whatsoever. I have also noticed that there is an old version of Matlab 2013, so I switched to Windows where 2017 version of MATLAB is installed. For compilation MATLAB used default MinGW and compilation ran without problems.</p>
+		<p>After successful installation of S-Taliro tools I started to examine demos.</p>
+	<h3>How to use S-TaLiRo</h3>
+		<p>Prerequisite: Input signals must be provided to the Simulink model through input ports</p>
+			<ul>
+				<li>Execute S-TaLiRo tool with the name of the Simulink model as parameter.</li>
+				<li>Give S-TaLiRo set of initial conditions</li>
+				<li>Give S-TaLiRo constraints on the input signals</li>
+				<li>Give S-TaLiRo Metric Temporal Logic (MTL) specification</li>
+				<li>Select stochaistic optimalization Algorithm (Simulated Annealing, Ant Colony Optimization, Genetic Algorithms and Cross Entropy)</li>
+			</ul>
+		</p>
+		<p>Georgios Fainekos has written S-Taliro <a href="https://df1a2e36-a-0c9971f9-s-sites.googlegroups.com/a/asu.edu/s-taliro/s_taliro_v1_5_quick_guide_v1.pdf?attachauth=ANoY7cpvCXh4Q5jsPU9BTx9Kec4VxpaciiPVBTWnNP3EXhsYXdY5Ankx2sGb8OF5WRnVUpm0pP1p956X1lNY6Q_DO6Q8TBfa4VblhRnimHOjxoe9bhSRJ1gSGTnB3j8xENUCvUiPHGBEdj33FRNvgF7NjODcU8CjBfiXbwYyE-sj57bWCkPBAli-MAzs9gLJYxvJYbwlOFKUrE7d8-mU42gQAMjiAjPZKhtXLLZwoXDpM7qes48l2ho%3D&attredirects=0">quick guide</a>. It explains how should be S-Taliro used, what it can do and how it works. S-Taliro takes a system model (such as Simulink model) and also a set of MTL specifications and calculate different trajectories, experiment on a certain surrounding around the simulation to be able detect robustness. Based on the robustness calculate stochastic optimizations and creates new parameters specification.</p>
+		<p>Using this approach S-Taliro tries many different runs of the simulation, but with reasonable parameters which are altered in order to enclose as much as possible to real world situations. Robustness is calculated and in case that constraints are violated, witness trajectory is generated.</p>
+		<p>S-Taliro has a certain requirements on the model, for example input signals has to have a form of input ports. To define specifications authors recommend using output ports. This way S-Taliro treats model as black-box.</p>
+		<p>There are mentioned two algorithms in the quick guide:</p>
+		<ul>
+			<li>fw_taliro - based on formula rewriting, suitable for runtime monitoring <a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5238617">[3]</a></li>
+			<li>dp_taliro - based on dynamic programming, suitable for offline testing <a href="https://dl.acm.org/citation.cfm?id=2185653">[4]</a></</li>	
+		</ul>
+	
+	<h2>Room heating benchmark HEAT30</h2>
+	<p>This benchmark model was introduced by Ansgar Fehnker and Franjo Ivanèiæ in paper <a href="https://link.springer.com/chapter/10.1007/978-3-540-24743-2_22" target="_blank" rel="nofollow">Benchmarks for Hybrid Systems Verification [5]</a>. Sadly our library has no available copy of this document, though I have requested that library should borrow one.</p>
+	<p>This model represent 10 rooms and 4 heaters which result in 3 360 discrete locations. The goal for veryfication is to verify that for rooms <img src="./img/x_0.gif" alt="x_0" height="15" width="15"> up to xn no room temperature drops below [14.50; 14.50; 13.50; 14.00; 13.00; 14.00; 14.00; 13.00; 13.50; 14.00]. The initial conditions are temperatures in range of [17,18]. The input signal was parametrized using a piecewise cubic Hermite interpolating polynomial with 4 control points evenly distributed in the simulation time. Look of the model in Simulink:</p>
+	<img src="./img/HEAT30.png" alt="HEAT30 benchmark" height="330" width="555"> 
+	<p>When S-Taliro is used to falsify the model, it can run for example for 40 minutes and find a witness Falsifying input signal together with initial conditions and resulting trajectories like in my case when I ran the tool. This is the output:</p>
+	<img src="./img/HEAT30_Falsyfication.png" alt="HEAT30 falsification" height="500" width="1024"> 
+	
+	<h3>MTL in S-TaLiRo</h3>
+	<p>
+		In order to run different experiments on different CPS and other real-time systems I need to understand the usage of MTL specification in S-TaLiRo tools. Traditional MTL operators are translated into S-TaLiRo according to this table:
+	</p>
+	<img src="./img/conversion_sTaliro_MTL.png" alt="transform table for MTL in S-TaLiRo" width="555">
+	<p>
+		Where <b>G</b>, <b>P</b> and <b>U</b> (<i>until</i>) are defined within <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a> and according to my intuition <b>X</b> represents "<i>next</i>", <b>W</b> represents "<i>previous</i>" and <b>R</b> is a mystery. These conversions are used in Matlab scripts to define restrictions for a system. For example in the case of Room heating benchmark:
+	</p>
+	<img src="./img/sTaliro_room_heating_benchmark_script.png" alt="sTaliro_room_heating_benchmark_script.png" width="1000">
+	<p>
+		We can see that in the section <i>MTL spec</i> there are 4 lines. The first line defines the whole phi formula -> a system restriction. Other lines are unknown to me so far, but it is only a matter of time, until I will get to the bottom of their mystery. How to do that? I will use good old method of observing many different cases (in context of S-TaLiRo benchmarks) and comparing them.
+	</p>
+		<h2>Battle plan</h2>
+		<ol>
+			<li>See all the S-TaLiRo benchmarks</li>
+			<li>Compare them</li>
+			<li>Find pattern across all the MTL specifications</li>
+			<li>Conclude the purpose of the rest 3 lines</li>
+		</ol>
+	</p>
+</article>
+
+<div class="bibliography">
+	<h2>Bibliography</h2>
+	<p>[1]	Koymans, <i>R. Real-Time Syst</i> (1990) 2: 255. https://doi.org/10.1007/BF01995674</p>
+	<p>[2]	Annpureddy Y., Liu C., Fainekos G., Sankaranarayanan S. (2011) <i>S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems.</i> In: Abdulla P.A., Leino K.R.M. (eds) Tools and Algorithms for the Construction and Analysis of Systems. TACAS 2011. Lecture Notes in Computer Science, vol 6605. Springer, Berlin, Heidelberg</p>
+	<p>[3]	H. Kress-Gazit, G. E. Fainekos and G. J. Pappas, "<i>Temporal-Logic-Based Reactive Mission and Motion Planning</i>," in IEEE Transactions on Robotics, vol. 25, no. 6, pp. 1370-1381, Dec. 2009.</p>
+	<p>[4]	Sriram Sankaranarayanan and Georgios Fainekos. 2012. <i>Falsification of temporal properties of hybrid systems using the cross-entropy method.</i> In Proceedings of the 15th ACM international conference on Hybrid Systems: Computation and Control (HSCC '12). ACM, New York, NY, USA, 125-134. DOI=http://dx.doi.org/10.1145/2185632.2185653 </p>
+	<p>[5]	Fehnker A., Ivanèiæ F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) <i>Hybrid Systems: Computation and Control.</i> HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg</p>
+</div>
+
+<footer>Copyright &copy; W3Schools.com</footer>
+
+</div>
+
+</body>
+</html>
