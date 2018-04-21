@@ -108,19 +108,34 @@ div.bibliography {
 	</p>
 	<img src="./img/conversion_sTaliro_MTL.png" alt="transform table for MTL in S-TaLiRo" width="555">
 	<p>
-		Where <b>G</b>, <b>P</b> and <b>U</b> (<i>until</i>) are defined within <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a> and according to my intuition <b>X</b> represents "<i>next</i>", <b>W</b> represents "<i>previous</i>" and <b>R</b> is a mystery. These conversions are used in Matlab scripts to define restrictions for a system. For example in the case of Room heating benchmark:
+		Where:
+		<ul>
+			<li><b>G</b> (<i>always</i>), <b>F</b> (<i>eventually</i>) and <b>U</b> (<i>until</i>) are defined within <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a></li>
+			<li><b>X</b> represents "<i>next</i>" and it is equivalent to <>_[1,1]</li>
+			<li><b>W</b> is now <b>P</b> instead and it represents "<i>previous</i>"</li>
+			<li><b>U_[a,b]</b> is the "<i>until</i>" operator with time bounds [a,b]</li>
+			<li><b>R_[a,b]</b> is the "<i>release</i>" operator with time bounds [a,b]</li>
+			<li><b>P_[a,b]</b> is the "<i>previous</i>" operator with time bounds [a,b]. It is equivalent to <.>_[1,1]</li>
+			<li><b>S_[a,b}</b> is the "<i>since</i>" operator with time bounds [a,b}. If no time bounds are required, then use just <b>S</b></li>
+			<li><b>T_[a,b}</b> is the "<i>trigger</i>" operator (past version of "release") with time bounds [a,b}. If no time bounds are required, then use just <b>T</b></li>
+			<li><b><.>_[a,b}</b> is the "<i>eventually in past</i>" (in <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a> it was probably <b>P</b>) operator with time bounds [a,b}</li>
+			<li><b>[.]_[a,b}</b> is the "<i>always in past</i>" (in <a href="https://link.springer.com/article/10.1007/BF01995674">[1]</a> it was <b>H</b>) operator with time bounds [a,b}</li>
+		</ul>
+
+		These conversions are used in Matlab scripts to define restriction formulas in MTL. Needles to say that [a,b} are non-negative integers which does not represent simulation time, but number of samples. Example such restriction can be bounded response: <i>Always between 3 to 5 samples in the past 'p1' implies eventually 'p2' within 1 sample</i> -- [.]_[3,5](p1 -> <>_[0,1] p2). More info by typing '<i>help monitor</i>' (TaliRo) into MATLAB.
+	</p>
+	<p>
+		For example in the case of Room heating benchmark:
 	</p>
 	<img src="./img/sTaliro_room_heating_benchmark_script.png" alt="sTaliro_room_heating_benchmark_script.png" width="1000">
 	<p>
-		We can see that in the section <i>MTL spec</i> there are 4 lines. The first line defines the whole phi formula -> a system restriction. Other lines are unknown to me so far, but it is only a matter of time, until I will get to the bottom of their mystery. How to do that? I will use good old method of observing many different cases (in context of S-TaLiRo benchmarks) and comparing them.
-	</p>
-		<h2>Battle plan</h2>
-		<ol>
-			<li>See all the S-TaLiRo benchmarks</li>
-			<li>Compare them</li>
-			<li>Find pattern across all the MTL specifications</li>
-			<li>Conclude the purpose of the rest 3 lines</li>
-		</ol>
+		We can see that in the section <i>MTL spec</i> there are 4 lines:
+		<ul>
+			<li>First line defines the whole phi formula -> a system restriction.</li>
+			<li>Second line gives name to the predicate (e.g. p1, a, myPredicate, etc.)</li>	
+			<li>Preds(i).A and Preds(i).b formulate a constraint of the form <b>Ax <= b</b> see <a href="https://www.math.ucla.edu/~tom/LP.pdf">[6]</a></li>	
+		</ul>
+		This means that there are one or more restrictions on the output values of varibale x. Mind, that there may be not only one x, but more different x as there may be more different outputs. The best ilustration is in the case of demo autotrans (automatic transmition). There are two output values, speed of a car and RPM. Because there are two output values, predicate for speed will be preds(ii).A = [-1 0] and preds(ii).b = -120. This practically says: "I do not care about the RPM, but the speed restriction is x >= 120. That is why A here has two elements.
 	</p>
 </article>
 
@@ -131,6 +146,7 @@ div.bibliography {
 	<p>[3]	H. Kress-Gazit, G. E. Fainekos and G. J. Pappas, "<i>Temporal-Logic-Based Reactive Mission and Motion Planning</i>," in IEEE Transactions on Robotics, vol. 25, no. 6, pp. 1370-1381, Dec. 2009.</p>
 	<p>[4]	Sriram Sankaranarayanan and Georgios Fainekos. 2012. <i>Falsification of temporal properties of hybrid systems using the cross-entropy method.</i> In Proceedings of the 15th ACM international conference on Hybrid Systems: Computation and Control (HSCC '12). ACM, New York, NY, USA, 125-134. DOI=http://dx.doi.org/10.1145/2185632.2185653 </p>
 	<p>[5]	Fehnker A., Ivanèiæ F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) <i>Hybrid Systems: Computation and Control.</i> HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg</p>
+	<p>[6]	Linear Programming course at UCLA</p>
 </div>
 
 <footer>Copyright &copy; W3Schools.com</footer>
