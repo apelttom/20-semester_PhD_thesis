@@ -127,16 +127,40 @@ div.bibliography {
 	<p>
 		For example in the case of Room heating benchmark:
 	</p>
-	<img src="./img/sTaliro_room_heating_benchmark_script.png" alt="sTaliro_room_heating_benchmark_script.png" width="1000">
+	<img src="./img/sTaliro_room_heating_benchmark_script.png" alt="sTaliro room heating benchmark script" width="1000">
 	<p>
 		We can see that in the section <i>MTL spec</i> there are 4 lines:
 		<ul>
 			<li>First line defines the whole phi formula -> a system restriction.</li>
 			<li>Second line gives name to the predicate (e.g. p1, a, myPredicate, etc.)</li>	
-			<li>Preds(i).A and Preds(i).b formulate a constraint of the form <b>Ax <= b</b> see <a href="https://www.math.ucla.edu/~tom/LP.pdf">[6]</a></li>	
+			<li><i>Preds(i).A</i> and <i>Preds(i).b</i> formulate a constraints of the form <b>Ax <= b</b> see <a href="https://www.math.ucla.edu/~tom/LP.pdf">[6]</a></li>	
 		</ul>
 		This means that there are one or more restrictions on the output values of varibale x. Mind, that there may be not only one x, but more different x as there may be more different outputs. The best ilustration is in the case of demo autotrans (automatic transmition). There are two output values, speed of a car and RPM. Because there are two output values, predicate for speed will be preds(ii).A = [-1 0] and preds(ii).b = -120. This practically says: "I do not care about the RPM, but the speed restriction is x >= 120. That is why A here has two elements.
 	</p>
+	
+	<h3>3rd order Delta-Sigma Modulator</h3>
+	<p>
+		There is another demo based on a model of a 3rd order Delta-Sigma Modulator. The goal here is to find state trajectories that might reach the saturation threshold. In other words, the requirements are that <b>-1 <= x_i <= 1</b> for i = 1,2,3.
+	</p>
+	<p>
+		How to specify this in a MTL form and then verify it using S-TaLiRo tools? Well in MTL it is easy. Given that the equation is a formula phi, then simply <b>Ga</b>, because at any time must this restriction hold true. In S-TaLiRo version it would be written as <b>[]a</b>. But how to write the restriction itself in S-TaLiRo form of predicates? Let's look on the author's way how to write it down:
+	</p>
+	<img src="./img/sTaliro_room_3rdOrderModulator_benchmark_script.png" alt="sTaliro room 3rdOrderModulator benchmark script">
+	<p>
+		As we can see <i>Preds(i).A</i> has six dimensions, each of those has three variables. Indeed it corresponds with the definition of three output variables <b>x_1</b>, <b>x_2</b> and <b>x_3</b>. On the other line is a definiton of <i>Preds(i).b</i>. It has only six numbers, all ones. It makes sense because we will be using each number for different dimension in <i>Preds(i).A</i>. First two dimensions in <i>Preds(i).A</i> define restrictions about <b>x_1</b>, namely that <b>1x_1 <= 1</b> and then <b>-1x_1 <= 1</b>, which converts into <b>x_1 >= -1</b> which is exactly what we needed. Similarly it goes for <b>x_2</b> and <b>x_3</b>. I have tested this hypotesis by modifying the <i>Preds(i).b</i> values and behavior of the system confirmed the assumption.
+	</p>
+	<p>
+		Here is the output of the system state trajectories with the original definition:
+	</p>
+	<img src="./img/sTaliro_room_3rdOrderModulator_benchmark_output_v01.png" alt="sTaliro room 3rdOrderModulator benchmark default output">
+	<p>
+		And here is the output with my modification of <i>Preds(i).b</i> (all 1 changed to 2):
+	</p>
+	<img src="./img/sTaliro_room_3rdOrderModulator_benchmark_output_v03.png" alt="sTaliro room 3rdOrderModulator benchmark altered">
+	<p>
+		These screenshots nicely demonstrate how one can change the problem of a model verification by changing constraints.
+	</p>
+	
 </article>
 
 <div class="bibliography">
