@@ -11,6 +11,9 @@ project = simulinkproject;
 projectRoot = project.RootFolder;
 
 % Set the location of slprj to be the "work" folder of the current project:
+
+% Simulink creates simulation targets in the slprj subfolder of the working
+% folder. If slprj does not exist, Simulink creates it.
 myCacheFolder = fullfile(projectRoot, 'work');
 if ~exist(myCacheFolder, 'dir')
     mkdir(myCacheFolder)

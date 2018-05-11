@@ -6,7 +6,7 @@
 clear
 
 cd('..')
-cd('SystemModelsAndData')
+cd('C:\apelttom\university\20-semester_PhD_thesis\S-Taliro\demos\SystemModelsAndData')
 
 disp(' ')
 disp('This is an S-TaLiRo demo on a Simulink model of 3rd order Delta-Sigma Modulator.')
@@ -38,7 +38,7 @@ phi = '[]a'
 
 preds.str='a';
 preds.A = [1 0 0; -1 0 0; 0 1 0; 0 -1 0; 0 0 1; 0 0 -1];
-preds.b = [1 1 1 1 1 1]';
+preds.b = [2 2 2 2 2 2]';
 
 disp(' ')
 disp('Total Simulation time:')
