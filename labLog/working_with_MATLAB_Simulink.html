@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+div.bibliography {
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Working with MATLAB/Simulink</h1>
+</header>
+  
+<nav>
+  <<ul>
+    <li><a href="index.html">Introduction</a></li>
+	<li><a href="s_taliro.html">S-TaLiRo</a></li>
+    <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Downloading and opening Simulink projects in MATLAB R2017b</h1>
+	<h2>1. Line follower project</h2>
+		<p>First project that I have tested in Simulink was The Line follower project. It is a model of a small robot, that is supposed to follow a line drawn on the floor.</p>
+		<p>As can be seen on the following image, the project is divided into several directories, plus there is the <i>LineFollower.prj</i> file which is very important, because is should be used as a key for opening the project. Simply open this file in MATLAB and automatic scripts and MATLAB compilator will do the rest for you.</p>
+		<figure>
+			<img src="./img/line_follower_project.png" alt="Overview of the Line Follower project" height="947" width="1265"> 
+		</figure>
+		<p>Under <i>utilities</i> folder there are MATLAB scripts which set up and clean the project + test script.</br>
+		Folder <i>track</i> contains data of the particular tracks + their images (images load to the simulation so it seems that the robot is going around the track.</br>
+		Folder <i>flib</i> contains definition of a S-function block. <b>TODO</b>: need more information!</br>
+			<ul>
+				<li><b>S-function block</b> An S-function is a computer language description of a Simulink block written in MATLAB®, C, C++, or Fortran. C, C++, and Fortran S-functions are compiled as MEX files. S-functions follow a general form and can accommodate continuous, discrete, and hybrid systems. By following a set of simple rules, we can implement an algorithm in an S-function and use the S-Function block to add it to a Simulink model. They are practically blocks of your own funcionalitty which can do whatever you design them to do. After you write your S-function and place its name in an S-Function block (available in the User-Defined Functions block library), you can customize the user interface using masking.</li>
+				<li><b>Masking</b> is very useful because it makes model appear more real for other engineers. Without masking, models are only spagetti net of basic Simulink mathematical blocks and user defined components but masking helps us to wrap logical units (such as DC motor, robot plant, adapter, converter, engine, control unit, etc.) into atomic Simulink blocks. If we would like we can even add pictures and schematics! See <a href="https://www.mathworks.com/videos/creating-and-masking-subsystems-69025.html" target="_blank">this tutorial</a>.</li>
+				</ul>
+		In this case flib together forms a plant of a robot. It defines it's inputs, outputs and transformation function.</br>
+		Under the folder <i>models</i> is the most interesting stuff: Simulink .slx models.</p>
+		<ul>
+			<li><b>controller.slx</b> is a definition of a logic, which controls robot plant on the track. Uses only one signal from the plant as input (feedback). This is done by Simulink basic blocks (constants, sums, integrator, math function, etc.). This model is of course runnable, we can start a <a href="./img/line_follower_controller_simulation.png">simulation</a> if we specify step size (or we can set it to auto and Simulink will use <i>ode45</i> solver and sets step size to 0.01).</li>
+			<li><b>controller_discrete.slx</b> is slightly different. It has different discrete time integrator function and there is rate <i>Rate Transition</i> block in addition. Still it uses only 1 signal from the plant as input to the controller. It uses FixedStepDiscrete solver, whatever it is.</li>
+			<li><b>no_control.slx</b> presents a case when the robot is not being controlled. It doesn't use any of the signals from the plant as input. The only command, which is given to the plant of the robot is constant speed 200 units (so the robot will just run forward until it will crash, start burning and evantually explodes).</li>
+			<li><b>simple.slx</b> is only simple feedback control. Uses 2 signals as a feedback from the plant (medium and right sensor). It seems that it can go forward, backwards and stop. There are two simple switches for sending signal of 100 units, -100 units or 0 units into the robot plant. If we run the simulation, robot moves few units, passes finish line and stops.</li>
+			<li><b>simple_discrete.slx</b> is a variation of the model mentioned above, but with <i>FixedStepDiscrete</i> solver. It also possesses <i>Rate Transition</i> (<b>TODO</b> research deeper) which somehow transfer data between signal sent and plant input port. If we run the simulation, robot is able to follow the line.</li>
+			<li><b>state_machine.slx</b> is a controller build using Stateflow package and opposite to all previous models it actually uses all the signals, coming out from the robot sensors. All of them are wired as inputs into the state machine which has only two outputs (used to control the robot) and these are speed and radius. The <a href="./img/line_follower_state_machine.png">state machine</a> is very simple, yet powerful.</li>
+			<li><b>state_machine_with_obstacle.slx</b> is even more powerfull and model a controller which receives signals not only from the sensors on the front of the robot, but also from the bumbers and wheels, making robot able to hit obstacles and possibly go around them.</li>
+		</ul>
+		<p>Now we have pretty good idea about Simulink project and it's models. We should link our knowledge into S-Taliro world. Task list:</p>
+		<ol>
+			<li>Study documentation for LineFollower</li>
+			<li>Create MTL specification for LineFollower</li>
+			<li>Run S-Taliro tools on the example</li>
+			<li></li>
+		</ol>
+		<p></p>
+</article>
+
+<footer>Copyright &copy; W3Schools.com</footer>
+
+</div>
+
+</body>
+</html>

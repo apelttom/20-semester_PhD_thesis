@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 
@@ -52,19 +52,19 @@ div.bibliography {
 <div class="container">
 
 <header>
-   <h1>Simulink experiments</h1>
+   <h1>Introduction</h1>
 </header>
   
 <nav>
   <ul>
-    <li><a href="#">Introduction</a></li>
-    <li><a href="#">Paris</a></li>
-    <li><a href="#">Tokyo</a></li>
+    <li><a href="index.html">Introduction</a></li>
+	<li><a href="s_taliro.html">S-TaLiRo</a></li>
+    <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
   </ul>
 </nav>
 
 <article>
-  <h1>Introduction</h1>
 	<h2>Electro-Mechanical Breaking system</h2>
 		<p>First project that I decided to run and analyze is Dr. Jens Oehlerking's project of Electro-Mechanical Braking System (EMB). Electro-Mechanical Braking System works similary as Hydraulic brake system, but instead of direct connection between the pedal and the calipers, there is a wire and number of sensors that measure driver's intention to break and if so, central unit sends a signal to all four wheel to break according to the situation. Instead of fluid hoses there are wires (at least 2 buses for each caliper). Advantage is that each caliper can break with different intensity according to the situation. But there is need for sensors of temperature, clamp force and actuator position.</p>
 		<p>Dr. Jens Oehlerking used in his study hybrid verification tools (iSAT-ODE, Flow*, S-TALIRO tools) on this project which represents an experimental electro-mechanical braking system. Project consists of a plant model and a controller comprising both feedback and feedforward control. In study they show us model simplifications in order to obtain useful results from the verification tools. Particular focus here are verification results including parameter variations within the model to achieve a quantifiable form of robustness for the property in question.</p>
@@ -74,45 +74,6 @@ div.bibliography {
 		<p>After deeper digging and some consultations I have opted my attention on S-TALIRO toolbox and its functionality.</p>
 		<p>This model is called experimental, because it is derived from reality. We depend on assumptions and we omit aspects that are according to our judge unimportant, but we can be wrong and by simplifying reality into such model we loose precision, which may lead to incorrect conclusions. That is the reason why this model is only experimental.</p>
 		<p>Model consist of plant (designed first) and controller (designed second). <cite>A plant in control theory is the combination of process and actuator. A plant is often referred to with a transfer function (not uncommonly in the s-domain) which indicates the relation between an input signal and the output signal of a system without feedback, commonly determined by physical properties of the system. An example would be an actuator with its transfer of the input of the actuator to its physical displacement. In a system with feedback, the plant still has the same transfer function, but a control unit and a feedback loop (with their respective transfer functions) are added to the system.</cite> <a href="https://aleph.cvut.cz/F?func=direct&doc_number=000656760">[1]</a></p>
-		<p></p>
-		<p></p>
-</article>
-
-<article>
-	<h2>S-TaLiRo</h2>
-	<p>Main contributors of the tool are <a href="http://www.public.asu.edu/%7Egfaineko/" rel="nofollow">Georgios Fainekos</a> and <a href="http://www.cs.colorado.edu/%7Esrirams/" rel="nofollow">Sriram Sankaranarayanan</a></p>
-	<p>This tool searches for trajectories of minimal robustness in Simulink/Stateflow. It uses randomized testing based on stochastic optimalization techniques (Monte-Carlo, Ant-Colony optimalization, etc.). It is modular and new stochaistic optimalization algorithms can be easily implemented and integrated.</p>
-	<p>S-Taliro searches for counterexamples to <i>Metric Temporal Logic</i> (MTL) <a href="https://link.springer.com/article/10.1007/BF01995674">[2]</a> properties for non-linear hybrid systems. This goal is achieved by previously noted minimization of a robustness metric. To achieve this goal S-Taliro uses either m-functions in Matlab which would describe the system, but preferably Simulink/Stateflow models that can S-Taliro use for simulation under given circumstances.</p>
-	<p>In it's core S-Taliro uses combination of stochastic sampling together with Simulink simulation runs and a little bit of optimalization. Using this approach, tool finds the smallest robustness which is desirable, because traces with lower robustness value are closer in distance to falsifying traces. If the tool detect a negative robustness we acquire a trace which falsify temporal logic properties. Robustness is calculated by Taliro module, but the computation is based on the results of convex optimalization problems used to compute signed distances. The structure of the tool and it's architecture is describe on this picture: <a href="https://link.springer.com/chapter/10.1007/978-3-642-19835-9_21">[3]</a></p>
-	<img src="./img/S-Taliro_scheme.png" alt="S-Taliro core" height="330" width="555"> 
-	<p>
-		<h3>How to use S-TaLiRo</h3>
-		<p>Prerequisite: Input signals must be provided to the Simulink model through input ports</p>
-		<ul>
-			<li>Execute S-TaLiRo tool with the name of the Simulink model as parameter.</li>
-			<li>Give S-TaLiRo set of initial conditions</li>
-			<li>Give S-TaLiRo constraints on the input signals</li>
-			<li>Give S-TaLiRo Metric Temporal Logic (MTL) specification</li>
-			<li>Select stochaistic optimalization Algorithm (Simulated Annealing, Ant Colony Optimization, Genetic Algorithms and Cross Entropy)</li>
-		</ul>
-	</p>
-	<p>Georgios Fainekos has written S-Taliro <a href="https://df1a2e36-a-0c9971f9-s-sites.googlegroups.com/a/asu.edu/s-taliro/s_taliro_v1_5_quick_guide_v1.pdf?attachauth=ANoY7cpvCXh4Q5jsPU9BTx9Kec4VxpaciiPVBTWnNP3EXhsYXdY5Ankx2sGb8OF5WRnVUpm0pP1p956X1lNY6Q_DO6Q8TBfa4VblhRnimHOjxoe9bhSRJ1gSGTnB3j8xENUCvUiPHGBEdj33FRNvgF7NjODcU8CjBfiXbwYyE-sj57bWCkPBAli-MAzs9gLJYxvJYbwlOFKUrE7d8-mU42gQAMjiAjPZKhtXLLZwoXDpM7qes48l2ho%3D&attredirects=0">quick guide</a>. It explains how should be S-Taliro used, what it can do and how it works. S-Taliro takes a system model (such as Simulink model) and also a set of MTL specifications and calculate different trajectories, experiment on a certain surrounding around the simulation to be able detect robustness. Based on the robustness calculate stochastic optimizations and creates new parameters specification.</p>
-	<p>Using this approach S-Taliro tries many different runs of the simulation, but with reasonable parameters which are altered in order to enclose as much as possible to real world situations. Robustness is calculated and in case that constraints are violated, witness trajectory is generated.</p>
-	<p>S-Taliro has a certain requirements on the model, for example input signals has to have a form of input ports. To define specifications authors recommend using output ports. This way S-Taliro treats model as black-box.</p>
-	<p>There are mentioned two algorithms in the quick guide:</p>
-	<ul>
-		<li>fw_taliro - based on formula rewriting, suitable for runtime monitoring <a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5238617">[4]</a></li>
-		<li>dp_taliro - based on dynamic programming, suitable for offline testing <a href="https://dl.acm.org/citation.cfm?id=2185653">[5]</a></</li>
-	</ul>
-	<p>Installation of S-Taliro is easy, just download the software from <a href="https://www.assembla.com/spaces/s-taliro_public/subversion/source/HEAD/trunk" target="_blank" rel="nofollow">Source</a> and run function in file setup_staliro.m in MATLAB. There may be a problem with paths, at least I have faced it on both environments; Linux and Windows. As a hotfix solution I just overwritten the relative paths to absolute path form and marked a note to find more elegant solution (<b>TODO!</b>) in future for my virtual environment which is still under construction.</p>
-	<p>Another possible problem can be compilation of C++ files, because on Linux I had pre-installed gcc version 7.something.something and recommended gcc version for the files is 4.4.*. Naturally GCC couldn't compile the source code due to some issues with comments or whatsoever. I have also noticed that there is an old version of Matlab 2013, so I switched to Windows where 2017 version of MATLAB is installed. For compilation MATLAB used default MinGW and compilation ran without problems.</p>
-	<p>After successful installation of S-Taliro tools I started to examine demos.</p>
-	<h3>Room heating benchmark HEAT30</h3>
-	<p>This benchmark model was introduced by Ansgar Fehnker and Franjo Ivančić in paper <a href="https://link.springer.com/chapter/10.1007/978-3-540-24743-2_22" target="_blank" rel="nofollow">Benchmarks for Hybrid Systems Verification [6]</a>. Sadly our library has no available copy of this document, though I have requested that library should borrow one.</p>
-	<p>This model represent 10 rooms and 4 heaters which result in 3 360 discrete locations. The goal for veryfication is to verify that for rooms <img src="./img/x_0.gif" alt="x_0" height="15" width="15"> up to xn no room temperature drops below [14.50; 14.50; 13.50; 14.00; 13.00; 14.00; 14.00; 13.00; 13.50; 14.00]. The initial conditions are temperatures in range of [17,18]. The input signal was parametrized using a piecewise cubic Hermite interpolating polynomial with 4 control points evenly distributed in the simulation time. Look of the model in Simulink:</p>
-	<img src="./img/HEAT30.png" alt="HEAT30 benchmark" height="330" width="555"> 
-	<p>When S-Taliro is used to falsify the model, it can run for example for 40 minutes and find a witness Falsifying input signal together with initial conditions and resulting trajectories like in my case when I ran the tool. This is the output:</p>
-	<img src="./img/HEAT30_Falsyfication.png" alt="HEAT30 falsification" height="500" width="1024"> 
 </article>
 
 <article>
