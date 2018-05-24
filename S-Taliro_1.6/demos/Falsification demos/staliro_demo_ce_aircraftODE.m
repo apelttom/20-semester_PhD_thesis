@@ -7,7 +7,7 @@
 clear
 
 cd('..')
-cd('SystemModelsAndData')
+cd('C:\apelttom\university\20-semester_PhD_thesis\S-Taliro_1.6\demos\SystemModelsAndData')
 
 disp(' ')
 disp(' Demo: Cross Entropy on the aircraft example from the HSCC 2010 paper. ')

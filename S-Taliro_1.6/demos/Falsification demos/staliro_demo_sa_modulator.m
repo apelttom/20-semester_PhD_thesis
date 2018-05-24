@@ -6,7 +6,7 @@
 clear
 
 cd('..')
-cd('SystemModelsAndData')
+cd('C:\apelttom\university\20-semester_PhD_thesis\S-Taliro_1.6\demos\SystemModelsAndData')
 
 disp(' ')
 disp('This is an S-TaLiRo demo on a Simulink model of 3rd order Delta-Sigma Modulator.')
