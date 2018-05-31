@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+
+div.bibliography {
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Introduction</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="index.html">Introduction</a></li>
+	<li><a href="s_taliro.html">S-TaLiRo</a></li>
+    <li><a href="working_with_MATLAB_Simulink.html">Simulink models</a></li>
+	<li><a href="HKUST_lab.html">HKUST lab</a></li>
+  </ul>
+</nav>
+
+<article>
+	<h2>Electro-Mechanical Breaking system</h2>
+		<p>First project that I decided to run and analyze is Dr. Jens Oehlerking's project of Electro-Mechanical Braking System (EMB). Electro-Mechanical Braking System works similary as Hydraulic brake system, but instead of direct connection between the pedal and the calipers, there is a wire and number of sensors that measure driver's intention to break and if so, central unit sends a signal to all four wheel to break according to the situation. Instead of fluid hoses there are wires (at least 2 buses for each caliper). Advantage is that each caliper can break with different intensity according to the situation. But there is need for sensors of temperature, clamp force and actuator position.</p>
+		<p>Dr. Jens Oehlerking used in his study hybrid verification tools (iSAT-ODE, Flow*, S-TALIRO tools) on this project which represents an experimental electro-mechanical braking system. Project consists of a plant model and a controller comprising both feedback and feedforward control. In study they show us model simplifications in order to obtain useful results from the verification tools. Particular focus here are verification results including parameter variations within the model to achieve a quantifiable form of robustness for the property in question.</p>
+		<img src="./img/emb_siemens.jpg" alt="electro-mechanical braking system" height="418" width="603"> 
+		<p>EMB consists of electrical engine, which is used to push brake calipers against brake disc thus resulting in vehicle deceleration. When the contact with breaking disc has already been established, the electrical engine can be used to add additional braking force. There is a certain point <img src="./img/x_0.gif" alt="x_0" height="15" width="15"> where caliper already touches the disc and from this point on the breaking force increases. Whole EMB system is operated by a controller which discrete behavior has been extracted into a Stateflow chart so it is easier to see the hybrid automaton structure of the model.</p>
+		<img src="./img/controller_Stateflow.png" alt="controller hybrid automaton structure" height="474" width="1028"> 
+		<p>After deeper digging and some consultations I have opted my attention on S-TALIRO toolbox and its functionality.</p>
+		<p>This model is called experimental, because it is derived from reality. We depend on assumptions and we omit aspects that are according to our judge unimportant, but we can be wrong and by simplifying reality into such model we loose precision, which may lead to incorrect conclusions. That is the reason why this model is only experimental.</p>
+		<p>Model consist of plant (designed first) and controller (designed second). <cite>A plant in control theory is the combination of process and actuator. A plant is often referred to with a transfer function (not uncommonly in the s-domain) which indicates the relation between an input signal and the output signal of a system without feedback, commonly determined by physical properties of the system. An example would be an actuator with its transfer of the input of the actuator to its physical displacement. In a system with feedback, the plant still has the same transfer function, but a control unit and a feedback loop (with their respective transfer functions) are added to the system.</cite> <a href="https://aleph.cvut.cz/F?func=direct&doc_number=000656760">[1]</a></p>
+</article>
+
+<article>
+	<h2>Creation of a Simulink/Stateflow system</h2>
+		<p>Now the goal is to create a Simulink/Stateflow model that would possibly point out holes in S-Taliro toolbox. Based on such findings we would create a method that is performing better than S-Taliro on certain cases. As a promising model seems <a href="https://dspace.cvut.cz/handle/10467/66152" target="_blank" rel="nofollow">Master's thesis of Jan Kacetl</a>. He is describing a mathematical model of EV powertrain test bench and in addition he already created a Simulink/Stateflow model which we could reuse.</p>
+</article>
+
+<div class="bibliography">
+	<h2>Bibliography</h2>
+	<p>[1]	FRANKLIN, Gene F., J. David POWELL a Abbas EMAMI-NAEINI. <i>Feedback control of dynamic systems</i>. 4th ed. Upper Saddle River: Prentice Hall, c2002. ISBN 0-13-032393-4. </p>
+	<p>[2]	Koymans, <i>R. Real-Time Syst</i> (1990) 2: 255. https://doi.org/10.1007/BF01995674</p>
+	<p>[3]	Annpureddy Y., Liu C., Fainekos G., Sankaranarayanan S. (2011) <i>S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems.</i> In: Abdulla P.A., Leino K.R.M. (eds) Tools and Algorithms for the Construction and Analysis of Systems. TACAS 2011. Lecture Notes in Computer Science, vol 6605. Springer, Berlin, Heidelberg</p>
+	<p>[4]	H. Kress-Gazit, G. E. Fainekos and G. J. Pappas, "<i>Temporal-Logic-Based Reactive Mission and Motion Planning</i>," in IEEE Transactions on Robotics, vol. 25, no. 6, pp. 1370-1381, Dec. 2009.</p>
+	<p>[5]	Sriram Sankaranarayanan and Georgios Fainekos. 2012. <i>Falsification of temporal properties of hybrid systems using the cross-entropy method.</i> In Proceedings of the 15th ACM international conference on Hybrid Systems: Computation and Control (HSCC '12). ACM, New York, NY, USA, 125-134. DOI=http://dx.doi.org/10.1145/2185632.2185653 </p>
+	<p>[6]	Fehnker A., Ivančić F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) <i>Hybrid Systems: Computation and Control.</i> HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg</p>
+</div>
+
+<footer>Copyright &copy; W3Schools.com</footer>
+
+</div>
+
+</body>
+</html>
