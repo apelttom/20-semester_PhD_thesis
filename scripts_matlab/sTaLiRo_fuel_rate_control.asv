@@ -1,24 +1,23 @@
 % This is a script for verification a MTL specification of
-% Two Degree-of-Freedom PID Control for Setpoint Tracking using 
-% S-TaLiRo tools 
+% Fuel Rate Control Subsystem using S-TaLiRo tools 
 % For more information about the model see https://www.mathworks.com/help/simulink/examples/two-degree-of-freedom-pid-control-for-setpoint-tracking.html
 
 % (C) Tomas Apeltauer 2018 - Czech Technical University in Prague
 
-clear 
+%clear 
 
-cd('..')
-cd('C:\apelttom\university\20-semester_PhD_thesis\models\complexity_10')
+cd('C:\apelttom\university\20-semester_PhD_thesis\models\complexity_10\2dof_pid_dc')
 
-model = 'mySimpleODEwithInp1';
-time = 9;
+model = 'dc_pid_2dof';
+% load heat30;
+time = 50;
 cp_array = 4;
-input_range = [1 3];
-%X0 = [];
+input_range = [25 60];
+X0 = [];
 phi = '[]p';
 pred.str = 'p';
 pred.A = [-1];
-pred.b = [-1];
+pred.b = [-20];
 
 opt = staliro_options();
 opt.runs = 1;
@@ -33,6 +32,9 @@ clf
 subplot(2,1,1)
 plot(T1,XT1)
 title('State trajectories')
+% subplot(2,1,1)
+% plot(IT1(:,1),IT1(:,2))
+% title('Input Signal')
 subplot(2,1,2)
 plot(T1,YT1)
 title('Output Signal')
