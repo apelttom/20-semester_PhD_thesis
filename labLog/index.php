@@ -27,11 +27,12 @@
 
       <!-- About Section -->
       <div class="w3-content w3-justify w3-text-black w3-padding-64" id="about">
-      <h2 class="w3-text-black">Tomáš Apeltauer</h2>
-      <hr style="width:200px" class="w3-opacity">
-      <p>
-        I am a second year PhD student at Czech Technical University in Prague, Faculty of Information Technology, Department of the Digital Design. The topic of my reasearch is <i>"Automated testing of models of cyber-physical systems"</i>.
-      </p>
+	      <h2 class="w3-text-black">Tomáš Apeltauer</h2>
+	      <hr style="width:200px" class="w3-opacity">
+	      <p>
+	        I am a second year PhD student at Czech Technical University in Prague, Faculty of Information Technology, Department of the Digital Design. The topic of my reasearch is <i>"Automated testing of models of cyber-physical systems"</i>.
+	      </p>
+			</div>
 
       <!-- Contact Section -->
       <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
@@ -42,9 +43,7 @@
      		 <p><i class="fa fa-map-marker fa-fw w3-text-black w3-xxlarge w3-margin-right"></i>Room A:1051, CTU in Prague</p>
      		 <p><i class="fa fa-phone fa-fw w3-text-black w3-xxlarge w3-margin-right"></i> Phone: +852 5932 2746</p>
      		 <p><i class="fa fa-envelope fa-fw w3-text-black w3-xxlarge w3-margin-right"> </i> Email: <a href="mailto:apelttom@fit.cvut.cz" class="tooltip">apelttom@fit.cvut.cz<span class="tooltiptext">You can write me about anything!</span></a></p>
-     	 </div><br>
-
-      <!-- End Contact Section -->
+     	 </div>
       </div>
 
 	<?php include ("footer.php"); ?>
