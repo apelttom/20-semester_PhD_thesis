@@ -40,11 +40,28 @@
 				</p>
 				<img src="./img/round_wheel.png" style="width:100%">
 				<p>
-					People make mistakes. When an engineer creates a model of a brand new space rocket in a shape of a carrot, he will probably miscalculate something. We do not want these mistakes to propagate all the way down to the prototype. Especially when you are building a 100 million $ rocket. In order to avoid this companies do test each model against a set of requirements. Falsification they call it. Such requirements can be of all sorts. For example <b>Requirement n.1</b>: Carrot Space Rocket must never enter the state when there would be 10 g-force, because that is deadly for human beings. Now if we have a model of a Carrot Space Rocket, we can run a simulation of it's launch and observe if it would violate our requirement number 1 and thus kill all crew.
+					People make mistakes. When an engineer creates a model of a brand new space rocket in a shape of a carrot, he will probably miscalculate something. We do not want these mistakes to propagate all the way down to the prototype. Especially when you are building a 100 million $ rocket. In order to avoid this companies do test each model against a set of requirements. Falsification they call it. Such requirements can be of all sorts. For example <b>Requirement n.1</b>: Carrot Space Rocket must never enter the state when there would be 10 g-force, because that is deadly for human beings. Now if we have a model of a Carrot Space Rocket, we can run a simulation of it's launch and observe if it would violate our requirement number one and thus kill all crew.
 				</p>
 				<img src="./img/carrot_space_shuttle.png" style="width:100%">
 				<p>
-					Run these tests manually is very, very, VERY time-consuming. That is why we have tools to automate them (e.g. <a target="_blank" href="https://sites.google.com/a/asu.edu/s-taliro/s-taliro">S-TaLiRo</a>, <a target="_blank" href="https://openmodelica.org/">Modelica</a>, or <a target="_blank" href="https://ptolemy.berkeley.edu/">Ptolemy</a>). Sadly these tools have it's limitations, since they treat most of the models as black-box. When dealing with models of smart systems (such as <a target="_blank" href="https://en.wikipedia.org/wiki/Anti-lock_braking_system">Anti-lock braking system</a> in cars) these tools cannot effectively verify that model meets the requirements. This combination of discrete logic and continuous behaviour of mechanical parts makes it very hard. I am working on a creation of new algorithms which would deal with this situation.
+					Run these tests manually is very, very, VERY time-consuming. That is why we have tools to automate them (e.g. <a target="_blank" href="https://sites.google.com/a/asu.edu/s-taliro/s-taliro">S-TaLiRo</a>, <a target="_blank" href="https://openmodelica.org/">Modelica</a>, or <a target="_blank" href="https://ptolemy.berkeley.edu/">Ptolemy</a>). Sadly these tools have it's limitations, since they treat most of the models as black-box. When dealing with models of smart systems (such as <a target="_blank" href="https://en.wikipedia.org/wiki/Anti-lock_braking_system">Anti-lock braking system</a> in cars) these tools cannot effectively verify that model meets the requirements. This combination of discrete logic and continuous behaviour of mechanical parts makes the verification process very hard. And what I do is that I try to invent new epic algorithms that would deal with such complexity.
+				</p>
+			</div>
+
+			<!-- Tools Section -->
+			<div class="w3-content w3-justify w3-text-black w3-padding-64" id="staliro">
+				<h2 class="w3-text-black">Tools I work with</h2>
+				<hr style="width:200px" class="w3-opacity">
+				<p>
+					But before inventing anything new, first one has to get acquainted with the tools that are generally used in the area of falsification of models. The cornerstone of working with digital models is MATLAB & Simulink. Using these two tools we can create models of devices such as DC-motor controller. MATLAB & Simulink can be used to model <a target="_blank" href="https://www.eg.bucknell.edu/~xmeng/Course/CS6337/Note/master/node6.html">continuous systems</a> That is nice, but cyber-physical systems contain both parts, continuous and discrete. To add the discrete part we can use downloadable toolbox called StateFlow.
+				</p>
+				<img src="./img/round_wheel.png" style="width:100%">
+				<p>
+					But when you have a Simulink model
+				</p>
+				<img src="./img/carrot_space_shuttle.png" style="width:100%">
+				<p>
+					Run these tests manually is very, very, VERY time-consuming. That is why we have tools to automate them (e.g. <a target="_blank" href="https://sites.google.com/a/asu.edu/s-taliro/s-taliro">S-TaLiRo</a>, <a target="_blank" href="https://openmodelica.org/">Modelica</a>, or <a target="_blank" href="https://ptolemy.berkeley.edu/">Ptolemy</a>). Sadly these tools have it's limitations, since they treat most of the models as black-box. When dealing with models of smart systems (such as <a target="_blank" href="https://en.wikipedia.org/wiki/Anti-lock_braking_system">Anti-lock braking system</a> in cars) these tools cannot effectively verify that model meets the requirements. This combination of discrete logic and continuous behaviour of mechanical parts makes the verification process very hard. And what I do is that I try to invent new epic algorithms that would deal with such complexity.
 				</p>
 			</div>
 
