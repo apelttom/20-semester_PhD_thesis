@@ -1,0 +1,168 @@
+%% History:
+%
+% Josef Hlavac & Tomas Zahradnicky (21.10.2010)
+%  + Built on the FEL CVUT template by Daniel Sykora and Pavel Tvrdik
+%  + Made for FIT CVUT
+%  + Joined several chapters and cleaned
+%  + Undefined references are typeset in an orange box to alert the writer!
+%  + Index is automatically printed if the \usepackage{index} and
+%    \newindex{default}{idx}{ind}{Index} lines are uncommented.
+%
+%\documentclass[12pt,oneside,a4paper]{book}%one-page printing
+\documentclass[12pt,twoside,a4paper]{book}%two-page printing
+
+%\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+%\usepackage{setspace}
+%\usepackage{epic} % Images drawn in Xfig, exported as .epic
+\usepackage{hyperref}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{amssymb}
+%\usepackage{proof}
+%\usepackage{latexsym}
+\usepackage{rotating}
+%\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{multirow}
+%\usepackage{index}
+%\newindex{default}{idx}{ind}{Index}
+
+\input tex/phdmacro.tex %couple of macros for formatting the dissertation thesis,
+                    %your personal and specific macros can be placed also there
+
+\newcommand\DissTitle{DOCTORAL STUDY REPORT TITLE}
+\newcommand\FirstandFamilyName{YOUR NAME}
+\newcommand\Email{USERNAME@fit.cvut.cz}
+\newcommand\Month{Prague, September}
+\newcommand\Year{2013}
+\newcommand\Supervisor{YOUR SUPERVISOR'S NAME}
+\newcommand\SupervisorAffiliation{
+%Department of Theoretical Computer Science\\
+%Department of Digital Design\\
+%Department of Software Engineering\\
+Department of YOUR DEPARTMENT\\
+Faculty of Information Technology\\
+Czech Technical University in Prague\\
+Th\'akurova{} 9\\
+160 00 Prague 6\\
+Czech Republic}
+%%-> uncomment if you have a thesis co-supervisor
+%\newcommand\CoSupervisor{prof. RNDr. COSUPERVISOR, Ph.D.}
+%\newcommand\CoSupervisorAffiliation{
+%Computer Science and Engineering Department\\
+%Faculty of Electrical Engineering\\
+%Czech Technical University in Prague\\
+%Karlovo n\'{a}m.~13\\
+%121 35 Prague 2\\
+%Czech Republic}
+
+\newcommand\PhDProgram{Informatics}
+%\newcommand\PhDSpecialization{Informatics}
+%\newcommand\Department{Department of Theoretical Computer Science}
+%\newcommand\Department{Department of Digital Design}
+%\newcommand\Department{Department of Software Engineering}
+\newcommand\Department{Department of YOUR DEPARTMENT}
+\newcommand\Faculty{Faculty of Information Technology}
+\newcommand\University{Czech Technical University in Prague}
+\newcommand\Address{Th\'akurova{} 9, 160 00 Prague 6, Czech Republic}
+
+\begin{document}
+% allow @ to appear in macro names
+\makeatletter
+
+% start chapter on even (right hand side) page (Tomas Srna)
+\renewcommand*\cleardoublepage{\clearpage\if@twoside
+  \ifodd\c@page \hbox{}\newpage\if@twocolumn\hbox{}%
+  \newpage\fi\fi\fi}
+
+% produce undefined references in an orange box rather than just ??
+\def\@setref#1#2#3{%
+  \ifx#1\relax
+   \protect\G@refundefinedtrue
+   \nfss@text{\reset@font\bfseries\fcolorbox{black}{Orange}{??}}%
+   \@latex@warning{Reference `#3' on page \thepage \space
+             undefined}%
+  \else
+   \expandafter#2#1\null
+  \fi}
+\coverpagestarts
+\newpage
+\input{tex/abstract.tex}
+\newpage
+\tableofcontents
+%------------------------------
+%  LOF, LOT and Abbreviations
+%----------------------------------------------------------------------------------------------------------
+% \newpage\addcontentsline{toc}{chapter}{\protect\numberline{}{List of Figures}}
+\listoffigures
+% \newpage\addcontentsline{toc}{chapter}{\protect\numberline{}{List of Tables}}
+\listoftables
+% \newpage\addcontentsline{toc}{chapter}{\protect\numberline{}{Abbreviations}}
+\input{tex/abbreviations.tex}
+%----------------------------------------------------------------------------------------------------------
+\newpage
+\mainbodystarts
+%\singlespacing
+%\onehalfspacing
+%\doublespacing
+%\part{The Parameter Extraction Methodology}
+%-----------------------
+%  Chapters start here
+\input{tex/introduction.tex}
+\input{tex/stateoftheart.tex}
+\input{tex/ourapproach.tex}
+\input{tex/mainresults.tex}
+\input{tex/conclusions.tex}
+%------------------------------------------------------------------------------------------
+% Use bibtex to produce bibliography used in the thesis, except for your own publications 
+%------------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+%\bibliographystyle{abbrv}
+\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\protect\numberline{}{Bibliography}}
+\bibliography{main}
+
+\newcounter{MyPublRefCount}
+\setcounter{MyPublRefCount}{0}
+\def\bibauthor#1{\addtocounter{MyPublRefCount}{1}\bibitem[A.\theMyPublRefCount]{#1}}
+
+% list your own books or papers in refereed journals or conference proceedings
+% or chapters in scientific monographies that are RELEVANT FOR YOUR THESIS
+\renewcommand\bibname{Publications of the Author}
+\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\protect\numberline{}{\bibname}}
+\begin{thebibliography}{A.2}%here fill-in the longest label in the list of your publications
+\itemsep=0pt
+%
+%----------------------------------------------------
+% \bibauthor{ID}. Cite as \cite{ID}.
+\bibauthor{YOURPUBL-ZZZ1}
+R. Gortz, F. T\"ol\"ok\"o.
+\newblock \emph{On the Carpathian Castle}.
+\newblock Transylvanian Journal of ...,
+\newblock Werst, Romania,
+\newblock 2010.
+% nepovinny blok s citaci:
+% ************* 
+\bigskip \\ \smallskip The paper has been cited in:
+\begin{itemize}
+\item \v{S}. Nov\'ak\r{u}. \emph{Carpathian Castle Revealed}, International Symposium on Carpathian Legends, 1:319--323, 2010.
+\end{itemize}
+% *************
+%----------------------------------------------------
+\bibauthor{YOURPUBL-P2}
+R. Gortz
+\newblock \emph{Another publication}.
+\newblock $36^{\,\rm th}$ International Conference on ..., pp. 19-24, \v{S}trbsk\'e pleso, Slovak Republic,
+\newblock 2010.
+%*************************************************************************
+\end{thebibliography}
+
+\newpage
+
+\appendix
+\input{tex/app1.tex}
+
+% Add the index if it is requested above
+\ifx\printindex\undefined\relax\else\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\protect\numberline{}{Index}}\fi
+\ifx\printindex\undefined\relax\else\printindex\fi
+
+\end{document}

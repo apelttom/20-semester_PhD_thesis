@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  overflow-y: scroll;
+  font-size: 12px;
+  color: black;
+  font-style: normal;
+
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  background-color: white;
+}
+
+/* Container for flexboxes */
+.main_content {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* Style the navigation menu */
+nav {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  max-width: 200px;
+  color: #999999;
+  text-align: right;
+  vertical-align: top;
+  background-color: #1A630D;
+}
+
+nav ul {
+  margin: 1.5em;
+}
+
+nav .nav_section {
+  border-bottom: 1px dotted #999999;
+  padding-top: 5px;
+  padding-right: 0px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+}
+
+nav a, .nav_section_header {
+  display: block;
+  color: white;
+  line-height: 1.6em;
+  text-decoration: none;
+
+  padding-top: 1px;
+  padding-right: 0px;
+  padding-bottom: 1px;
+  padding-left: 0px;
+}
+
+nav .nav_section_header {
+      font-weight: bold;
+}
+
+nav a:hover {
+  color: #999999;
+}
+
+/* Style the content */
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  margin: 0px auto 0 auto;
+  color: black;
+  background-color: white;
+  padding: 1em;
+}
+
+/* Style the footer */
+footer {
+    background-color: #999999;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Responsive layout - makes the menu and the content (inside the section) sit on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .main_content {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+}
+
+/* Style content elements */
+h1 {
+    font-size: 1.7em;
+    font-weight: bold;
+    line-height: 32px;
+    color: #999999;
+    padding-bottom: 15px;
+    padding-left: 40px;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+  padding-left: 40px;
+}
+
+.content_list {
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 80px;
+}
+
+li {
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+p, table {
+  padding-top: 5px;
+  padding-right: 40px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+}
