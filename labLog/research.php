@@ -55,14 +55,9 @@
 				<p>
 					But before inventing anything new, first one has to get acquainted with the tools that are generally used in the area of falsification of models. The cornerstone of working with digital models is MATLAB & Simulink. Using these two tools we can create models of devices such as DC-motor controller. MATLAB & Simulink can be used to model <a target="_blank" href="https://www.eg.bucknell.edu/~xmeng/Course/CS6337/Note/master/node6.html">continuous systems</a> That is nice, but cyber-physical systems contain both parts, continuous and discrete. To add the discrete part we can use downloadable toolbox called StateFlow.
 				</p>
-				<img src="./img/round_wheel.png" style="width:100%">
-				<p>
+				<!-- <p>
 					But when you have a Simulink model
-				</p>
-				<img src="./img/carrot_space_shuttle.png" style="width:100%">
-				<p>
-					Run these tests manually is very, very, VERY time-consuming. That is why we have tools to automate them (e.g. <a target="_blank" href="https://sites.google.com/a/asu.edu/s-taliro/s-taliro">S-TaLiRo</a>, <a target="_blank" href="https://openmodelica.org/">Modelica</a>, or <a target="_blank" href="https://ptolemy.berkeley.edu/">Ptolemy</a>). Sadly these tools have it's limitations, since they treat most of the models as black-box. When dealing with models of smart systems (such as <a target="_blank" href="https://en.wikipedia.org/wiki/Anti-lock_braking_system">Anti-lock braking system</a> in cars) these tools cannot effectively verify that model meets the requirements. This combination of discrete logic and continuous behaviour of mechanical parts makes the verification process very hard. And what I do is that I try to invent new epic algorithms that would deal with such complexity.
-				</p>
+				</p> -->
 			</div>
 
 	<?php include ("footer.php"); ?>
