@@ -3,11 +3,71 @@
 % This chapter, if desired, can be split into two chapters
 % - Theoretical Background
 % - Previous Results and Related Work
-...
+
+In the last decade we have seen a dramatic decrease in the cost of certain computation technologies and such phenomenon gave a birth of a new family of embedded control systems that are much better prepared for fluent, realistic interaction with the continuous physical world around them. For systems that combine physical world around us with the world of cybernetics, we use a term cyber-physical system. Although certain forms of CPS have been in industril use since 1980s, only recently has the technology for processors, wireless communication, and sensors matured to allow the production of components with impressive capabilities at a low cost.[Rajeev Alur Principles of CPS] 
+
+Advance in the field of Cyber-physical systems will bring us closer to usage of high-speed, low-cost, and real-time embedded computers in technologies like electric networks that employ advanced monitoring [Smart Grids: A Cyber–Physical Systems Perspective, By Xinghuo Yu and Yusheng Xue], networked autonomous vehicles [E. A. Lee, "Cyber Physical Systems: Design Challenges," 978-0-7695-3132-8] or prosthesis like neural controlled artificial leg [On Design and Implementation of Neural-Machine Interface for Artificial Legs, Xiaorong Zhang, Yuhong Liu]. CPS are a research priority for both, government agencies (National Science foundation) and industry (automotive, avionics, medical devices).
+
+\section{Cyber-Physical Systems}
+
+The concept of a cyber-physical system is a generalization of embedded systems.[Rajeev Alur Principles of CPS] An embedded system consists of hardware and software integrated within a mechanical or and electrical system designed for a specific purpose. CPS consist of a computational unit, sensors, actuators and a physical world which it must observe and react on it. In a CPS the controller consists of discrete software concurrent components, operating in multiple modes of operation, interacting with the continuosly evolving physical environment. Examples of on-board sensors include a global positioning system (GPS) receiver, a camera or an infrared thermal sensor.[Rajeev Alur Principles of CPS] CPS are reactive systems which interact with its environment in an ongoing manner. There is an endless loop of data collection and input evaluation throughout the time.
+
+TODO Chart of CPS
+
+In comparison to the traditional software development architecture, the creation of CPS differs in the emphasis on the security, confidence, reliability and performance of the system. CPS are often used in areas with many safety requirements (medicine [cite S-TaLiRo insulin pump], automotive [cite EMB paper], civil engineering [cite some smarthome papers], avionics, etc.). Apart from embedded systems, CPS will not be operating in a controlled environments and must be robust to unexpected conditions and adaptable to subsystem failures. [E. A. Lee, Cyber Physical Systems: Design Challenges, 2008,978-0-7695-3132-8]. An example of such systems is an autopilot system used on Airbus aircraft. It is a device used to guide an aircraft without direct assistance from the pilot. Modern autopilots are capable of controlling every part of the flight from just after take-off to landing and are normally integrated with the flight management system.
+
+\subsection{Reactive Computation}
+
+CPS are intended to seamlessly interact with the physical world around in an infinite feedback loop. Such real-time computing can be very challenging, because it usually consist of processing huge amount of inputs and delivering immediate reactions. The traditional computing device process an input and produces an output. An example is a program that process an unsorted list of numbers and returns a sorted list (based on given criteria, e.g. in an ascending order).
+
+A reactive system, in contrast, interacts with its environment in an ongoing manner via inputs and outputs. As a typical example of reactive computation consider a program for a cruise controller in a car. CPS are reative systems.[Rajeev Alur Principles of CPS]
+
+The design of a complex cyber-physical system — especially one with heterogeneous subsystems distributed across networks — is a demanding task. Commonly employed design techniques are sophisticated and include mathematical modeling of physical systems, formal models of computation, simulation of heterogeneous systems, software synthesis, verification, validation, and testing.[J. C. Jensen, D. H. Chang and E. A. Lee, A model-based design methodology for cyber-physical systems,978-1-4244-9538-2].
+
+Embedded system is usually constructed from the physical plant and the controller module. The controller contains specific algorithm, designed for capabilities and resources of given embedded system. In industry production area a Model-driven development paradigm has been deployed and successfully tested for development of embedded systems. Unfortunately when we move from simple programs to more complex software systems and particularly to cyber-physical systems, former design techniques and tools are no longer applicable.
+
+During the process of creation and implementation of an autopilot system, we expect a high level of assurance in the correct behavior of the system. If it would be the other way around, any error can lead to unacceptable consequences such as losses of lifes. Systems where safety requirements have higher priority than other design objectives such as performance and developement cost are called safety-critical. CPS generally fit into this cathegory. That is why ensurance of a system's corectness during design is of utmost importance and sometimes even mandatory because of goverment regulations.
 
 
-\section{Theoretical Background}
-%
+Former approach of system developement is divided into several phases: design, implementation, texting and validation. More suitable and practial approach is to write mathematically precise requirements of the desired system, design models od system components and using analysis tools check if the system meets the requirements. Usage of formal models and verification is fitting for the area of safety-critical applications. 
 
+And that is why a different paradigm for developing CPS was created. It is called Model-Based Design and it is increasingly adopted by industry.[J. C. Jensen, D. H. Chang and E. A. Lee, A model-based design methodology for cyber-physical systems,978-1-4244-9538-2]
+
+\section{Model-Based Design}
+
+The goal of modeling in system design is to provide mathematical abstractions to manage the complexity of design. In the context of reactive systems, the basic unit of modeling is a component that interacts with its environment via inputs and outputs.[Rajeev Alur Principles of CPS]
+
+
+
+In their work Jensen et al. 2011  [J. C. Jensen, D. H. Chang and E. A. Lee, A model-based design methodology for cyber-physical systems,978-1-4244-9538-2] propose a 10-step methodology for developing cyber-physical systems:
+
+\begin{enumerate}
+\item State the problem
+\item Model physical processes
+\item Characterize the problem
+\item Derive a control algorithm
+\item Select models of computation
+\item Specify hardware
+\item Simulate
+\item Construct
+\item Synthesize software
+\item Verify, validate and test
+\end{enumerate}
+
+This approach helps designers break enormous task of creation of CPS into manageable iterations, which can be repeated if needed. Main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example we would like to design new experimental electro-mechanical braking system. It [Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
+
+Using such paradigm we can create a whole model of CPS by moving forward through a set of logically sorted steps. On the beginning a set of requirements that describe the system has to be defined. Such requirements all of all sorts, some of them also safety requirements, defining corectness of the system behavior. An example of such requirement can be 
+
+\section{Safety requirements}
+
+TODO collect all the examples of the requirements plus from the course at Matfyz the requirements collection and specification and all engineering process around the ccreation of a new model of a system.
+
+\section{Metric Temporal Logic}
+
+\section{Verification process}
+
+about the simulation, tools, robustness metric...
+
+%ij
 \section{Previous Results and Related Work}
 %
