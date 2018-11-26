@@ -35,36 +35,118 @@ And that is why a different paradigm for developing CPS was created. It is calle
 
 \section{Model-Based Design}
 
-The goal of modeling in system design is to provide mathematical abstractions to manage the complexity of design. In the context of reactive systems, the basic unit of modeling is a component that interacts with its environment via inputs and outputs.[Rajeev Alur Principles of CPS]
-
-
+The goal of modeling in system design is to provide mathematical abstractions to manage the complexity of design. In the context of reactive systems, the basic unit of modeling is a component that interacts with its environment via inputs and outputs.[Rajeev Alur Principles of CPS] What exactly is a model? A model is defined as a small object, usually built to scale, that represents in detail another, often larger object. A schematic description of a system, theory, or phenomenon that accounts for its known or inferrend properties and may be used for further study of its characteristics. [American Heritage Dictionary]
 
 In their work Jensen et al. 2011  [J. C. Jensen, D. H. Chang and E. A. Lee, A model-based design methodology for cyber-physical systems,978-1-4244-9538-2] propose a 10-step methodology for developing cyber-physical systems:
 
 \begin{enumerate}
-\item State the problem
-\item Model physical processes
-\item Characterize the problem
-\item Derive a control algorithm
-\item Select models of computation
-\item Specify hardware
-\item Simulate
-\item Construct
-\item Synthesize software
-\item Verify, validate and test
+	\item State the problem
+	\item Model physical processes
+	\item Characterize the problem
+	\item Derive a control algorithm
+	\item Select models of computation
+	\item Specify hardware
+	\item Simulate
+	\item Construct
+	\item Synthesize software
+	\item Verify, validate and test
 \end{enumerate}
 
-This approach helps designers break enormous task of creation of CPS into manageable iterations, which can be repeated if needed. Main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example we would like to design new experimental electro-mechanical braking system (EMBS) . Such system consists of an electric engine, a brake caliper, a brake disc and a wheel. The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration. [Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]. According to traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilizea Model Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases. [Tuncali, Fainekos, Functional Gradient Descent optimization for automatic test case generation for vehicle controllers] This way we use search-based methods to detect corner cases that violate the safety requirements. We refer to such process as falsification because these methods strive to generate counterexamples that disprove or falsify safety requirements. In case of our EMBS, an example of a safety reqirement could be formulated as: As soon as braking is requested, the contact between caliper and disc should occur within 23 ms.[Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
+This approach helps designers break enormous task of creation of CPS into manageable iterations, which can be repeated if needed. Main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example we would like to design new experimental electro-mechanical braking system (EMBS) . Such system consists of an electric engine, a brake caliper, a brake disc and a wheel. TODO add figure The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration. [Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]. According to traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilizea Model Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases. [Tuncali, Fainekos, Functional Gradient Descent optimization for automatic test case generation for vehicle controllers] This way we use search-based methods to detect corner cases that violate the safety requirements. We refer to such process as falsification because these methods strive to generate counterexamples that disprove or falsify safety requirements. In case of our EMBS, an example of a safety reqirement could be formulated as: As soon as braking is requested, the contact between caliper and disc should occur within 23 ms.[Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
+
+\section{Model-Based Testing}
+
+Is it really so important to test and verify CPS? We can present a few examples when perfunctory testing led to a catastrophic failure:
+
+\begin{enumerate}
+	\item The Ariane 5 rocket exploded 36 seconds after the lift-of; the amount lost was of half a billion dollars. The failure was caused by an uncaught exception [https://esamultimedia.esa.int/docs/esa-x-1819eng.pdf]
+	\item An error in the software of the baggage handling system delayed of 9 months the opening of the Denver airport, with a loss of 1.1 million dollars per day [http://www.eis.mdx.ac.uk/research/SFC/Reports/TR2002-01.pdf]
+	\item Intel lost 475 million dollars for replacing Pentium II processors that had a faulty floting-point division unit [Khan, M. A., Ansari, A. Q. (2012). Handbook of Research on Industrial Informatics and Manufacturing Intelligence: Innovations and Solutions (pp. 1-662). Hershey, PA: IGI Global. doi:10.4018/978-1-4666-0294-6]
+	\item Toyota recalled some vehicles in 2010 for a bug in the anti-lock brake software [https://instituteforpr.org/wp-content/uploads/JFGRA-InfoTrend-case-study-ver-2.pdf]
+	\item Because of an error in the radiation therapy machine Therac-25, some patients were exposed to an overdose of radiation and six of them died [http://sunnyday.mit.edu/papers/therac.pdf]
+\end{enumerate}
+
+Generally software testing requires up to 50\% of software development costs and in case of safety-critical applications these costs are even higher. This can be reduced by automatization of test execution or test generation. An exhaustive testing is not feasible in practice and the input domain may be infinite (e.g. avionic system fed with input sequences). Since exhaustive testing is not feasible, we have to select a subset of inputs and that is why a test generation process for CPS is an active topic in an academic environment. [TODO citation]
+
+White box testing considers the inner structure of a testing subject. The internal structure/design/implementation of the item being tested is known to the tester. This tecnique is widely used in software testing where the tester chooses inputs to exercise paths through the code and determines the appropriate outputs. Programming know-how and the implementation knowledge is essential. This method is named so because the software program, in the eyes of the tester, is like a white/transparent box; inside which one clearly sees.
+
+Black box testing does not use information of the internal structure. It observes the testing item only through its interface and considers only the requirements of the system. Tests are only derived from the requirements. Model-Based testing (MBT) is a kind of black box testing. Inputs are applied to the testing item and the output is observed. The corectness of the output is checked with respect to the given expected output. When we are speaking about the safety requirements that describe the expected output, we refer to it as falsification. As stated above these methods attemp to generate counterexamples that disprove or falsify safety requirements, thus disprove the expected output.
+
+We can identify the following families of modeling notations:
+
+\subsubsection{Transition-based notations}
+
+They describe transitions between states of the system. E.g. Finite-State Machine (FSM), Unified Modeling Language (UML) state machines, Statecharts, Labeled Transition Systems, etc.
+
+\subsubsection{Input-domain notations}
+
+They describe the inputs and their constraints. E.g. combinatorial testing, feature modeling.
+
+\subsubsection{Pre/post notations}
+
+They describe the system by means of some variables and operations. The models specify pre-conditions that must be satisfied before an operation and post-conditions that must be guaranteed after the operation execution. E.g. Java Modeling Language, Spec\#, etc.
+
+\subsubsection{History-based notations}
+
+They describe the allowable traces of the system behavior over time. They are good for describing the interactions among components. E.g. message-sequence charts, UML sequence diagrams, temporal logics.
+
+\subsubsection{Functional notations}
+
+They describe the model as a set of mathematical functions.
+
+\subsubsection{Operational notations}
+
+They describe system as a set of executing processes. E.g. process algebras, Petri nets, ASMs.
+
+\subsubsection{Stochastic notations}
+
+They describe a probabilistic model of the inputs of the system.
+
+\subsubsection{Data-flow notations}
+
+They model the flow of data (rather than control flow)
+
+The model itself could contain errors. Test generation depends on the notation used. Some approaches are based on:
+
+\begin{enumerate}
+	\item exploration (simulation) of the model
+	\item logical solvers (Boolean satisfiability (SAT) problem solvers)
+	\item model checkers (SPIN, NuSMV, etc.) which check more complicated temporal properties
+\end{enumerate}
+
+\subsection{Model checking}
+
+Model checking is an automated formal verification technique. It aims to discover whether an abstract description $\mathcal{M}$ of a system satisfies a property $\varphi$, i.e.,
+
+\begin{equation}
+	\mathcal{M} \models \varphi
+\end{equation}
+
+The technique explores the state space of $\mathcal{M}$ to check whether property $\varphi$ holds. State-of-the-art model checkers can handle state spaces of about $10^8$ to $10^9$ states with explicit state-space enumeration. Using clever algorithms and tailored data structures, larger state spaces ($10^20$ up to even $10^476$ states) can be handled for specific problems. [Christel Baier and Joost-Pieter Katoen. 2008. Principles of Model Checking (Representation and Mind Series). The MIT Press.]
+
+TODO: figure of model checking
+
+For modeling the system, we usually use higher level notations like FSM, UML statecharts, Simulink models, etc. If we are to use a model checking software, we must provide a translation from these higher level notations to the notation of the model checker. If a property $\varphi$ does not hold, the model checker returns a counterexample acting as witness of the violation.
 
 \section{Safety requirements}
 
-TODO collect all the examples of the requirements plus from the course at Matfyz the requirements collection and specification and all engineering process around the ccreation of a new model of a system.
+Test requirements can be generated from formal models. TODO collect all the examples of the requirements plus from the course at Matfyz the requirements collection and specification and all engineering process around the ccreation of a new model of a system.
 
 \section{Metric Temporal Logic}
 
+Temporal logics permit to describe properties refarding the evolution of the system over time. We can specify different kinds of properties:
+
+\begin{itemize}
+	\item Reachability (e.g. there exists a state in our EMBS in which the car decelerate)
+	\item Safety (e.g. there exists no state in which the car brakes and after a certain period of time the car still moves)
+	\item Liveness (e.g. if the car is stopped and accelerates and does not brake, it will eventually increase the speed)
+\end{itemize}
+
+Most popular temporal logics are Linear temporal logic (LTL) and Computation tree logic (CTL). Another....  Metric temporal logic
+
 \section{Verification process}
 
-about the simulation, tools, robustness metric...
+The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition. [Barry W. Boehm (Ed.). 1989. Software Risk Management. IEEE Press, Piscataway, NJ, USA.]
 
 %ij
 \section{Previous Results and Related Work}
