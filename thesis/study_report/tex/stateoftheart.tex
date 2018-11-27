@@ -31,9 +31,9 @@ During the process of creation and implementation of an autopilot system, we exp
 
 Former approach of system developement is divided into several phases: design, implementation, testing and validation. More suitable and practial approach is to write mathematically precise requirements of the desired system, design models od system components and using analysis tools check if the system meets the requirements. Usage of formal models and verification is fitting for the area of safety-critical applications. 
 
-And that is why a different paradigm for developing CPS was created. It is called Model-Based Design and it is increasingly adopted by industry.[J. C. Jensen, D. H. Chang and E. A. Lee, A model-based design methodology for cyber-physical systems,978-1-4244-9538-2]
+And that is why a different paradigm for developing CPS was created. It is called Model-Based Development and it is increasingly adopted by industry.[S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Statefow models using model checking. Softw. Test. Verif. Reliab. 24, 2, 2014, 155-180]
 
-\section{Model-Based Design}
+\section{Model-Based Development}
 
 The goal of modeling in system design is to provide mathematical abstractions to manage the complexity of design. In the context of reactive systems, the basic unit of modeling is a component that interacts with its environment via inputs and outputs.[Rajeev Alur Principles of CPS] What exactly is a model? A model is defined as a small object, usually built to scale, that represents in detail another, often larger object. A schematic description of a system, theory, or phenomenon that accounts for its known or inferrend properties and may be used for further study of its characteristics. [American Heritage Dictionary]
 
@@ -52,7 +52,11 @@ In their work Jensen et al. 2011  [J. C. Jensen, D. H. Chang and E. A. Lee, A mo
 	\item Verify, validate and test
 \end{enumerate}
 
-This approach helps designers break enormous task of creation of CPS into manageable iterations, which can be repeated if needed. Main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example we would like to design new experimental electro-mechanical braking system (EMBS) . Such system consists of an electric engine, a brake caliper, a brake disc and a wheel. TODO add figure The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration. [Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]. According to traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilizea Model Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases. [Tuncali, Fainekos, Functional Gradient Descent optimization for automatic test case generation for vehicle controllers] This way we use search-based methods to detect corner cases that violate the safety requirements. We refer to such process as falsification because these methods strive to generate counterexamples that disprove or falsify safety requirements. In case of our EMBS, an example of a safety reqirement could be formulated as: As soon as braking is requested, the contact between caliper and disc should occur within 23 ms.[Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
+This approach helps designers break enormous task of creation of CPS into manageable iterations, which can be repeated if needed. Main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example we would like to design new experimental electro-mechanical braking system (EMBS) . Such system consists of an electric engine, a brake caliper, a brake disc and a wheel. TODO add figure The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration. [Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]. According to traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilize a Model Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases. [Tuncali, Fainekos, Functional Gradient Descent optimization for automatic test case generation for vehicle controllers]
+
+MBD is gaining increasing acceptance in software and systems engineering practice. This is especially true in the domain of automotive embedded control software design and development, where harsh time-to-market constraints have expedited its adoption. In this methodology, a set of context-specific models are built at the outset of the system development process. These models are executed and tested to validate the requirements, to check the fidelity of the model (e.g. no unreachable elements) and to verify platform-independent design choices. [S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Statefow models using model checking. Softw. Test. Verif. Reliab. 24, 2, 2014, 155-180] The debugged models serve as reference during the design, implementation and testing of the downstream artefacts in the system development process. Methods and tools to support the aforementioned testing-related activities in MBD are studied under the purview of Model-Based Testing (MBT). [Dalal SR, Jain A, Karunanithi N, Leaton JM, Lott CM, Patton GC, Horowitz BM. Model-based testing in practice. In Proceedings of the 1999 International Conference on Software Engineering, ICSE’ 99, Los Angeles, CA, USA, 1999; 285–294.]
+
+Thanks to MBD we are able to use search-based methods to detect corner cases that violate the safety requirements. We refer to such process as falsification because these methods strive to generate counterexamples that disprove or falsify safety requirements. In case of our EMBS, an example of a safety reqirement could be formulated as: As soon as braking is requested, the contact between caliper and disc should occur within 23 ms.[Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
 
 \section{Model-Based Testing}
 
@@ -70,7 +74,7 @@ Generally software testing requires up to 50\% of software development costs and
 
 White box testing considers the inner structure of a testing subject. The internal structure/design/implementation of the item being tested is known to the tester. This tecnique is widely used in software testing where the tester chooses inputs to exercise paths through the code and determines the appropriate outputs. Programming know-how and the implementation knowledge is essential. This method is named so because the software program, in the eyes of the tester, is like a white/transparent box; inside which one clearly sees.
 
-Black box testing does not use information of the internal structure. It observes the testing item only through its interface and considers only the requirements of the system. Tests are only derived from the requirements. Model-Based testing (MBT) is a kind of black box testing. Inputs are applied to the testing item and the output is observed. The corectness of the output is checked with respect to the given expected output. When we are speaking about the safety requirements that describe the expected output, we refer to it as falsification. As stated above these methods attemp to generate counterexamples that disprove or falsify safety requirements, thus disprove the expected output.
+Black box testing does not use information of the internal structure. It observes the testing item only through its interface and considers only the requirements of the system. Tests are only derived from the requirements. MBT is a kind of black box testing. Inputs are applied to the testing item and the output is observed. The corectness of the output is checked with respect to the given expected output. When we are speaking about the safety requirements that describe the expected output, we refer to it as falsification. As stated above these methods attemp to generate counterexamples that disprove or falsify safety requirements, thus disprove the expected output.
 
 We can identify the following families of modeling notations:
 
@@ -126,15 +130,48 @@ The technique explores the state space of $\mathcal{M}$ to check whether propert
 
 TODO: figure of model checking
 
-For modeling the system, we usually use higher level notations like FSM, UML statecharts, Simulink models, etc. If we are to use a model checking software, we must provide a translation from these higher level notations to the notation of the model checker. If a property $\varphi$ does not hold, the model checker returns a counterexample acting as witness of the violation.
+For modeling the system, we usually use higher level notations like FSM, UML statecharts, Simulink models, etc. MBD methodologies across different industries use a variety of modelling languages. For the development of embedded control software in the automotive or aerospace domain is Simulink/Stateflow language a popular choice. Simulink/Stateflow language allows modelling both the continuous and discrete dynamics of the system and because of that it is a perfect choice for modelling CPS. It also can simulate the system using either discrete or continuous solvers and use a fixed-step or a variable-step.[S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Statefow models using model checking. Softw. Test. Verif. Reliab. 24, 2, 2014, 155-180] If we are to use a model checking software, we must provide a translation from these higher level notations to the notation of the model checker. If a property $\varphi$ does not hold, the model checker returns a counterexample acting as witness of the violation.
 
-\section{Safety requirements}
+\section{Requirements verification}
+TODO: if there is time, definition of MCDC coverage.
 
-Test requirements can be generated from formal models. TODO collect all the examples of the requirements plus from the course at Matfyz the requirements collection and specification and all engineering process around the ccreation of a new model of a system.
+In case of safety-critical applications (including CPS), safety standards are rather high. For example an avionic standard DO-178B [RTCA/DO-178B. Software Considerations in Airborne Systems and Equipment Certification, RTCA, Washington D.C., USA, 1992.] requires complete Modified Condition Decision (MCDC) [Chilenski JJ, Miller SP. Applicability of modified condition/decision coverage to software testing. Software Engineering Journal 1994; 9(5):193–200.] coverage for the safety level A software. MCDC is also highly recommended for Automotive Safety Integrity Level D software by the upcoming ISO 26262 functional safety standard [ISO 26262: Road Vehicles—Functional Safety. Standard Under Development, International Organization for Standardization, 2011.] in the automotive domain.
+
+There are several ways how to deal with this situation. One approach is to use an automatic test generating tool, but since in case of CPS the input domain is infinite, we can only try to achieve complete MCDC coverage and that doesn't give us guarantee that we have covered all the corner cases. Another approach is to use previous steps of the MBD process and verify the model against a set of safety requirements. The verification process is typically a simulation. Safety requirements can be generated from formal models or can be defined by the design team. These requirements then have to be translated into Temporal logic, because temporal logics permit to describe properties regarding the evolution of the system over time, which comes handy during the simulation. One also needs a Temporal Logic Falsification tool such as S-TaLiRo [S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems, Y. S. R. Annapureddy, C. Liu, G. E. Fainekos and S. Sankaranarayanan].
+
+If we take our EMBS, we can form another safety requirement: The brake caliper velocity upon contact should be less than 2 mm/s to limit jerk. Any kind of unexpected jerk when braking could possibly lead to injuries when driving a car with EMBS. In their work Fehnker and Ivančić [Fehnker A., Ivančić F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) Hybrid Systems: Computation and Control. HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg], present couple examples of benchmark systems that combine discrete and continuous components and thus can be treated as CPS. They provide benchmarks together with their requirements:
+
+\subsubsection{Navigation benchmark}
+
+An object that moves in the ${\mathbb{R}}^2$ plane. The plane is divided into cells and there are cells labelled \textbf{A} that have to be reached and cells labelled \textbf{B} that ought to be avoided.
+
+\subsubsection{Leak Test benchmark}
+
+The benchmark deals with the detection of leaks in a pressurized network. The verification problem is to show that leaking valves are detected properly. Each segment has to comply following:
+
+\begin{itemize}
+	\item If a segment is tested and if none of its upstream valve leaks, then the bubbling should not start
+	\item If a segment is tested and if an upstream valve leaks, then the bubbling should not start. We assume that the model is deadlock free, and that time can pass
+	\item If the root segment is tested, the test should detect correctly whether or not the downstream valve leaks
+\end{itemize}
+
+\subsubsection{Room Heating benchmark}
+
+It deals with a house with a number of rooms that are heated by a limited number of heaters. The temperature in each room depends on the temperature of the adjacent rooms, on the outside temperature, and on whether a heater is in the room. The number of heaters is assumed to be smaller than the number of rooms, and each room may have at most one heater. We aim to verify that:
+
+\begin{itemize}
+	\item The temperature in all rooms is always above a given threshold
+	\item All rooms get eventually a heater
+	\item In all rooms there will be eventually no heater
+\end{itemize}
+
+The last benchmark was used in [Annpureddy, Yashwanth Liu, Che  Fainekos, Georgios  Sankaranarayanan, Sriram. (2011). S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems. 6605. 254-257. 10.1007/978-3-642-19835-9 21.]
+
+TODO find connections requirements <-> Temporal Logic
 
 \section{Metric Temporal Logic}
 
-Temporal logics permit to describe properties refarding the evolution of the system over time. We can specify different kinds of properties:
+Temporal logics permit to describe properties regarding the evolution of the system over time. We can specify different kinds of properties:
 
 \begin{itemize}
 	\item Reachability (e.g. there exists a state in our EMBS in which the car decelerate)
@@ -147,6 +184,10 @@ Most popular temporal logics are Linear temporal logic (LTL) and Computation tre
 \section{Verification process}
 
 The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition. [Barry W. Boehm (Ed.). 1989. Software Risk Management. IEEE Press, Piscataway, NJ, USA.]
+
+\section{Simulink and Stateflow}
+
+TODO see section in [S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Statefow models using model checking. Softw. Test. Verif. Reliab. 24, 2, 2014, 155-180]
 
 %ij
 \section{Previous Results and Related Work}
