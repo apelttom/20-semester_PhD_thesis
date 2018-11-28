@@ -58,9 +58,9 @@ MBD is gaining increasing acceptance in software and systems engineering practic
 
 Thanks to MBD we are able to use search-based methods to detect corner cases that violate the safety requirements. We refer to such process as falsification because these methods strive to generate counterexamples that disprove or falsify safety requirements. In case of our EMBS, an example of a safety reqirement could be formulated as: As soon as braking is requested, the contact between caliper and disc should occur within 23 ms.[Strathmann and Oehlerking in Verifying properties of an electro-mechanical braking system]
 
-\section{Model-Based Testing}
+\section{Model-Based Testing} \label{sec:num3}
 
-Is it really so important to test and verify CPS? We can present a few examples when perfunctory testing led to a catastrophic failure:
+Is it really so important to test and verify CPS? We can present a few examples when perfunctory testing process led to a catastrophic failure:
 
 \begin{enumerate}
 	\item The Ariane 5 rocket exploded 36 seconds after the lift-of; the amount lost was of half a billion dollars. The failure was caused by an uncaught exception [https://esamultimedia.esa.int/docs/esa-x-1819eng.pdf]
@@ -74,7 +74,7 @@ Generally software testing requires up to 50\% of software development costs and
 
 White box testing considers the inner structure of a testing subject. The internal structure/design/implementation of the item being tested is known to the tester. This tecnique is widely used in software testing where the tester chooses inputs to exercise paths through the code and determines the appropriate outputs. Programming know-how and the implementation knowledge is essential. This method is named so because the software program, in the eyes of the tester, is like a white/transparent box; inside which one clearly sees.
 
-Black box testing does not use information of the internal structure. It observes the testing item only through its interface and considers only the requirements of the system. Tests are only derived from the requirements. MBT is a kind of black box testing. Inputs are applied to the testing item and the output is observed. The corectness of the output is checked with respect to the given expected output. When we are speaking about the safety requirements that describe the expected output, we refer to it as falsification. As stated above these methods attemp to generate counterexamples that disprove or falsify safety requirements, thus disprove the expected output.
+Black box testing does not use information of the internal structure. It observes the testing item only through its interface and considers only the requirements of the system. Tests are only derived from the requirements. MBT is a kind of black box testing. Inputs are applied to the testing item and the output is observed. The corectness of the output is checked with respect to the given expected output. When we are speaking about the safety requirements that describe the expected output, we refer to it as falsification. As stated above these methods attemp to generate counterexamples that disprove or falsify safety requirements, thus disprove the expected output. There are tools such as S-TaLiRo that can automate the process of falsification. [S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems, Y. S. R. Annapureddy, C. Liu, G. E. Fainekos and S. Sankaranarayanan]
 
 We can identify the following families of modeling notations:
 
@@ -126,30 +126,36 @@ Model checking is an automated formal verification technique. It aims to discove
 	\mathcal{M} \models \varphi
 \end{equation}
 
-The technique explores the state space of $\mathcal{M}$ to check whether property $\varphi$ holds. State-of-the-art model checkers can handle state spaces of about $10^8$ to $10^9$ states with explicit state-space enumeration. Using clever algorithms and tailored data structures, larger state spaces ($10^20$ up to even $10^476$ states) can be handled for specific problems. [Christel Baier and Joost-Pieter Katoen. 2008. Principles of Model Checking (Representation and Mind Series). The MIT Press.]
+The technique explores the state space of $\mathcal{M}$ to check whether property $\varphi$ holds. State-of-the-art model checkers can handle state spaces of about $10^8$ to $10^9$ states with explicit state-space enumeration. Using clever algorithms and tailored data structures, larger state spaces ($10^{20}$ up to even $10^{476}$ states) can be handled for specific problems. [Christel Baier and Joost-Pieter Katoen. 2008. Principles of Model Checking (Representation and Mind Series). The MIT Press.]
 
 TODO: figure of model checking
+
+Model checking is generally used technique for the verification of the properties of software and hardware systems. Commonly we represent a system properties by modal or temporal logic formulas with the Boolean valued semantics. But when we operate in an area of systems whose state space is some general metric space, the model checking problem becomes difficult and in most of the cases undecidable. [Fainekos, “Robustness of Temporal Logic Specifications for Finite State Sequences in Metric Spaces”, 2006]
+
+In case of linear-time logics, the model checking problem is equally difficult as checking satisfiability; that is, it is undecidable for dense-time logics capable of expressing punctuality and EXPSPACE-complete for the discrete-time logics. The running time of the model checking algorithms depends singly exponentially on the size of the implementation and doubly exponentially on the size of the specification formula. [myLibrary 22 - TODO old information -> verify]
 
 For modeling the system, we usually use higher level notations like FSM, UML statecharts, Simulink models, etc. MBD methodologies across different industries use a variety of modelling languages. For the development of embedded control software in the automotive or aerospace domain is Simulink/Stateflow language a popular choice. Simulink/Stateflow language allows modelling both the continuous and discrete dynamics of the system and because of that it is a perfect choice for modelling CPS. It also can simulate the system using either discrete or continuous solvers and use a fixed-step or a variable-step.[S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Statefow models using model checking. Softw. Test. Verif. Reliab. 24, 2, 2014, 155-180] If we are to use a model checking software, we must provide a translation from these higher level notations to the notation of the model checker. If a property $\varphi$ does not hold, the model checker returns a counterexample acting as witness of the violation.
 
 \section{Requirements verification}
 TODO: if there is time, definition of MCDC coverage.
 
-First phase of V process in MBD is usually refered to as Requirements / Specifications. It consists of defining the constraints under which a system operates and is developed. There are different types of requirements:
+First phase of the V process in MBD is usually refered to as Requirements/Specifications. It consists of defining the constraints under which a system operates and is developed. There are different types of requirements:
 
 \begin{itemize}
-	\item User requirements - statements in natural language plus diagrams of the services the system provides and its operational constraints. Written for customers
+	\item User requirements - statements in natural language plus diagrams of the services the system provides and its operational constraints
 	\item System requirements - a structured document setting out detailed descriptions of the system’s functions, services and operational constraints. Defines what should be implemented so may be part of a contract between client and contractor
 	\item Functional requirements - statements of services the system should provide, how the system should react to particular inputs and how the system should behave in particular situations
 	\item Non-functional requirements - constraints on the services or functions offered by the system such as timing constraints, constraints on the development process, standards
 	\item Domain requirements - constraints on the system from the domain of operation
 \end{itemize}
 
-In case of safety-critical applications (including CPS), safety standards are rather high. We can define safety as the ability of the system to operate without catastrophic failures. [Ian Sommerville. 2015. Software Engineering (10th ed.). Pearson.] An example of high demands on safety of the CPS can be an avionic standard DO-178B [RTCA/DO-178B. Software Considerations in Airborne Systems and Equipment Certification, RTCA, Washington D.C., USA, 1992.] requires complete Modified Condition Decision (MCDC) [Chilenski JJ, Miller SP. Applicability of modified condition/decision coverage to software testing. Software Engineering Journal 1994; 9(5):193–200.] coverage for the safety level A software. MCDC is also highly recommended for Automotive Safety Integrity Level D software by the upcoming ISO 26262 functional safety standard [ISO 26262: Road Vehicles—Functional Safety. Standard Under Development, International Organization for Standardization, 2011.] in the automotive domain.
+All these categories are then divided into subcategories. Safety requirements are part of Non-functional requirements. They ensure the safety of systems, where safety is defined in terms of acceptable loss. Or we can define safety as the ability of the system to operate without catastrophic failures. [Ian Sommerville. 2015. Software Engineering (10th ed.). Pearson.] There is no such thing as absolute safety. [Leveson, N.: Safeware – System, Safety and Computers, Addison-Wesley Publishing Company, Massachusetts, Bonn, 1995]
 
-There are several ways how to deal with this situation. One approach is to use an automatic test generating tool, but since in case of CPS the input domain is infinite, we can only try to achieve complete MCDC coverage and that doesn't give us guarantee that we have covered all the corner cases. Another approach is to use previous steps of the MBD process and verify the model against a set of safety requirements. The verification process is typically a simulation. Safety requirements can be generated from formal models or can be defined by the design team. These requirements then have to be translated into Temporal logic, because temporal logics permit to describe properties regarding the evolution of the system over time, which comes handy during the simulation. One also needs a Temporal Logic Falsification tool such as S-TaLiRo [S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems, Y. S. R. Annapureddy, C. Liu, G. E. Fainekos and S. Sankaranarayanan].
+In case of safety-critical applications (including CPS), safety standards are rather high. For example an avionic standard DO-178B [RTCA/DO-178B. Software Considerations in Airborne Systems and Equipment Certification, RTCA, Washington D.C., USA, 1992.] requires complete Modified Condition Decision (MCDC) [Chilenski JJ, Miller SP. Applicability of modified condition/decision coverage to software testing. Software Engineering Journal 1994; 9(5):193–200.] coverage for the safety level A software. MCDC is also highly recommended for Automotive Safety Integrity Level D software by the upcoming ISO 26262 functional safety standard [ISO 26262: Road Vehicles—Functional Safety. Standard Under Development, International Organization for Standardization, 2011.] in the automotive domain.
 
-If we take our EMBS, we can form another safety requirement: The brake caliper velocity upon contact should be less than 2 mm/s to limit jerk. Any kind of unexpected jerk when braking could possibly lead to injuries when driving a car with EMBS. In their work Fehnker and Ivančić [Fehnker A., Ivančić F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) Hybrid Systems: Computation and Control. HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg], present couple examples of benchmark systems that combine discrete and continuous components and thus can be treated as CPS. They provide benchmarks together with their requirements:
+There are several ways how to form requirements. One approach is to use an automatic test generating tool, but since in case of CPS the input domain is infinite, we can only try to achieve complete MCDC coverage and that doesn't give us guarantee that we have covered all the corner cases. Another approach is to use previous steps of the MBD process and verify the model against a set of safety requirements. The verification process is typically a simulation. Safety requirements can be generated from formal models or can be defined by the design team. These requirements then have to be translated into temporal logic, because temporal logics permit to describe properties regarding the evolution of the system over time, which comes handy during the simulation.
+
+If we take our EMBS, we can form another safety requirement: The brake caliper velocity upon contact should be less than 2 mm/s to limit jerk. Any kind of unexpected jerk when braking could possibly lead to injuries when driving a car with EMBS. In their work Fehnker and Ivančić [Fehnker A., Ivančić F. (2004) Benchmarks for Hybrid Systems Verification. In: Alur R., Pappas G.J. (eds) Hybrid Systems: Computation and Control. HSCC 2004. Lecture Notes in Computer Science, vol 2993. Springer, Berlin, Heidelberg], present couple of benchmarks that combine discrete and continuous components and thus can be treated as CPS. They provide them together with the requirements:
 
 \subsubsection{Navigation benchmark}
 
@@ -177,19 +183,57 @@ It deals with a house with a number of rooms that are heated by a limited number
 
 The last benchmark was used in [Annpureddy, Yashwanth Liu, Che  Fainekos, Georgios  Sankaranarayanan, Sriram. (2011). S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems. 6605. 254-257. 10.1007/978-3-642-19835-9 21.]
 
-TODO find connections requirements <-> Temporal Logic
-
 \section{Metric Temporal Logic}
 
-Temporal logics permit to describe properties regarding the evolution of the system over time. We can specify different kinds of properties:
+As we stated above, if we use model checkers, our requirements have to be translated into some kind of temporal logic, because we have to test CPS behavior in time (usually using a simulation). Temporal logic is intended for reasoning about situations changing in time. Its semantics makes a clear distinction between the static aspect of a situation, represented by a state, and the dynamic aspect, the relation (in time) between states. [Koymans, R. Real-Time Syst (1990) 2: 255. https://doi.org/10.1007/BF01995674] It cannot fully capture the concept of metric time and traditional temporal operators are insufficient for the specification of quantitative temporal requirements (so-called hard real-time constraints). Depending on the nature of the problems we wish to formalize, we use either a first-order temporal logic or the propositional fragment. Back in 90’ there were three general way of how to extend the syntax of temporal logic for specifying real-time systems. These were:
+
+\begin{enumerate}
+	\item Trace semantics - sacrifices information about internal structure of a system
+	\item Interleaving semantics - sacrifices information about the simultaneity of activities
+	\item Fictitious-clock semantics - sacrifices information about the precise times of activities
+\end{enumerate}
+Defined in [myLibrary 22].
+
+Most popular temporal logics are Linear Temporal Logic (LTL) and Computation Tree Logic (CTL). The most suitable logic for models of CPS is Metric temporal logic (MTL).
+
+MTL is a prominent specification formalism for real-time systems. 21[Ouaknine MTLdecidability] MTL is an extension of temporal logic; temporal operators are replaced by time-constrained versions like until, next, since and previous operators. [myLibrary 22] MTL transforms the traditional temporal operators:
 
 \begin{itemize}
-	\item Reachability (e.g. there exists a state in our EMBS in which the car decelerate)
-	\item Safety (e.g. there exists no state in which the car brakes and after a certain period of time the car still moves)
-	\item Liveness (e.g. if the car is stopped and accelerates and does not brake, it will eventually increase the speed)
+	\item G (the formula is always true) in computer science represented as
+	\item F (the formula is at least once in the future true) in comp. science represented as
+	\item H (the formula has always been true)
+	\item P (the formula was at least once in the past true)
+	\item Possibly X (next)
+	\item Possibly Y (previous)
 \end{itemize}
 
-Most popular temporal logics are Linear temporal logic (LTL) and Computation tree logic (CTL). Another....  Metric temporal logic
+And adds:
+
+\begin{itemize}
+	\item D (until)
+	\item E (since)
+\end{itemize}
+
+MTL extends predicate logic with these operators to get a first-order temporal logic. Back in 1990’s temporal logics was insufficient for the task of describing the real-time systems, it contained only qualitative temporal operators. There was a huge need for a formal specification method which would provide quantitative timing properties relating occurrences of events. For example:
+
+\begin{itemize}
+	\item Maximal distance between an event and its reaction e.g. event A is followed by event B within 3 time units (a typical promptness requirement)
+	\item Exact distance between events e.g. every event A is followed by an event B in exactly 7 time units (timer and time-out)
+	\item Minimal distance between events e.g. 2 consecutive events A are at least 5 time units apart (assumption about the rate of the input from the environment)
+	\item Periodicity e.g. an event E occurs regularly with a period of 4 time units
+	\item Bounded response time e.g. there is a maximum number of time units so that each occurrence of an event E is responded to within this bound
+\end{itemize}
+
+According to Koymans [Koymans, Vytopil and de Roever 1983], the operators X (next) and Y (previous) lack the abstractness needed to achieve a fully abstract semantics of concurrent programs. It can be shown that the temporal operator until already suffices for expressive completeness over the natural numbers. There is no special need to introduce past operators when working over the natural numbers. However [Koymans, Vytopil and de Roever 1983] state that such operators allow us to form an elegant specification of message passing systems. [Lichtenstein, Pnueli and Zuck 1985] show theoretical results that past operators are very useful. Koymans add a distance function d(t, t’) which gives us a measure as to how far t and t’ are apart in time. This function is transitive, irreflexive and comparable. Also a structure (trojuhelnik, +, 0) is created and 6 rules, such as commutativity, associativity, etc. (see Koymans 1990) are defined. By adding more definitions Koymans came into definition of a metric point structure T which represents a kind of micro-macro time. 
+
+With MTL we can express 5 typical quantitative temporal properties for CPS:
+Maximal distance: see SotA
+Exact distance: see SotA
+Minimal distance: see SotA
+Periodicity (with period delta): see SotA
+Bounded response time: see SotA
+
+MTL is linear-time logic that assume both, the interleaving and fictitious-clock abstractions; it is defined over a point-based weakly-monotonic integer-time semantics. For MTL, the exact complexity of the satisfiability problems is known and independent of interval-based or point-based, synchronous (i.e., strictly-monotonic) or asynchronous (i.e., weakly-monotonic) interpretation: EXPSPACE-complete. [myLibrary 22 - TODO old information -> verify] However, until now the question of the decidability of full MTL over infinite timed words remained open. [from the abstract of On Metric Temporal Logic and Faulty Turing Machines] Koy90 suspect that MTL has a clean complete, finite axiomatization, which is yet to be found. [myLibrary 22 - TODO old information -> verify] Koymans does one more notable thing when defining MTL. He proves that “All first-order sentences over linear orders are definable in metric temporal logic.”
 
 \section{Verification process}
 
