@@ -59,46 +59,22 @@ In order to run different experiments on different CPS and other real-time syste
 \label{tab.MTLsTaLiRo}
 \end{table}
 
-HERE talk about the models we used to run S-TaLiRo
+A few examples of MTL specification in S-TaLiRo:
+
+\begin{itemize}
+	\item Bounded response time - Always between 3 to 5 samples in the past 'p1' implies eventually 'p2' within 1 sample: $phi_1 = [.]_[3,5](p1 -> <>_[0,1] p2);$
+	\item Until - 'p1' is true until 'p2' becomes true after 4 and before 7 samples: $phi_2 = p1 U_[4,7] p2;$
+	\item Eventually - 'p1' eventually will become true between 1 and 6 samples: $phi_3 = <>_[1,6] p1;$
+\end{itemize}
+
+In MATLAB scripts for S-TaLiRo we have to set up at least one $\varphi$ property of a system that we model in order to run a falsification process. For example in case of a simple two degree-of-freedom Proportional Integral Derivative (PID) controller for setpoint tracking (TODO add reference to an figure) if we want to specify that a predicate p1 holds always, it would look like this:
 
 
-The sample \figref{fig.float} shows ...
+\lstinputlisting[frame=single]{matlab/sTaLiRo_2DoF_PID.m}
 
-\begin{figure}[htb]
-\begin{center}
-\includegraphics[width=.95\textwidth]{pic/float.pdf}
-\end{center}
-\caption{Distribution of the floating point numbers. This figure shows a distribution of a sample floating point number set with a precision $t=3$, and $e_{min}=-1$ and $e_{max}=3$.}
-\label{fig.float}
-\end{figure}
+We can see that in addition to the definition of the MTL requirement there is also a definition of the predicate on lines 7 - 9. On the line number 7 is simply the definition of the name of the predicate. This can be any name we choose and it can contain numeric digits, but it has to start by a lowercase letter (e.g. isGateOpen2). Next two lines define the condition which is then represented by a predicate. It uses two variables TODO variables into italic or something pred.A and pred.b which are then translated into an equation TODO put into an equation mode $A.x <= b$. As S-TaLiRo treats the models of CPS only as a black box, this condition is related with the output variable(s). In our model under test we link the desired information channels into outputs and these outputs are then observed by S-TaLiRo tool. Suppose we have our model of a two-degree of freedom PID controller for setpoint tracking and only output from such model is the the shaft speed of the motor. Then we can define our predicate as something like "The the shaft speed of the motor will be always less than or equal to 0.30." which is exactly what we can read from the lines 8 - 9. If we fit our values into the equation, we get: $1.x <= 0.3$. We can also define multiple requirements on multiple output variables, so in the end we end up with matrices of equations for each predicate. We can define multiple predicates.
 
+We see a lot of potential in going beyond and observe not only the output variables, but also the way how they are composed and the values of the variables that contribute to this composition. Such approach inevitably includes an analysis of the inner structure of the models and it's components. Because we are talking about a modular higher level notation, where a user can create its own components, we are facing an uneasy task.
 
-There are two basic floating point \index{Floating point} data types \index{Floating point!Data types}, as defined by the IEEE 754-2008 \cite{ieee754} standard, are shown in \tabref{tab.floatingpointdatatypes}.
-
-\begin{table}[htb]
-\begin{center}
-\begin{tabular}{|r|c|c|c||c||c|}
-% Draw horizontal table line from column 2 to column 6
-% The first column is left empty, without the horizontal line
-\cline{2-6}
-
-% Since we do not want to change the formatting of the first column
-% we need to use the multicolumn macro \multicolumn{#ofcolumns}{newformatting}{content}
-% so we can change |r| to just r|. If we did not do that, we'd have the left
-% vertical line drawn in the first column. Also in order to make the header row
-% nicer, we use the \vrule macro. See below for an explanation.
-\multicolumn{1}{r|}{} & {\vrule height 13pt depth 6pt width 0pt\bf Sign} [b] & {\bf Exponent} [b] & {\bf Mantissa} [b] & {\bf Prec.} [dig] & {\bf Total} [b]\\ \cline{2-6}  \hline
-
-% This vrule shows that we can extend the column height or depth if necessary.
-% This is useful for header rows or rows that contain some mathematical expressions.
-\vrule height 10pt depth 20pt width 0pt
-{\bf binary32}   			& 1    & 8        	& 24      & 8  	& 32\\ \hline
-
-% To debug, make the vertical rule visible by specifying its width to 1 pt rather than 0 pt.
-\vrule height 20pt depth 0pt width 1pt
-{\bf binary64}   			& 1    & 11       	& 53      & 16	& 64\\ \hline
-\end{tabular}
-\end{center}
-\caption{Basic floating point data types.}
-\label{tab.floatingpointdatatypes}
-\end{table}
+TODO: without this citation there are none and TeX fails to complete document. Solve at the end
+\cite{ieee754}

@@ -1,0 +1,9 @@
+model = 'dc_pid_2dof';
+time = 50;
+cp_array = 4;
+input_range = [25 60];
+X0 = [];
+phi = '[]p1';
+pred.str = 'p1';
+pred.A = [1];
+pred.b = [0.3];
