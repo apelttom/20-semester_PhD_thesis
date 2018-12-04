@@ -2,13 +2,29 @@
 % Summarize each chapter in one paragraph, point out the most important findings.
 % 
 
+Automated testing of complex systems such as CPS, is a hot topic in the industry area. We focus on the tools and algorithms that are available to the companies who aim for the next industry revolution and thus need a robust and solid wrokflow which enables them to produce new generation of smart devices. In order to deliver the safety-critical system to the market they have to comply with many laws and strict regulations. This cannot be done without clever and efficient testing during the MBD process.
+
+Although there exists a MBD framework for building CPS, we still lack the ecessary tools to automate the whole process. In the last decade we have build enough theory to easily produce simple real-time systems, but we still heavily depend on prototype testing. In order to achieve more efficient and competetive production we need to utilize MBT together with model checking, requirements verification and higher level modeling notations.
+
+We see a lot of potential in analyzing the inner structure of models of CPS and usage of this information for a better automated testing process. We have similar interests as do researchers Georgios Fainekos and Sriram Sankaranarayanan, but we intend to go beyond and come up with better algorithms for MBT.
+
+We experimentally evaluated performance of the S-TaLiRo TODO: by a macro tool on a Air-Fuel Ratio Control System  (see Chapter 3) and proposed next steps. We plan to put also other models of CPS under the test and possibly negotiate an access to models used in the industry.
+
 \section{Proposed Doctoral Thesis}
 % Suggest the possible your possible doctoral thesis topics
 Title of the thesis:
 
-TITLE
+Automated Testing of Models of Cyber-Physical Systems
 \\
-The author of the \thesis{} suggests to present the following:
-\subsection{Topic 1}
-\subsection{Topic 2}
-\subsection{Topic 3}
+The author of the \thesis{} suggests to continue in a reasearch of the following:
+\subsection{Disadvanteges of black box approach to the Model Based Testing process}
+We have already started this research by using an S-TaLiRo tool and finding its limits. We are going to map areas where similar tools perform well and also areas where these tools are not usable. We will analyze the connection between black box approach to the automated testing and the limits these tools have.
+
+\subsection{A white box approach to the Model Based Testing process}
+With the knowledge of the areas where black box approach is insufficient, we can start a research on innovative white box approach that will take the inner structure of the models into consideration. This approach will be tested and then compared to the black box approach.
+
+\subsection{Hybrid Dynamic Systems}
+Since there is also mathematically precise framework of Hybrid Dynamic Systems [A.J. van der Schaft, J. M. Schumacher, "An Introduction to Hybrid Dynamical Systems", Springer, 2000] and there exist a lot of algorithms for verification of such systems, we will focus on an adoption of some of the principles of these algorithms and their usage in our white box approach.
+
+\subsection{Industry modeling standards in context of model checking}
+In the industry companies use a lot of different standards and form their own components. These components are then used in models of CPS which makes the automated testing process harder. We will focus on gathering industrial standards, workflows and methodics in order to be able to adjust our inovative white box testing approach for a practical use in the industry area.
