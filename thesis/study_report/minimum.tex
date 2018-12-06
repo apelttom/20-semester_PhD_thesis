@@ -148,36 +148,49 @@ Czech Republic}
 
 \newcounter{MyPublRefCount}
 \setcounter{MyPublRefCount}{0}
-\def\bibauthor#1{\addtocounter{MyPublRefCount}{1}\bibitem[A.\theMyPublRefCount]{#1}}
+\def\bibauthor#1{\addtocounter{MyPublRefCount}{1}\bibitem[TA.\theMyPublRefCount]{#1}}
 
 % list your own books or papers in refereed journals or conference proceedings
 % or chapters in scientific monographies that are RELEVANT FOR YOUR THESIS
 \renewcommand\bibname{Publications of the Author}
 \cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\protect\numberline{}{\bibname}}
-\begin{thebibliography}{A.2}%here fill-in the longest label in the list of your publications
+\begin{thebibliography}{TA:PAD}%here fill-in the longest label in the list of your publications
 \itemsep=0pt
+
+%\bibsection{Other Publications}
 %
 %----------------------------------------------------
 % \bibauthor{ID}. Cite as \cite{ID}.
-\bibauthor{YOURPUBL-ZZZ1}
-R. Gortz, F. T\"ol\"ok\"o.
-\newblock \emph{On the Carpathian Castle}.
-\newblock Transylvanian Journal of ...,
-\newblock Werst, Romania,
-\newblock 2010.
+\bibauthor{TA:PAD}
+T. Apeltauer
+\newblock \emph{Automatické testování modelů kyber-fyzikálních systémů}.
+\newblock \(15.\) ročník semináře Počítačové architektury \& diagnostika,
+\newblock Smolenice, Slovensko
+\newblock 2017.
+
 % nepovinny blok s citaci:
 % ************* 
-\bigskip \\ \smallskip The paper has been cited in:
-\begin{itemize}
-\item \v{S}. Nov\'ak\r{u}. \emph{Carpathian Castle Revealed}, International Symposium on Carpathian Legends, 1:319--323, 2010.
-\end{itemize}
+%\bigskip \\ \smallskip The paper has been cited in:
+%\begin{itemize}
+%\item \v{S}. Nov\'ak\r{u}. \emph{Carpathian Castle Revealed}, International Symposium on Carpathian Legends, 1:319--323, 2010.
+%\end{itemize}
 % *************
 %----------------------------------------------------
-\bibauthor{YOURPUBL-P2}
-R. Gortz
-\newblock \emph{Another publication}.
-\newblock $36^{\,\rm th}$ International Conference on ..., pp. 19-24, \v{S}trbsk\'e pleso, Slovak Republic,
-\newblock 2010.
+
+%\bibsection{Other Results}
+
+\bibauthor{TA:TR}
+T. Apeltauer
+\newblock \emph{Automated Testing of Models of Cyber-Physical Systems},
+\newblock Technical Report at Czech Technical University in Prague,
+\newblock Prague, Czech Republic,
+\newblock 2018 (technical report).
+
+%\bibsection{Current Projects}
+
+\bibauthor{TA:SGS17}
+Research team member of SGS17/213/OHK3/3T/18, Czech Technical University in Prague.
+
 %*************************************************************************
 \end{thebibliography}
 
