@@ -181,22 +181,21 @@ It deals with a house with a number of rooms that are heated by a limited number
 	\item In all rooms there will be eventually no heater
 \end{itemize}
 
-The last benchmark was used in [Annpureddy, Yashwanth Liu, Che  Fainekos, Georgios  Sankaranarayanan, Sriram. (2011). S-TaLiRo: A Tool for Temporal Logic Falsification for Hybrid Systems. 6605. 254-257. 10.1007/978-3-642-19835-9 21.]
+The last benchmark was used by Fainekos, Annapureddy and Sankaranarayanan in their work \cite{Fainekos:sTaLiRo}.
 
 \section{Metric Temporal Logic}
 
-As we stated above, if we use model checkers, our requirements have to be translated into some kind of temporal logic, because we have to test CPS behavior in time (usually using a simulation). Temporal logic is intended for reasoning about situations changing in time. Its semantics makes a clear distinction between the static aspect of a situation, represented by a state, and the dynamic aspect, the relation (in time) between states. [Koymans, R. Real-Time Syst (1990) 2: 255. https://doi.org/10.1007/BF01995674] It cannot fully capture the concept of metric time and traditional temporal operators are insufficient for the specification of quantitative temporal requirements (so-called hard real-time constraints). Depending on the nature of the problems we wish to formalize, we use either a first-order temporal logic or the propositional fragment. Back in 90’ there were three general way of how to extend the syntax of temporal logic for specifying real-time systems. These were:
+As we stated above, if we use model checkers, our requirements have to be translated into some kind of temporal logic, because we have to test CPS behavior in time (usually using a simulation). Temporal logic is intended for reasoning about situations changing in time. Its semantics makes a clear distinction between the static aspect of a situation, represented by a state, and the dynamic aspect, the relation (in time) between states \cite{Koymans:MTL}. It cannot fully capture the concept of metric time and traditional temporal operators are insufficient for the specification of quantitative temporal requirements (so-called hard real-time constraints). Depending on the nature of the problems we wish to formalize, we use either a first-order temporal logic or the propositional fragment. Back in 90’ there were three general way of how to extend the syntax of temporal logic for specifying real-time systems \cite{Rajeev:ModelsOfRealTime}. These were:
 
 \begin{enumerate}
 	\item Trace semantics - sacrifices information about internal structure of a system
 	\item Interleaving semantics - sacrifices information about the simultaneity of activities
 	\item Fictitious-clock semantics - sacrifices information about the precise times of activities
 \end{enumerate}
-Defined in [myLibrary 22].
 
 Most popular temporal logics are Linear Temporal Logic (LTL) and Computation Tree Logic (CTL). The most suitable logic for models of CPS is Metric temporal logic (MTL).
 
-MTL is a prominent specification formalism for real-time systems. 21[Ouaknine MTLdecidability] MTL is an extension of temporal logic; temporal operators are replaced by time-constrained versions like until, next, since and previous operators. [myLibrary 22] MTL transforms the traditional temporal operators:
+MTL is a prominent specification formalism for real-time systems \cite{Ouaknine:MTLdecidability}. MTL is an extension of temporal logic; temporal operators are replaced by time-constrained versions like until, next, since and previous operators. MTL transforms the traditional temporal operators:
 
 \begin{itemize}
 	\item G (the formula is always true) in computer science represented as
@@ -224,7 +223,7 @@ MTL extends predicate logic with these operators to get a first-order temporal l
 	\item Bounded response time e.g. there is a maximum number of time units so that each occurrence of an event E is responded to within this bound
 \end{itemize}
 
-According to Koymans [Koymans, Vytopil and de Roever 1983], the operators X (next) and Y (previous) lack the abstractness needed to achieve a fully abstract semantics of concurrent programs. It can be shown that the temporal operator until already suffices for expressive completeness over the natural numbers. There is no special need to introduce past operators when working over the natural numbers. However [Koymans, Vytopil and de Roever 1983] state that such operators allow us to form an elegant specification of message passing systems. [Lichtenstein, Pnueli and Zuck 1985] show theoretical results that past operators are very useful. Koymans add a distance function d(t, t’) which gives us a measure as to how far t and t’ are apart in time. This function is transitive, irreflexive and comparable. Also a structure (trojuhelnik, +, 0) is created and 6 rules, such as commutativity, associativity, etc. (see Koymans 1990) are defined. By adding more definitions Koymans came into definition of a metric point structure T which represents a kind of micro-macro time. 
+According to Koymans et al. \cite{Koymans:RealTimeProgramming}, the operators X (next) and Y (previous) lack the abstractness needed to achieve a fully abstract semantics of concurrent programs. It can be shown that the temporal operator until already suffices for expressive completeness over the natural numbers. There is no special need to introduce past operators when working over the natural numbers. However Koymans et al. state that such operators allow us to form an elegant specification of message passing systems. In their work Lichtenstein et al. \cite{Lichtenstein:LogicOfPrograms} show theoretical results that past operators are very useful. Koymans add a distance function d(t, t’) which gives us a measure as to how far t and t’ are apart in time. This function is transitive, irreflexive and comparable. Also a structure (trojuhelnik, +, 0) is created and 6 rules, such as commutativity, associativity, etc. (see Koymans 1990) are defined. By adding more definitions Koymans came into definition of a metric point structure T which represents a kind of micro-macro time. 
 
 With MTL we can express 5 typical quantitative temporal properties for CPS:
 Maximal distance: see SotA
@@ -233,11 +232,11 @@ Minimal distance: see SotA
 Periodicity (with period delta): see SotA
 Bounded response time: see SotA
 
-MTL is linear-time logic that assume both, the interleaving and fictitious-clock abstractions; it is defined over a point-based weakly-monotonic integer-time semantics. For MTL, the exact complexity of the satisfiability problems is known and independent of interval-based or point-based, synchronous (i.e., strictly-monotonic) or asynchronous (i.e., weakly-monotonic) interpretation: EXPSPACE-complete. [myLibrary 22 - TODO old information -> verify] However, until now the question of the decidability of full MTL over infinite timed words remained open. [from the abstract of On Metric Temporal Logic and Faulty Turing Machines] Koy90 suspect that MTL has a clean complete, finite axiomatization, which is yet to be found. [myLibrary 22 - TODO old information -> verify] Koymans does one more notable thing when defining MTL. He proves that “All first-order sentences over linear orders are definable in metric temporal logic.”
+MTL is linear-time logic that assume both, the interleaving and fictitious-clock abstractions; it is defined over a point-based weakly-monotonic integer-time semantics. For MTL, the exact complexity of the satisfiability problems is known and independent of interval-based or point-based, synchronous (i.e., strictly-monotonic) or asynchronous (i.e., weakly-monotonic) interpretation: EXPSPACE-complete \cite{Rajeev:ModelsOfRealTime}. However, until now the question of the decidability of full MTL over infinite timed words remained open \cite{Ouaknine:MTLfaulty}. Koymans suspect that MTL has a clean complete, finite axiomatization, which is yet to be found \cite{Koymans:MTL}. He also does one more notable thing when defining MTL. Koymans proves that “All first-order sentences over linear orders are definable in metric temporal logic.”
 
 \section{Verification process}
 
-The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition. [Barry W. Boehm (Ed.). 1989. Software Risk Management. IEEE Press, Piscataway, NJ, USA.]
+The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition \cite{Boehm:SoftwareRiskManagement}.
 
 \section{Simulink and Stateflow}
 
