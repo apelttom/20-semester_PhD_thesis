@@ -10,9 +10,14 @@ Advance in the field of Cyber-physical systems will bring us closer to usage of 
 
 \section{Cyber-Physical Systems}
 
-The concept of a cyber-physical system is a generalization of embedded systems. An embedded system consists of hardware and software integrated within a mechanical or and electrical system designed for a specific purpose. CPS consist of a computational unit, sensors, actuators and a physical world which it must observe and react on it. In a CPS the controller consists of discrete software concurrent components, operating in multiple modes of operation, interacting with the continuosly evolving physical environment. Examples of on-board sensors include a global positioning system (GPS) receiver, a camera or an infrared thermal sensor \cite{Rajeev:PrinciplesCPS}. CPS are reactive systems which interact with its environment in an ongoing manner. There is an endless loop of data collection and input evaluation throughout the time.
+The concept of a cyber-physical system is a generalization of embedded systems. An embedded system consists of hardware and software integrated within a mechanical or and electrical system designed for a specific purpose. As shown in Figure \ref{fig:CPS}, CPS consist of a computational unit, sensors, actuators and a physical world which it must observe and react on it. In a CPS the controller consists of discrete software concurrent components, operating in multiple modes of operation, interacting with the continuosly evolving physical environment. Examples of on-board sensors include a global positioning system (GPS) receiver, a camera or an infrared thermal sensor \cite{Rajeev:PrinciplesCPS}. CPS are reactive systems which interact with its environment in an ongoing manner. There is an endless loop of data collection and input evaluation throughout the time.
 
-TODO Chart of CPS
+\begin{figure}
+\centering
+\includegraphics{pic/CPS_diagram_scaled}
+\caption{Architecture of Cyber-Physical Systems}
+\label{fig:CPS}
+\end{figure}
 
 In comparison to the traditional software development architecture, the creation of CPS differs in the emphasis on the security, confidence, reliability and performance of the system. CPS are often used in areas with many safety requirements (medicine \cite{Fainekos:InsulinPump}, automotive \cite{Oehlerking:EMBS}, civil engineering \cite{Berlink:SmartHome}, avionics, etc.). Apart from embedded systems, CPS will not be operating in a controlled environments and must be robust to unexpected conditions and adaptable to subsystem failures \cite{Lee:DesignCPS}. An example of such systems is an autopilot system used on Airbus aircraft. It is a device used to guide an aircraft without direct assistance from the pilot. Modern autopilots are capable of controlling every part of the flight from just after take-off to landing and are normally integrated with the flight management system.
 
