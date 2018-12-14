@@ -15,11 +15,11 @@ We have acquired a model of EV powertrain test bench at Roztoky Science and Tech
 
 We have joined our forces with Prof. Li Qiu from The Hong Kong University of Science and Technology and work together on a model of Inverted Pendulum (iPendulum). The system consists of a cart and a rod. The cart, with a mass Mc, slides on a stainless steel shaft and is equipped with a motor. A rod, attached with a ball, is mounted on the cart whose axis of rotation is perpendicular to the direction of the motion of the cart. The rod has an evenly distributed mass Mp and a length L. The ball, with a mass Mb, can be regarded as a mass point. The card position x(t) and the pendulum angle theta(t) can be measured. The input is the force f(t) applied on the cart.
 
-For our experiments, we are using MATLAB/Simulink software (R2017b 64-bit), together with Stateflow package as described in {TODO add SotA chapter about it}. We use a cloud Windows Embedded 8 x64 OS with Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40Ghz and 8GB RAM. We measure the performance of the S-TaLiRo tool during the falsification process for different models.
+For our experiments, we are using MATLAB/Simulink software (R2017b 64-bit), together with Stateflow package as described in. We use a cloud Windows Embedded 8 x64 OS with Intel(R) Xeon(R) CPU E5-2620 v3 @ 2.40Ghz and 8GB RAM. We measure the performance of the S-TaLiRo tool during the falsification process for different models.
 
 S-TaLiRo searches for trajectories of minimal robustness in Simulink/Stateflow simulations. It uses randomized testing based on stochastic optimization techniques (Monte-Carlo, Ant-Colony optimization, etc.) \cite{Fainekos:AntColonies}. It searches for counterexamples to Metric Temporal Logic (MTL) properties for CPS. This goal is achieved by a minimization of a robustness metric \cite{Fainekos:RobustnessContinuousTime}. In its core, S-TaLiRo uses a combination of stochastic sampling together with Simulink simulation and a typically a certain form of optimization. This way it aims to find the smallest robustness for a model which is desirable because traces with lower robustness value are closer in the distance to falsifying traces. If the tool detects negative robustness, we acquire a trace which falsifies temporal logic properties. We refer to it as a witness trajectory. Robustness is calculated by TaLiRo module, but the computation is based on the results of convex optimization problems used to compute signed distances.
 
-In order to run different experiments on different CPS and other real-time systems, we have to adapt to the usage of MTL in S-TaLiRo tools. Traditional MTL operators are used in S-TaLiRo MATLAB scripts according to \tabref{tab.MTLsTaLiRo}. For each of these operators, we can also specify time bounds $[a b\}$ where a and b are non-negative integer values, and we use the round bracket for b when b is infinity, else use TODO find the name of chlupata zavorka. Values of a,b are lower/upper bounds not on simulation time, but the number of samples. The actual sample time constraints can be derived from the sampling value of the "Rate Transition" block. TODO: find what block it is.
+In order to run different experiments on different CPS and other real-time systems, we have to adapt to the usage of MTL in S-TaLiRo tools. Traditional MTL operators are used in S-TaLiRo MATLAB scripts according to \tabref{tab.MTLsTaLiRo}. For each of these operators, we can also specify time bounds $[a b\}$ where a and b are non-negative integer values, and we use the round bracket for b when b is infinity, else use braces. Values of a,b are lower/upper bounds not on simulation time, but the number of samples. The actual sample time constraints can be derived from the sampling value of the "Rate Transition" block..
 
 \begin{table}[htb]
 \begin{center}
@@ -27,31 +27,31 @@ In order to run different experiments on different CPS and other real-time syste
     \hline
     Language representation & MTL symbol & S-TaLiRo\\
     \hline
-    not & MTL not & $!$ \\
+    not & $\neg$ & $!$ \\
     \hline    
-    and & MTL and & /\textbackslash \\
+    and & $\wedge$ & /\textbackslash \\
     \hline
-    or & MTL and & \textbackslash/ \\
+    or & $\lor$ & \textbackslash/ \\
     \hline
-    if ... then ... & MTL &$\rightarrow$ \\
+    if ... then ... & $\rightarrow$ & $->$ \\
     \hline
-    if and only if & MTL & $<->$ \\
+    if and only if & $\leftrightarrow$ & $<->$ \\
     \hline
-    it is always going to be the case & G (diamond) & $[ ]$ \\
+    it is always going to be the case & G ($\Diamond$) & [ ] \\
     \hline
-    at least once in the future & F (square) & $< >$ \\
+    at least once in the future & F ($\Box$) & $< >$ \\
     \hline
     it has always been the case & H & $[ . ]$ \\
     \hline
     at least once in the past & P & $< . >$ \\
     \hline
-    phi will be true until a time when theta is true & until & U \\
+    $\varphi$ will be true until a time when theta is true & until & U \\
     \hline
-    phi has been true since a time when theta was true & since & S \\
+    $\varphi$ has been true since a time when theta was true & since & S \\
     \hline
-    phi has to hold at the next state & next & X \\
+    $\varphi$ has to hold at the next state & next & X \\
     \hline
-    phi had to hold at the preceding state & previous & P \\
+    $\varphi$ had to hold at the preceding state & previous & P \\
     \hline
 \end{tabular}
 \end{center}
@@ -62,16 +62,43 @@ In order to run different experiments on different CPS and other real-time syste
 A few examples of MTL specification in S-TaLiRo:
 
 \begin{itemize}
-    \item Bounded response time - Always between 3 to 5 samples in the past 'p1' implies eventually 'p2' within 1 sample: $phi_1 = [.]_[3,5](p1 -> <>_[0,1] p2);$
-    \item Until - 'p1' is true until 'p2' becomes true after 4 and before 7 samples: $phi_2 = p1 U_[4,7] p2;$
-    \item Eventually - 'p1' eventually will become true between 1 and 6 samples: $phi_3 = <>_[1,6] p1;$
+    \item Bounded response time - Always between 3 to 5 samples in the past 'p1' implies eventually 'p2' within 1 sample:
+
+\begin{equation}
+    phi = [.]_{[3,5]}(p1 -> <>_{[0,1]} p2);
+\end{equation}
+
+    \item Until - 'p1' is true until 'p2' becomes true after 4 and before 7 samples:
+
+\begin{equation}
+	phi = p1 U_{[4,7]} p2;
+\end{equation} 
+
+    \item Eventually - 'p1' eventually will become true between 1 and 6 samples:
+
+\begin{equation}
+	phi = <>_{[1,6]} p1;
+\end{equation} 
+
 \end{itemize}
 
-In MATLAB scripts for S-TaLiRo, we have to set up at least one $\varphi$ property of a system that we model in order to run a falsification process. For example in case of a simple two degree-of-freedom Proportional Integral Derivative (PID) controller for setpoint tracking (TODO add reference to a figure) if we want to specify that a predicate p1 holds always, it would look like this:
+In MATLAB scripts for S-TaLiRo, we have to set up at least one $\varphi$ property of a system that we model in order to run a falsification process. For example in case of a simple two degree-of-freedom Proportional Integral Derivative (PID) controller for setpoint tracking if we want to specify that a predicate p1 holds always, it would look like this:
 
 
 \lstinputlisting[frame=single]{matlab/sTaLiRo_2DoF_PID.m}
 
-We can see that in addition to the definition of the MTL requirement there is also a definition of the predicate on lines 7 - 9. On line number 7 is simply the definition of the name of the predicate. This can be any name we choose, and it can contain numeric digits, but it has to start by a lowercase letter (e.g., isGateOpen2). Next two lines define the condition which is then represented by a predicate. It uses two variables TODO variables into italic or something pred. A and pred.b which are then translated into an equation TODO put into an equation mode $A.x <= b$. As S-TaLiRo treats the models of CPS only as a black box, this condition is related to the output variable(s). In our model under test, we link the desired information channels into outputs, and these outputs are then observed by S-TaLiRo tool. Suppose we have our model of a two-degree of freedom PID controller for setpoint tracking and only output from such model is the shaft speed of the motor. Then we can define our predicate as something like "The the shaft speed of the motor will always be less than or equal to 0.30." which is exactly what we can read from the lines 8 - 9. If we fit our values into the equation, we get: $1.x <= 0.3$. We can also define multiple requirements on multiple output variables, so in the end, we end up with matrices of equations for each predicate. We can define multiple predicates.
+We can see that in addition to the definition of the MTL requirement there is also a definition of the predicate on lines 7 - 9. On line number 7 is simply the definition of the name of the predicate. This can be any name we choose, and it can contain numeric digits, but it has to start by a lowercase letter (e.g., isGateOpen2). Next two lines define the condition which is then represented by a predicate. It uses two variables or something \textit{pred.A} and \textit{pred.b} which are then translated into an equation:
+
+\begin{equation}
+A.x <= b
+\end{equation}
+
+As S-TaLiRo treats the models of CPS only as a black box, this condition is related to the output variable(s). In our model under test, we link the desired information channels into outputs, and these outputs are then observed by S-TaLiRo tool. Suppose we have our model of a two-degree of freedom PID controller for setpoint tracking and only output from such model is the shaft speed of the motor. Then we can define our predicate as something like "The the shaft speed of the motor will always be less than or equal to 0.30." which is exactly what we can read from the lines 8 - 9. If we fit our values into the equation, we get:
+
+\begin{equation}
+1.x <= 0.3
+\end{equation}
+
+We can also define multiple requirements on multiple output variables, so in the end, we end up with matrices of equations for each predicate. We can define multiple predicates.
 
 We see much potential in going beyond and observe not only the output variables but also the way how they are composed and the values of the variables that contribute to this composition. Such an approach inevitably includes an analysis of the inner structure of the models, and it is components. Because we are talking about a modular higher level notation, where a user can create its components, we are facing an uneasy task. 

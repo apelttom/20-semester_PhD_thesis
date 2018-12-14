@@ -58,7 +58,15 @@ In their work Jensen et al. 2011 \cite{Lee:MBD} propose a 10-step methodology fo
     \item Verify, validate and test
 \end{enumerate}
 
-This approach helps designers break the enormous task of creation of CPS into manageable iterations, which can be repeated if needed. The main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example, we would like to design new experimental electro-mechanical braking system (EMBS). Such system consists of an electric engine, a brake caliper, a brake disc, and a wheel. TODO add figure. The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration \cite{Oehlerking:EMBS}. According to the traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch the pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilize a Model-Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases \cite{Fainekos:testCaseGeneration}.
+This approach helps designers break the enormous task of creation of CPS into manageable iterations, which can be repeated if needed. The main goal is to identify any bugs or errors as soon as possible and preferably before the construction phase. For example, we would like to design new experimental electro-mechanical braking system (EMBS). Such system consists of an electric engine, a brake caliper, a brake disc, and a wheel. See Figure \ref{fig:EMBS}. The brake disc is connected to the wheel, so that contact between caliper and disc will result in vehicle deceleration \cite{Oehlerking:EMBS}. According to the traditional design process, we would propose a system design, implement it in real life, test it manually or randomly and then launch the pilot project. In case of such complicated device as EMBS conventional approach is unsatisfactory. How can we be sure whether the manually or randomly generated scenarios capture the worst-case conditions for the system under test? An alternative approach is to utilize a Model-Based Development (MBD) framework and use the models to simulate the system and intelligently search for corner cases \cite{Fainekos:testCaseGeneration}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]%
+	{pic/EMBS_diagram}% picture filename
+\caption{Illustration of a electro-mechanical braking system}
+\label{fig:EMBS}
+\end{figure}
 
 MBD is gaining increasing acceptance in software and systems engineering practice. This is especially true in the domain of automotive embedded control software design and development, where harsh time-to-market constraints have expedited its adoption. In this methodology, a set of context-specific models are built at the outset of the system development process. These models are executed and tested to validate the requirements, to check the fidelity of the model (e.g., no unreachable elements) and to verify platform-independent design choices \cite{Mohalik:ModelCheckingSimulink}. The debugged models serve as a reference during the design, implementation, and testing of the downstream artifacts in the system development process. Methods and tools to support the aforementioned testing-related activities in MBD are studied under the purview of Model-Based Testing (MBT) \cite{Dalal:MBT}.
 
@@ -134,16 +142,21 @@ Model checking is an automated formal verification technique. It aims to discove
 
 The technique explores the state space of $\mathcal{M}$ to check whether property $\varphi$ holds. State-of-the-art model checkers can handle state spaces of about $10^8$ to $10^9$ states with explicit state-space enumeration. Using clever algorithms and tailored data structures, larger state spaces ($10^{20}$ up to even $10^{476}$ states) can be handled for specific problems \cite{Baier:ModelChecking}.
 
-TODO: a figure of model checking
+\begin{figure}
+\centering
+\includegraphics[width=0.95\textwidth]%
+	{pic/model_checking_diagram}% picture filename
+\caption{Diagram of model a model checking process}
+\label{fig:ModelChecking}
+\end{figure}
 
-Model checking is a generally used technique for the verification of the properties of software and hardware systems. Commonly we represent a system properties by modal or temporal logic formulas with the Boolean-valued semantics. However, when we operate in an area of systems whose state space is some general metric space, the model checking problem becomes difficult and in most of the cases undecidable \cite{Fainekos:RobustnessContinuousTime}.
+Model checking is a generally used technique for the verification of the properties of software and hardware systems. It's principle is shown in Figure \ref{fig:ModelChecking} Commonly we represent a system properties by modal or temporal logic formulas with the Boolean-valued semantics. However, when we operate in an area of systems whose state space is some general metric space, the model checking problem becomes difficult and in most of the cases undecidable \cite{Fainekos:RobustnessContinuousTime}.
 
 In case of linear-time logics, the model checking problem is equally difficult as checking satisfiability; that is, it is undecidable for dense-time logics capable of expressing punctuality and EXPSPACE-complete for the discrete-time logics. The running time of the model checking algorithms depends singly exponentially on the size of the implementation and doubly exponentially on the size of the specification formula \cite{Rajeev:ModelsOfRealTime}.
 
 For modeling the system, we usually use higher level notations like FSM, UML statecharts, Simulink models, etc. MBD methodologies across different industries use a variety of modeling languages. For the development of embedded control software in the automotive or aerospace domain is Simulink/Stateflow language a popular choice. Simulink/Stateflow language allows modeling both the continuous and discrete dynamics of the system, and because of that, it is a perfect choice for modeling CPS. It also can simulate the system using either discrete or continuous solvers and use a fixed-step or a variable-step \cite{Mohalik:ModelCheckingSimulink}. If we are to use a model checking software, we must provide a translation from these higher level notations to the notation of the model checker. If a property $\varphi$ does not hold, the model checker returns a counterexample acting as a witness of the violation.
 
 \section{Requirements verification}
-TODO: if there is time, definition of MCDC coverage.
 
 The first phase of the V process in MBD is usually referred to as Requirements/Specifications. It consists of defining the constraints under which a system operates and is developed. There are different types of requirements:
 
@@ -240,14 +253,14 @@ Bounded response time: see SotA
 
 MTL is linear-time logic that assumes both, the interleaving and fictitious-clock abstractions; it is defined over a point-based weakly-monotonic integer-time semantics. For MTL, the exact complexity of the satisfiability problems is known and independent of interval-based or point-based, synchronous (i.e., strictly-monotonic) or asynchronous (i.e., weakly-monotonic) interpretation: EXPSPACE-complete \cite{Rajeev:ModelsOfRealTime}. However, until now the question of the decidability of full MTL over infinite timed words remained open \cite{Ouaknine:MTLfaulty}. Koymans suspect that MTL has a clean, complete, finite axiomatization, which is yet to be found \cite{Koymans:MTL}. He also does one more notable thing when defining MTL. Koymans proves that “All first-order sentences over linear orders are definable in metric temporal logic.”
 
-\section{Verification process}
+%\section{Verification process}
 
-The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition \cite{Boehm:SoftwareRiskManagement}.
+%The evaluation of whether or not a product, service or system complies with a regulation, requirement, specification, or imposed condition \cite{Boehm:SoftwareRiskManagement}.
 
-\section{Simulink and Stateflow}
+%\section{Simulink and Stateflow}
 
-TODO see section in [S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Stateflow models using model checking. Softw. Test. Verify. Reliab. 24, 2, 2014, 155-180]
+%TODO see section in [S. Mohalik, A. A. Gadkari, A. Yeolekar, K.C. Shashidhar, and S. Ramesh. Automatic test case generation from Simulink/Stateflow models using model checking. Softw. Test. Verify. Reliab. 24, 2, 2014, 155-180]
 
 %ij
-\section{Previous Results and Related Work}
+%\section{Previous Results and Related Work}
 % 
